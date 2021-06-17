@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>brainnotation.points &mdash; brainnotation 0+untagged.1.ga18dbbe documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> brainnotation
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.1.ga18dbbe
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Reference API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">brainnotation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>brainnotation.points</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for brainnotation.points</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions for working with triangle meshes + surfaces</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span><span class="p">,</span> <span class="n">sparse</span>
+
+<span class="kn">from</span> <span class="nn">brainnotation.images</span> <span class="kn">import</span> <span class="n">load_gifti</span><span class="p">,</span> <span class="n">relabel_gifti</span><span class="p">,</span> <span class="n">PARCIGNORE</span>
+
+
+<span class="k">def</span> <span class="nf">point_in_triangle</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">triangle</span><span class="p">,</span> <span class="n">return_pdist</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks whether `point` falls inside `triangle`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    point : (3,) array_like</span>
+<span class="sd">        Coordinates of point</span>
+<span class="sd">    triangle (3, 3) array_like</span>
+<span class="sd">        Coordinates of triangle</span>
+<span class="sd">    return_pdist : bool, optional</span>
+<span class="sd">        Whether to return planar distance (see outputs). Default: True</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    inside : bool</span>
+<span class="sd">        Whether `point` is inside triangle</span>
+<span class="sd">    pdist : float</span>
+<span class="sd">        The approximate distance of the point to the plane of the triangle.</span>
+<span class="sd">        Only returned if `return_pdist` is True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="n">triangle</span>
+    <span class="n">v0</span> <span class="o">=</span> <span class="n">C</span> <span class="o">-</span> <span class="n">A</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="n">B</span> <span class="o">-</span> <span class="n">A</span>
+    <span class="n">v2</span> <span class="o">=</span> <span class="n">point</span> <span class="o">-</span> <span class="n">A</span>
+
+    <span class="n">dot00</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">v0</span><span class="p">)</span>
+    <span class="n">dot01</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">v1</span><span class="p">)</span>
+    <span class="n">dot02</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+    <span class="n">dot11</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v1</span><span class="p">)</span>
+    <span class="n">dot12</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">)</span>
+
+    <span class="n">denom</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">dot00</span> <span class="o">*</span> <span class="n">dot11</span> <span class="o">-</span> <span class="n">dot01</span> <span class="o">*</span> <span class="n">dot01</span><span class="p">)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="p">(</span><span class="n">dot11</span> <span class="o">*</span> <span class="n">dot02</span> <span class="o">-</span> <span class="n">dot01</span> <span class="o">*</span> <span class="n">dot12</span><span class="p">)</span> <span class="o">*</span> <span class="n">denom</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">dot00</span> <span class="o">*</span> <span class="n">dot12</span> <span class="o">-</span> <span class="n">dot01</span> <span class="o">*</span> <span class="n">dot02</span><span class="p">)</span> <span class="o">*</span> <span class="n">denom</span>
+    <span class="n">inside</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">u</span> <span class="o">+</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">return_pdist</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">inside</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">v2</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v0</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">inside</span>
+
+
+<span class="k">def</span> <span class="nf">which_triangle</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">triangles</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determines which of `triangles` the provided `point` falls inside</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    point : (3,) array_like</span>
+<span class="sd">        Coordinates of point</span>
+<span class="sd">    triangles : (N, 3, 3) array_like</span>
+<span class="sd">        Coordinates of `N` triangles to check</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    idx : int</span>
+<span class="sd">        Index of `triangles` that `point` is inside of. If `point` does not</span>
+<span class="sd">        fall within any of `triangles` then this will be None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">idx</span><span class="p">,</span> <span class="n">planar</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">tri</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">triangles</span><span class="p">):</span>
+        <span class="n">inside</span><span class="p">,</span> <span class="n">pdist</span> <span class="o">=</span> <span class="n">point_in_triangle</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">tri</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pdist</span> <span class="o">&lt;</span> <span class="n">planar</span> <span class="ow">and</span> <span class="n">inside</span><span class="p">:</span>
+            <span class="n">idx</span><span class="p">,</span> <span class="n">planar</span> <span class="o">=</span> <span class="n">n</span><span class="p">,</span> <span class="n">pdist</span>
+
+    <span class="k">return</span> <span class="n">idx</span>
+
+
+<span class="k">def</span> <span class="nf">_get_edges</span><span class="p">(</span><span class="n">faces</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets set of edges from `faces`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    faces : (F, 3) array_like</span>
+<span class="sd">        Set of indices creating triangular faces of a mesh</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    edges : (F*3, 2) array_like</span>
+<span class="sd">        All edges in `faces`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">faces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">faces</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">edges</span>
+
+
+<span class="k">def</span> <span class="nf">get_shared_triangles</span><span class="p">(</span><span class="n">faces</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns dictionary of triangles sharing edges from `faces`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    faces : (N, 3)</span>
+<span class="sd">        Triangles comprising mesh</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    shared : dict</span>
+<span class="sd">        Where keys are len-2 tuple of vertex ids for the shared edge and values</span>
+<span class="sd">        are the triangles that have this shared edge.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># first generate the list of edges for the provided faces and the</span>
+    <span class="c1"># index for which face the edge is from (which is just the index of the</span>
+    <span class="c1"># face repeated thrice, since each face generates three direct edges)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">_get_edges</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span>
+    <span class="n">edges_face</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">faces</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="c1"># every edge appears twice in a watertight surface, so we&#39;ll first get the</span>
+    <span class="c1"># indices for each duplicate edge in `edges` (this should, assuming all</span>
+    <span class="c1"># goes well, have rows equal to len(edges) // 2)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lexsort</span><span class="p">(</span><span class="n">edges</span><span class="o">.</span><span class="n">T</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">edges_sorted</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
+    <span class="n">dupe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">edges_sorted</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="n">edges_sorted</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">dupe_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">dupe</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">start_ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">dupe_idx</span><span class="p">,</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_sorted</span><span class="p">)])))</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="n">groups</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">dupe_idx</span><span class="p">[</span><span class="n">start_ok</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">edge_groups</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="n">groups</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+
+    <span class="c1"># now, get the indices of the faces that participate in these duplicate</span>
+    <span class="c1"># edges, as well as the edges themselves</span>
+    <span class="n">adjacency</span> <span class="o">=</span> <span class="n">edges_face</span><span class="p">[</span><span class="n">edge_groups</span><span class="p">]</span>
+    <span class="n">nondegenerate</span> <span class="o">=</span> <span class="n">adjacency</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">adjacency</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">adjacency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">adjacency</span><span class="p">[</span><span class="n">nondegenerate</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">adjacency_edges</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">edge_groups</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">nondegenerate</span><span class="p">]]</span>
+
+    <span class="c1"># the non-shared vertex index is the same shape as adjacency, holding</span>
+    <span class="c1"># vertex indices vs face indices</span>
+    <span class="n">indirect_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">adjacency</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="c1"># loop through the two columns of adjacency</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">adjacency</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+        <span class="c1"># faces from the current column of adjacency</span>
+        <span class="n">face</span> <span class="o">=</span> <span class="n">faces</span><span class="p">[</span><span class="n">fid</span><span class="p">]</span>
+        <span class="c1"># get index of vertex not included in shared edge</span>
+        <span class="n">unshared</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span>
+            <span class="n">face</span> <span class="o">==</span> <span class="n">adjacency_edges</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">face</span> <span class="o">==</span> <span class="n">adjacency_edges</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="c1"># each row should have one &quot;uncontained&quot; vertex; ignore degenerates</span>
+        <span class="n">row_ok</span> <span class="o">=</span> <span class="n">unshared</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">unshared</span><span class="p">[</span><span class="o">~</span><span class="n">row_ok</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">indirect_edges</span><span class="p">[</span><span class="n">row_ok</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">face</span><span class="p">[</span><span class="n">unshared</span><span class="p">]</span>
+
+    <span class="c1"># get vertex coordinates of triangles pairs with shared edges, ordered</span>
+    <span class="c1"># such that the non-shared vertex is always _last_ among the trio</span>
+    <span class="n">shared</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">face</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">unshared</span><span class="p">)]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">shared</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">shared</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">shared</span><span class="p">,</span> <span class="n">indirect_edges</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">adjacency_edges</span><span class="p">),</span> <span class="n">triangles</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">get_direct_edges</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets (unique) direct edges and weights in mesh describes by inputs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vertices : (N, 3) array_like</span>
+<span class="sd">        Coordinates of `vertices` comprising mesh with `faces`</span>
+<span class="sd">    faces : (F, 3) array_like</span>
+<span class="sd">        Indices of `vertices` that compose triangular faces of mesh</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    edges : (E, 2) array_like</span>
+<span class="sd">        Indices of `vertices` comprising direct edges (without duplicates)</span>
+<span class="sd">    weights : (E, 1) array_like</span>
+<span class="sd">        Distances between `edges`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">_get_edges</span><span class="p">(</span><span class="n">faces</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="n">edges</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">edges</span><span class="p">,</span> <span class="n">weights</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">get_indirect_edges</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets indirect edges and weights in mesh described by inputs</span>
+
+<span class="sd">    Indirect edges are between two vertices that participate in faces sharing</span>
+<span class="sd">    an edge</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vertices : (N, 3) array_like</span>
+<span class="sd">        Coordinates of `vertices` comprising mesh with `faces`</span>
+<span class="sd">    faces : (F, 3) array_like</span>
+<span class="sd">        Indices of `vertices` that compose triangular faces of mesh</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    edges : (E, 2) array_like</span>
+<span class="sd">        Indices of `vertices` comprising indirect edges (without duplicates)</span>
+<span class="sd">    weights : (E, 1) array_like</span>
+<span class="sd">        Distances between `edges` on surface</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://github.com/mikedh/trimesh (MIT licensed)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">get_shared_triangles</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">indirect_edges</span> <span class="o">=</span> <span class="n">triangles</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># `A.shape`: (3, N, 2) corresponding to (xyz coords, edges, triangle pairs)</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[</span><span class="n">triangles</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># calculate the xyz coordinates of the foot of each triangle, where the</span>
+    <span class="c1"># base is the shared edge</span>
+    <span class="c1"># that is, we&#39;re trying to calculate F in the equation `VF = VB - (w * BA)`</span>
+    <span class="c1"># where `VF`, `VB`, and `BA` are vectors, and `w = (AB * VB) / (AB ** 2)`</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">A</span> <span class="o">-</span> <span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">B</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+         <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">A</span> <span class="o">-</span> <span class="n">B</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">feet</span> <span class="o">=</span> <span class="n">B</span> <span class="o">-</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="n">B</span> <span class="o">-</span> <span class="n">A</span><span class="p">))</span>
+    <span class="c1"># calculate coordinates of midpoint b/w the feet of each pair of triangles</span>
+    <span class="n">midpoints</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">feet</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="c1"># calculate Euclidean distance between non-shared vertices and midpoints</span>
+    <span class="c1"># and add distances together for each pair of triangles</span>
+    <span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="n">indirect_edges</span><span class="p">]</span> <span class="o">-</span> <span class="n">midpoints</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">norms</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># NOTE: weights won&#39;t be perfectly accurate for a small subset of triangle</span>
+    <span class="c1"># pairs where either triangle has angle &gt;90 along the shared edge. in these</span>
+    <span class="c1"># the midpoint lies _outside_ the shared edge, so neighboring triangles</span>
+    <span class="c1"># would need to be taken into account. that said, this occurs in only a</span>
+    <span class="c1"># minority of cases and the difference tends to be in the ~0.001 mm range</span>
+    <span class="k">return</span> <span class="n">indirect_edges</span><span class="p">,</span> <span class="n">weights</span>
+
+
+<div class="viewcode-block" id="make_surf_graph"><a class="viewcode-back" href="../../generated/brainnotation.points.make_surf_graph.html#brainnotation.points.make_surf_graph">[docs]</a><span class="k">def</span> <span class="nf">make_surf_graph</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs adjacency graph from `surf`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vertices : (N, 3) array_like</span>
+<span class="sd">        Coordinates of `vertices` comprising mesh with `faces`</span>
+<span class="sd">    faces : (F, 3) array_like</span>
+<span class="sd">        Indices of `vertices` that compose triangular faces of mesh</span>
+<span class="sd">    mask : (N,) array_like, optional (default None)</span>
+<span class="sd">        Boolean mask indicating which vertices should be removed from generated</span>
+<span class="sd">        graph. If not supplied, all vertices are used.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    graph : scipy.sparse.csr_matrix</span>
+<span class="sd">        Sparse matrix representing graph of `vertices` and `faces`</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        Inconsistent number of vertices in `mask` and `vertices`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Supplied `mask` array has different number of &#39;</span>
+                         <span class="s1">&#39;vertices than supplied `vertices`.&#39;</span><span class="p">)</span>
+
+    <span class="c1"># get all (direct + indirect) edges from surface</span>
+    <span class="n">direct_edges</span><span class="p">,</span> <span class="n">direct_weights</span> <span class="o">=</span> <span class="n">get_direct_edges</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">)</span>
+    <span class="n">indirect_edges</span><span class="p">,</span> <span class="n">indirect_weights</span> <span class="o">=</span> <span class="n">get_indirect_edges</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">((</span><span class="n">direct_edges</span><span class="p">,</span> <span class="n">indirect_edges</span><span class="p">))</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">direct_weights</span><span class="p">,</span> <span class="n">indirect_weights</span><span class="p">))</span>
+
+    <span class="c1"># remove edges that include a vertex in `mask`</span>
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">idx</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">edges</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">weights</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+
+    <span class="c1"># construct our graph on which to calculate shortest paths</span>
+    <span class="k">return</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="p">(</span><span class="n">edges</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">edges</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])),</span>
+                             <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)))</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_graph_distance</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets surface distance of `vertex` to all other vertices in `graph`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vertex : int</span>
+<span class="sd">        Index of vertex for which to calculate surface distance</span>
+<span class="sd">    graph : array_like</span>
+<span class="sd">        Graph along which to calculate shortest path distances</span>
+<span class="sd">    labels : array_like, optional</span>
+<span class="sd">        Labels indicating parcel to which each vertex belongs. If provided,</span>
+<span class="sd">        distances will be averaged within distinct labels</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dist : (N,) numpy.ndarray</span>
+<span class="sd">        Distance of `vertex` to all other vertices in `graph` (or to all</span>
+<span class="sd">        parcels in `labels`, if provided)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csgraph</span><span class="o">.</span><span class="n">dijkstra</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="n">vertex</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">vertex</span><span class="p">),</span>
+                            <span class="n">labels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">vertex</span><span class="p">),</span>
+                            <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_surface_distance"><a class="viewcode-back" href="../../generated/brainnotation.points.get_surface_distance.html#brainnotation.points.get_surface_distance">[docs]</a><span class="k">def</span> <span class="nf">get_surface_distance</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">parcellation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">medial</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">medial_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_proc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates surface distance for vertices in `surface`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    surface : str or os.PathLike</span>
+<span class="sd">        Path to surface file on which to calculate distance</span>
+<span class="sd">    parcellation : str or os.PathLike, optional</span>
+<span class="sd">        Path to file with parcel labels for provided `surface`. If provided</span>
+<span class="sd">        will calculate parcel-parcel distances instead of vertex distances,</span>
+<span class="sd">        where parcel-parcel distance is the average distance between all</span>
+<span class="sd">        constituent vertices in two parcels. Default: None</span>
+<span class="sd">    medial : str or os.PathLike, optional</span>
+<span class="sd">        Path to file indicating which vertices correspond to the medial wall</span>
+<span class="sd">        (0 indicates medial wall). If provided will prohibit calculation of</span>
+<span class="sd">        surface distance along the medial wall. Superseded by `medial_labels`</span>
+<span class="sd">        if both are provided. Default: None</span>
+<span class="sd">    medial_labels : list of str, optional</span>
+<span class="sd">        List of parcel names that comprise the medial wall and through which</span>
+<span class="sd">        travel should be disallowed. Only valid if `parcellation` is provided;</span>
+<span class="sd">        supersedes `medial` if both are provided. Default: None</span>
+<span class="sd">    drop : list of str, optional</span>
+<span class="sd">        List of parcel names that should be dropped from the final distance</span>
+<span class="sd">        matrix (if `parcellation` is provided). If not specified, will ignore</span>
+<span class="sd">        parcels commonly used to reference the medial wall (e.g., &#39;unknown&#39;,</span>
+<span class="sd">        &#39;corpuscallosum&#39;, &#39;???&#39;, &#39;Background+FreeSurfer_Defined_Medial_Wall&#39;).</span>
+<span class="sd">        Default: None</span>
+<span class="sd">    n_proc : int, optional</span>
+<span class="sd">        Number of processors to use for parallelizing distance calculation. If</span>
+<span class="sd">        negative, will use max available processors plus 1 minus the specified</span>
+<span class="sd">        number. Default: 1 (no parallelization)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    distance : (N, N) numpy.ndarray</span>
+<span class="sd">        Surface distance between vertices/parcels on `surface`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">drop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">drop</span> <span class="o">=</span> <span class="n">PARCIGNORE</span>
+
+    <span class="k">if</span> <span class="n">medial_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">medial_labels</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">medial_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">medial_labels</span><span class="p">]</span>
+        <span class="n">drop</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">drop</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">medial_labels</span><span class="p">))</span>
+
+    <span class="n">vert</span><span class="p">,</span> <span class="n">faces</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span>
+    <span class="n">n_vert</span> <span class="o">=</span> <span class="n">vert</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_vert</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="c1"># get data from parcellation / medial wall files if provided</span>
+    <span class="k">if</span> <span class="n">medial</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">load_gifti</span><span class="p">(</span><span class="n">medial</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">parcellation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">parcellation</span><span class="p">,</span> <span class="o">=</span> <span class="n">relabel_gifti</span><span class="p">(</span><span class="n">parcellation</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="n">drop</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">parcellation</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span>
+        <span class="n">mask</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># calculate distance from each vertex to all other vertices</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">make_surf_graph</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">(</span><span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">n_proc</span><span class="p">,</span> <span class="n">max_nbytes</span><span class="o">=</span><span class="kc">None</span><span class="p">)(</span>
+        <span class="n">delayed</span><span class="p">(</span><span class="n">_get_graph_distance</span><span class="p">)(</span><span class="n">n</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_vert</span><span class="p">)</span>
+    <span class="p">))</span>
+
+    <span class="c1"># average distance for all vertices within a parcel + set diagonal to 0</span>
+    <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span>
+            <span class="n">dist</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="n">lab</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">diag_indices_from</span><span class="p">(</span><span class="n">dist</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># remove distances for parcels that we aren&#39;t interested in</span>
+    <span class="k">return</span> <span class="n">dist</span></div>
+
+
+<span class="k">def</span> <span class="nf">_geodesic_parcel_centroid</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates parcel centroids based on surface distance</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vertices : (N, 3)</span>
+<span class="sd">        Coordinates of vertices defining surface</span>
+<span class="sd">    faces : (F, 3)</span>
+<span class="sd">        Triangular faces defining surface</span>
+<span class="sd">    inds : (R,)</span>
+<span class="sd">        Indices of `vertices` that belong to parcel</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    --------</span>
+<span class="sd">    roi : (3,) numpy.ndarray</span>
+<span class="sd">        Vertex corresponding to centroid of parcel</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">make_surf_graph</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">faces</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csgraph</span><span class="o">.</span><span class="n">dijkstra</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">inds</span><span class="p">)[:,</span> <span class="n">inds</span><span class="p">]</span>
+
+    <span class="c1"># the selected vertex is the one with the minimum average shortest path</span>
+    <span class="c1"># to the other vertices in the parcel</span>
+    <span class="n">roi</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[</span><span class="n">inds</span><span class="p">[</span><span class="n">paths</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()]]</span>
+
+    <span class="k">return</span> <span class="n">roi</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, brainnotation developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

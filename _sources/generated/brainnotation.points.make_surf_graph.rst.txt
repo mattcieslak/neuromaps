@@ -1,0 +1,12 @@
+﻿brainnotation.points.make_surf_graph
+====================================
+
+.. currentmodule:: brainnotation.points
+
+.. autofunction:: make_surf_graph
+
+.. .. include:: modules/brainnotation.points.make_surf_graph.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

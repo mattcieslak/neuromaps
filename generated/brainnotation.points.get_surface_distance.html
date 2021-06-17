@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>brainnotation.images.average_surfaces &mdash; brainnotation 0+untagged.1.ga18dbbe documentation</title>
+  <title>brainnotation.points.get_surface_distance &mdash; brainnotation 0+untagged.1.ga18dbbe documentation</title>
   
 
   
@@ -46,8 +46,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="brainnotation.images.interp_surface" href="brainnotation.images.interp_surface.html" />
-    <link rel="prev" title="brainnotation.images.load_nifti" href="brainnotation.images.load_nifti.html" /> 
+    <link rel="next" title="brainnotation.resampling.resample_images" href="brainnotation.resampling.resample_images.html" />
+    <link rel="prev" title="brainnotation.points.make_surf_graph" href="brainnotation.points.make_surf_graph.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -102,24 +102,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Reference API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.datasets</span></code> - Dataset fetchers</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-brainnotation.images"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.images</span></code> - Image and surface handling</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.load_gifti.html">brainnotation.images.load_gifti</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.load_nifti.html">brainnotation.images.load_nifti</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">brainnotation.images.average_surfaces</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.interp_surface.html">brainnotation.images.interp_surface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.vertex_areas.html">brainnotation.images.vertex_areas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.relabel_gifti.html">brainnotation.images.relabel_gifti</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.annot_to_gifti.html">brainnotation.images.annot_to_gifti</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.dlabel_to_gifti.html">brainnotation.images.dlabel_to_gifti</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.obj_to_gifti.html">brainnotation.images.obj_to_gifti</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.fssurf_to_gifti.html">brainnotation.images.fssurf_to_gifti</a></li>
-<li class="toctree-l3"><a class="reference internal" href="brainnotation.images.fsmorph_to_gifti.html">brainnotation.images.fsmorph_to_gifti</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.images"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.images</span></code> - Image and surface handling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.nulls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.nulls</span></code> - Null models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.parcellate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.parcellate</span></code> - Parcellation utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.plotting</span></code> - Plotting functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.points"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.points</span></code> - Triangle mesh utilites</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-brainnotation.points"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.points</span></code> - Triangle mesh utilites</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="brainnotation.points.make_surf_graph.html">brainnotation.points.make_surf_graph</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">brainnotation.points.get_surface_distance</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.resampling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.resampling</span></code> - Resampling workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.stats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.stats</span></code> - Statistical functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-brainnotation.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.transforms</span></code> - Transformations between spaces</a></li>
@@ -175,7 +166,7 @@
         
           <li><a href="../api.html">Reference API</a> &raquo;</li>
         
-      <li>brainnotation.images.average_surfaces</li>
+      <li>brainnotation.points.get_surface_distance</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -192,21 +183,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="brainnotation-images-average-surfaces">
-<h1>brainnotation.images.average_surfaces<a class="headerlink" href="#brainnotation-images-average-surfaces" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="brainnotation-points-get-surface-distance">
+<h1>brainnotation.points.get_surface_distance<a class="headerlink" href="#brainnotation-points-get-surface-distance" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="brainnotation.images.average_surfaces">
-<span class="sig-prename descclassname"><span class="pre">brainnotation.images.</span></span><span class="sig-name descname"><span class="pre">average_surfaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">surfs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/images.html#average_surfaces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.images.average_surfaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates average surface from input <cite>surfs</cite></p>
+<dt class="sig sig-object py" id="brainnotation.points.get_surface_distance">
+<span class="sig-prename descclassname"><span class="pre">brainnotation.points.</span></span><span class="sig-name descname"><span class="pre">get_surface_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parcellation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medial_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_proc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/points.html#get_surface_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.points.get_surface_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates surface distance for vertices in <cite>surface</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>surfs</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a>) – Path to (gifti) surfaces to be averaged. Surfaces should be aligned!</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>surface</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a>) – Path to surface file on which to calculate distance</p></li>
+<li><p><strong>parcellation</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em>, </em><em>optional</em>) – Path to file with parcel labels for provided <cite>surface</cite>. If provided
+will calculate parcel-parcel distances instead of vertex distances,
+where parcel-parcel distance is the average distance between all
+constituent vertices in two parcels. Default: None</p></li>
+<li><p><strong>medial</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em>, </em><em>optional</em>) – Path to file indicating which vertices correspond to the medial wall
+(0 indicates medial wall). If provided will prohibit calculation of
+surface distance along the medial wall. Superseded by <cite>medial_labels</cite>
+if both are provided. Default: None</p></li>
+<li><p><strong>medial_labels</strong> (<em>list of str</em><em>, </em><em>optional</em>) – List of parcel names that comprise the medial wall and through which
+travel should be disallowed. Only valid if <cite>parcellation</cite> is provided;
+supersedes <cite>medial</cite> if both are provided. Default: None</p></li>
+<li><p><strong>drop</strong> (<em>list of str</em><em>, </em><em>optional</em>) – List of parcel names that should be dropped from the final distance
+matrix (if <cite>parcellation</cite> is provided). If not specified, will ignore
+parcels commonly used to reference the medial wall (e.g., ‘unknown’,
+‘corpuscallosum’, ‘???’, ‘Background+FreeSurfer_Defined_Medial_Wall’).
+Default: None</p></li>
+<li><p><strong>n_proc</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – Number of processors to use for parallelizing distance calculation. If
+negative, will use max available processors plus 1 minus the specified
+number. Default: 1 (no parallelization)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>average</strong> – Averaged surface</p>
+<dd class="field-even"><p><strong>distance</strong> – Surface distance between vertices/parcels on <cite>surface</cite></p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>nib.gifti.GiftiImage</p>
+<dd class="field-odd"><p>(N, N) <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.20)">numpy.ndarray</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -219,8 +231,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="brainnotation.images.interp_surface.html" class="btn btn-neutral float-right" title="brainnotation.images.interp_surface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="brainnotation.images.load_nifti.html" class="btn btn-neutral float-left" title="brainnotation.images.load_nifti" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="brainnotation.resampling.resample_images.html" class="btn btn-neutral float-right" title="brainnotation.resampling.resample_images" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="brainnotation.points.make_surf_graph.html" class="btn btn-neutral float-left" title="brainnotation.points.make_surf_graph" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

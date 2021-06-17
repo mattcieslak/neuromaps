@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>brainnotation.nulls.nulls &mdash; brainnotation 0.0.1 documentation</title>
+  <title>brainnotation.nulls.nulls &mdash; brainnotation 0+untagged.1.ga18dbbe documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.0.1
+                0+untagged.1.ga18dbbe
               </div>
             
           
@@ -264,11 +264,15 @@
                         <span class="n">parcellation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">surfaces</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">rs</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">spins</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">surfaces</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">surfaces</span> <span class="o">=</span> <span class="n">fetch_atlas</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">density</span><span class="p">)[</span><span class="s1">&#39;sphere&#39;</span><span class="p">]</span>
-        <span class="n">coords</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_parcel_centroids</span><span class="p">(</span><span class="n">surfaces</span><span class="p">,</span> <span class="n">parcellation</span><span class="o">=</span><span class="n">parcellation</span><span class="p">,</span>
-                                         <span class="n">method</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">spins</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">surfaces</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">surfaces</span> <span class="o">=</span> <span class="n">fetch_atlas</span><span class="p">(</span><span class="n">atlas</span><span class="p">,</span> <span class="n">density</span><span class="p">)[</span><span class="s1">&#39;sphere&#39;</span><span class="p">]</span>
+            <span class="n">coords</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_parcel_centroids</span><span class="p">(</span><span class="n">surfaces</span><span class="p">,</span>
+                                             <span class="n">parcellation</span><span class="o">=</span><span class="n">parcellation</span><span class="p">,</span>
+                                             <span class="n">method</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">spins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span>
             <span class="n">rs</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">)</span>
         <span class="p">])</span>

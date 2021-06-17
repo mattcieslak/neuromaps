@@ -1,0 +1,12 @@
+﻿brainnotation.points.get_surface_distance
+=========================================
+
+.. currentmodule:: brainnotation.points
+
+.. autofunction:: get_surface_distance
+
+.. .. include:: modules/brainnotation.points.get_surface_distance.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>
