@@ -1,0 +1,12 @@
+﻿brainnotation.nulls.vazquez_rodriguez
+=====================================
+
+.. currentmodule:: brainnotation.nulls
+
+.. autofunction:: vazquez_rodriguez
+
+.. .. include:: modules/brainnotation.nulls.vazquez_rodriguez.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

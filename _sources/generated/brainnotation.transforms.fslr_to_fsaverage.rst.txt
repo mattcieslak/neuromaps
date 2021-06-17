@@ -1,0 +1,12 @@
+﻿brainnotation.transforms.fslr_to_fsaverage
+==========================================
+
+.. currentmodule:: brainnotation.transforms
+
+.. autofunction:: fslr_to_fsaverage
+
+.. .. include:: modules/brainnotation.transforms.fslr_to_fsaverage.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

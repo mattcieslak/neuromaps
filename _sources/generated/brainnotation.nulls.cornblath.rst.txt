@@ -1,0 +1,12 @@
+﻿brainnotation.nulls.cornblath
+=============================
+
+.. currentmodule:: brainnotation.nulls
+
+.. autofunction:: cornblath
+
+.. .. include:: modules/brainnotation.nulls.cornblath.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

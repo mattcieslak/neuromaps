@@ -1,0 +1,12 @@
+﻿brainnotation.datasets.fetch_fslr
+=================================
+
+.. currentmodule:: brainnotation.datasets
+
+.. autofunction:: fetch_fslr
+
+.. .. include:: modules/brainnotation.datasets.fetch_fslr.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

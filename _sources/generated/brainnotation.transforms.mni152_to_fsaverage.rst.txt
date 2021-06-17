@@ -1,0 +1,12 @@
+﻿brainnotation.transforms.mni152_to_fsaverage
+============================================
+
+.. currentmodule:: brainnotation.transforms
+
+.. autofunction:: mni152_to_fsaverage
+
+.. .. include:: modules/brainnotation.transforms.mni152_to_fsaverage.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

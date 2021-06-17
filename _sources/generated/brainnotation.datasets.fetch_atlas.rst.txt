@@ -1,0 +1,12 @@
+﻿brainnotation.datasets.fetch_atlas
+==================================
+
+.. currentmodule:: brainnotation.datasets
+
+.. autofunction:: fetch_atlas
+
+.. .. include:: modules/brainnotation.datasets.fetch_atlas.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

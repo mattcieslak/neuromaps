@@ -1,0 +1,12 @@
+﻿brainnotation.datasets.fetch_civet
+==================================
+
+.. currentmodule:: brainnotation.datasets
+
+.. autofunction:: fetch_civet
+
+.. .. include:: modules/brainnotation.datasets.fetch_civet.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

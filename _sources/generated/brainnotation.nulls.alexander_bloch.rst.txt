@@ -1,0 +1,12 @@
+﻿brainnotation.nulls.alexander_bloch
+===================================
+
+.. currentmodule:: brainnotation.nulls
+
+.. autofunction:: alexander_bloch
+
+.. .. include:: modules/brainnotation.nulls.alexander_bloch.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

@@ -1,0 +1,12 @@
+﻿brainnotation.images.vertex_areas
+=================================
+
+.. currentmodule:: brainnotation.images
+
+.. autofunction:: vertex_areas
+
+.. .. include:: modules/brainnotation.images.vertex_areas.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

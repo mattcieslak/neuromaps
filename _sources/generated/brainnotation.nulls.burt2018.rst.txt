@@ -1,0 +1,12 @@
+﻿brainnotation.nulls.burt2018
+============================
+
+.. currentmodule:: brainnotation.nulls
+
+.. autofunction:: burt2018
+
+.. .. include:: modules/brainnotation.nulls.burt2018.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

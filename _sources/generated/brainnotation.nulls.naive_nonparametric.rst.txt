@@ -1,0 +1,12 @@
+﻿brainnotation.nulls.naive_nonparametric
+=======================================
+
+.. currentmodule:: brainnotation.nulls
+
+.. autofunction:: naive_nonparametric
+
+.. .. include:: modules/brainnotation.nulls.naive_nonparametric.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

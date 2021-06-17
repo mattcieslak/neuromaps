@@ -1,0 +1,12 @@
+﻿brainnotation.resampling.resample_images
+========================================
+
+.. currentmodule:: brainnotation.resampling
+
+.. autofunction:: resample_images
+
+.. .. include:: modules/brainnotation.resampling.resample_images.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

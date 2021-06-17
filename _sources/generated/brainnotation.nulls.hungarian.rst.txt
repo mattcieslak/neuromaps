@@ -1,0 +1,12 @@
+﻿brainnotation.nulls.hungarian
+=============================
+
+.. currentmodule:: brainnotation.nulls
+
+.. autofunction:: hungarian
+
+.. .. include:: modules/brainnotation.nulls.hungarian.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

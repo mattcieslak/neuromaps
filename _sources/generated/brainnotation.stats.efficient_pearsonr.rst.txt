@@ -1,0 +1,12 @@
+﻿brainnotation.stats.efficient_pearsonr
+======================================
+
+.. currentmodule:: brainnotation.stats
+
+.. autofunction:: efficient_pearsonr
+
+.. .. include:: modules/brainnotation.stats.efficient_pearsonr.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

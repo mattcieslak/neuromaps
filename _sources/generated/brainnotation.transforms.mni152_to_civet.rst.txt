@@ -1,0 +1,12 @@
+﻿brainnotation.transforms.mni152_to_civet
+========================================
+
+.. currentmodule:: brainnotation.transforms
+
+.. autofunction:: mni152_to_civet
+
+.. .. include:: modules/brainnotation.transforms.mni152_to_civet.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

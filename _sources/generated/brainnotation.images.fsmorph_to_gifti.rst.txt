@@ -1,0 +1,12 @@
+﻿brainnotation.images.fsmorph_to_gifti
+=====================================
+
+.. currentmodule:: brainnotation.images
+
+.. autofunction:: fsmorph_to_gifti
+
+.. .. include:: modules/brainnotation.images.fsmorph_to_gifti.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

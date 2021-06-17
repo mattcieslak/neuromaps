@@ -1,0 +1,12 @@
+﻿brainnotation.datasets.available_tags
+=====================================
+
+.. currentmodule:: brainnotation.datasets
+
+.. autofunction:: available_tags
+
+.. .. include:: modules/brainnotation.datasets.available_tags.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

@@ -1,0 +1,12 @@
+﻿brainnotation.datasets.fetch_annotation
+=======================================
+
+.. currentmodule:: brainnotation.datasets
+
+.. autofunction:: fetch_annotation
+
+.. .. include:: modules/brainnotation.datasets.fetch_annotation.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

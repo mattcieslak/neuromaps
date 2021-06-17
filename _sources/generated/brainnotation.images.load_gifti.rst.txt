@@ -1,0 +1,12 @@
+﻿brainnotation.images.load_gifti
+===============================
+
+.. currentmodule:: brainnotation.images
+
+.. autofunction:: load_gifti
+
+.. .. include:: modules/brainnotation.images.load_gifti.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

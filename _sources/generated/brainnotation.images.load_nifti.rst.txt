@@ -1,0 +1,12 @@
+﻿brainnotation.images.load_nifti
+===============================
+
+.. currentmodule:: brainnotation.images
+
+.. autofunction:: load_nifti
+
+.. .. include:: modules/brainnotation.images.load_nifti.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

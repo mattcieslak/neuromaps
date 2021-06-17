@@ -1,0 +1,12 @@
+﻿brainnotation.datasets.fetch_regfusion
+======================================
+
+.. currentmodule:: brainnotation.datasets
+
+.. autofunction:: fetch_regfusion
+
+.. .. include:: modules/brainnotation.datasets.fetch_regfusion.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

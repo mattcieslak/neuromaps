@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Reference API &mdash; brainnotation 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="brainnotation.datasets.fetch_atlas" href="generated/brainnotation.datasets.fetch_atlas.html" />
+    <link rel="prev" title="Using spatial null models" href="auto_examples/plot_spatial_nulls.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> brainnotation
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.datasets</span></code> - Dataset fetchers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_atlas.html">brainnotation.datasets.fetch_atlas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_civet.html">brainnotation.datasets.fetch_civet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_fsaverage.html">brainnotation.datasets.fetch_fsaverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_fslr.html">brainnotation.datasets.fetch_fslr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_mni152.html">brainnotation.datasets.fetch_mni152</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_regfusion.html">brainnotation.datasets.fetch_regfusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_all_atlases.html">brainnotation.datasets.fetch_all_atlases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.available_annotations.html">brainnotation.datasets.available_annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.available_tags.html">brainnotation.datasets.available_tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.fetch_annotation.html">brainnotation.datasets.fetch_annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.datasets.get_atlas_dir.html">brainnotation.datasets.get_atlas_dir</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.images"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.images</span></code> - Image and surface handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.load_gifti.html">brainnotation.images.load_gifti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.load_nifti.html">brainnotation.images.load_nifti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.average_surfaces.html">brainnotation.images.average_surfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.interp_surface.html">brainnotation.images.interp_surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.vertex_areas.html">brainnotation.images.vertex_areas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.relabel_gifti.html">brainnotation.images.relabel_gifti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.annot_to_gifti.html">brainnotation.images.annot_to_gifti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.dlabel_to_gifti.html">brainnotation.images.dlabel_to_gifti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.obj_to_gifti.html">brainnotation.images.obj_to_gifti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.fssurf_to_gifti.html">brainnotation.images.fssurf_to_gifti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.images.fsmorph_to_gifti.html">brainnotation.images.fsmorph_to_gifti</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.nulls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.nulls</span></code> - Null models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.naive_nonparametric.html">brainnotation.nulls.naive_nonparametric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.alexander_bloch.html">brainnotation.nulls.alexander_bloch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.vazquez_rodriguez.html">brainnotation.nulls.vazquez_rodriguez</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.vasa.html">brainnotation.nulls.vasa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.hungarian.html">brainnotation.nulls.hungarian</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.baum.html">brainnotation.nulls.baum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.cornblath.html">brainnotation.nulls.cornblath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.burt2018.html">brainnotation.nulls.burt2018</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.burt2020.html">brainnotation.nulls.burt2020</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.nulls.moran.html">brainnotation.nulls.moran</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.parcellate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.parcellate</span></code> - Parcellation utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.parcellate.Parcellater.html">brainnotation.parcellate.Parcellater</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.plotting</span></code> - Plotting functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.plotting.plot_surf_template.html">brainnotation.plotting.plot_surf_template</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.resampling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.resampling</span></code> - Resampling workflows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.resampling.resample_images.html">brainnotation.resampling.resample_images</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.transforms</span></code> - Transformations between spaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_civet.html">brainnotation.transforms.mni152_to_civet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_fsaverage.html">brainnotation.transforms.mni152_to_fsaverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_fslr.html">brainnotation.transforms.mni152_to_fslr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_mni152.html">brainnotation.transforms.mni152_to_mni152</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.civet_to_fslr.html">brainnotation.transforms.civet_to_fslr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.fslr_to_civet.html">brainnotation.transforms.fslr_to_civet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.civet_to_fsaverage.html">brainnotation.transforms.civet_to_fsaverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.fsaverage_to_civet.html">brainnotation.transforms.fsaverage_to_civet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.civet_to_civet.html">brainnotation.transforms.civet_to_civet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.fslr_to_fsaverage.html">brainnotation.transforms.fslr_to_fsaverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.fsaverage_to_fslr.html">brainnotation.transforms.fsaverage_to_fslr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.fslr_to_fslr.html">brainnotation.transforms.fslr_to_fslr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.transforms.fsaverage_to_fsaverage.html">brainnotation.transforms.fsaverage_to_fsaverage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-brainnotation.stats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.stats</span></code> - Statistical functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.stats.correlate_images.html">brainnotation.stats.correlate_images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.stats.efficient_pearsonr.html">brainnotation.stats.efficient_pearsonr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/brainnotation.stats.permtest_pearsonr.html">brainnotation.stats.permtest_pearsonr</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">brainnotation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Reference API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reference-api">
+<span id="api-ref"></span><h1>Reference API<a class="headerlink" href="#reference-api" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="list-of-modules">
+<p class="topic-title"><strong>List of modules</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#module-brainnotation.datasets" id="id11"><a class="reference internal" href="#module-brainnotation.datasets" title="brainnotation.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.datasets</span></code></a> - Dataset fetchers</a></p></li>
+<li><p><a class="reference internal" href="#module-brainnotation.images" id="id12"><a class="reference internal" href="#module-brainnotation.images" title="brainnotation.images"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.images</span></code></a> - Image and surface handling</a></p></li>
+<li><p><a class="reference internal" href="#module-brainnotation.nulls" id="id13"><a class="reference internal" href="#module-brainnotation.nulls" title="brainnotation.nulls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.nulls</span></code></a> - Null models</a></p></li>
+<li><p><a class="reference internal" href="#module-brainnotation.parcellate" id="id14"><a class="reference internal" href="#module-brainnotation.parcellate" title="brainnotation.parcellate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.parcellate</span></code></a> - Parcellation utilities</a></p></li>
+<li><p><a class="reference internal" href="#module-brainnotation.plotting" id="id15"><a class="reference internal" href="#module-brainnotation.plotting" title="brainnotation.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.plotting</span></code></a> - Plotting functions</a></p></li>
+<li><p><a class="reference internal" href="#module-brainnotation.resampling" id="id16"><a class="reference internal" href="#module-brainnotation.resampling" title="brainnotation.resampling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.resampling</span></code></a> - Resampling workflows</a></p></li>
+<li><p><a class="reference internal" href="#module-brainnotation.transforms" id="id17"><a class="reference internal" href="#module-brainnotation.transforms" title="brainnotation.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.transforms</span></code></a> - Transformations between spaces</a></p></li>
+<li><p><a class="reference internal" href="#module-brainnotation.stats" id="id18"><a class="reference internal" href="#module-brainnotation.stats" title="brainnotation.stats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.stats</span></code></a> - Statistical functions</a></p></li>
+</ul>
+</div>
+<div class="section" id="module-brainnotation.datasets">
+<span id="brainnotation-datasets-dataset-fetchers"></span><span id="ref-datasets"></span><h2><a class="toc-backref" href="#id11"><a class="reference internal" href="#module-brainnotation.datasets" title="brainnotation.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.datasets</span></code></a> - Dataset fetchers</a><a class="headerlink" href="#module-brainnotation.datasets" title="Permalink to this headline">¶</a></h2>
+<p>Functions for fetching datasets</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_atlas.html#brainnotation.datasets.fetch_atlas" title="brainnotation.datasets.fetch_atlas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_atlas</span></code></a>(atlas, …)</p></td>
+<td><p>Fetches specified <cite>atlas</cite> and <cite>density</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_civet.html#brainnotation.datasets.fetch_civet" title="brainnotation.datasets.fetch_civet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_civet</span></code></a>([…])</p></td>
+<td><p>Fetches CIVET surface atlas</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_fsaverage.html#brainnotation.datasets.fetch_fsaverage" title="brainnotation.datasets.fetch_fsaverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_fsaverage</span></code></a>([…])</p></td>
+<td><p>Fetches fsaverage surface atlas</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_fslr.html#brainnotation.datasets.fetch_fslr" title="brainnotation.datasets.fetch_fslr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_fslr</span></code></a>([density, …])</p></td>
+<td><p>Fetches fsLR surface atlas</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_mni152.html#brainnotation.datasets.fetch_mni152" title="brainnotation.datasets.fetch_mni152"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_mni152</span></code></a>([…])</p></td>
+<td><p>Fetches MNI152 atlas</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_regfusion.html#brainnotation.datasets.fetch_regfusion" title="brainnotation.datasets.fetch_regfusion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_regfusion</span></code></a>(atlas)</p></td>
+<td><p>Fetches regfusion inputs for mapping MNI152 to specified surface <cite>atlas</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_all_atlases.html#brainnotation.datasets.fetch_all_atlases" title="brainnotation.datasets.fetch_all_atlases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_all_atlases</span></code></a>([…])</p></td>
+<td><p>Fetches (and caches) all available atlases</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.available_annotations</span></code></a>([…])</p></td>
+<td><p>Lists datasets available via <a class="reference internal" href="generated/brainnotation.datasets.fetch_annotation.html#brainnotation.datasets.fetch_annotation" title="brainnotation.datasets.fetch_annotation"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_annotation()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.datasets.available_tags.html#brainnotation.datasets.available_tags" title="brainnotation.datasets.available_tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.available_tags</span></code></a>([…])</p></td>
+<td><p>Returns available tags for querying annotations</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.datasets.fetch_annotation.html#brainnotation.datasets.fetch_annotation" title="brainnotation.datasets.fetch_annotation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_annotation</span></code></a>(*[, …])</p></td>
+<td><p>Downloads files for brain annotations matching requested variables</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.datasets.get_atlas_dir.html#brainnotation.datasets.get_atlas_dir" title="brainnotation.datasets.get_atlas_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.datasets.get_atlas_dir</span></code></a>(atlas)</p></td>
+<td><p>Returns filepath to specified <cite>atlas</cite></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-brainnotation.images">
+<span id="brainnotation-images-image-and-surface-handling"></span><span id="ref-images"></span><h2><a class="toc-backref" href="#id12"><a class="reference internal" href="#module-brainnotation.images" title="brainnotation.images"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.images</span></code></a> - Image and surface handling</a><a class="headerlink" href="#module-brainnotation.images" title="Permalink to this headline">¶</a></h2>
+<p>Functions for operating on images + surfaces</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.images.load_gifti.html#brainnotation.images.load_gifti" title="brainnotation.images.load_gifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.load_gifti</span></code></a>(img)</p></td>
+<td><p>Loads gifti file <cite>img</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.images.load_nifti.html#brainnotation.images.load_nifti" title="brainnotation.images.load_nifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.load_nifti</span></code></a>(img)</p></td>
+<td><p>Loads nifti file <cite>img</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.images.average_surfaces.html#brainnotation.images.average_surfaces" title="brainnotation.images.average_surfaces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.average_surfaces</span></code></a>(*surfs)</p></td>
+<td><p>Generates average surface from input <cite>surfs</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.images.interp_surface.html#brainnotation.images.interp_surface" title="brainnotation.images.interp_surface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.interp_surface</span></code></a>(data, …)</p></td>
+<td><p>Interpolate <cite>data</cite> on <cite>src</cite> surface to <cite>trg</cite> surface</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.images.vertex_areas.html#brainnotation.images.vertex_areas" title="brainnotation.images.vertex_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.vertex_areas</span></code></a>(surface)</p></td>
+<td><p>Calculates vertex areas from <cite>surface</cite> file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.images.relabel_gifti.html#brainnotation.images.relabel_gifti" title="brainnotation.images.relabel_gifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.relabel_gifti</span></code></a>(parcellation)</p></td>
+<td><p>Updates GIFTI images so label IDs are consecutive across hemispheres</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.images.annot_to_gifti.html#brainnotation.images.annot_to_gifti" title="brainnotation.images.annot_to_gifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.annot_to_gifti</span></code></a>(parcellation)</p></td>
+<td><p>Converts FreeSurfer-style annotation <cite>parcellation</cite> files to GIFTI images</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.images.dlabel_to_gifti.html#brainnotation.images.dlabel_to_gifti" title="brainnotation.images.dlabel_to_gifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.dlabel_to_gifti</span></code></a>(…)</p></td>
+<td><p>Converts CIFTI dlabel file to GIFTI images</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.images.obj_to_gifti.html#brainnotation.images.obj_to_gifti" title="brainnotation.images.obj_to_gifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.obj_to_gifti</span></code></a>(obj[, fn])</p></td>
+<td><p>Converts CIVET <cite>obj</cite> surface file to GIFTI format</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.images.fssurf_to_gifti.html#brainnotation.images.fssurf_to_gifti" title="brainnotation.images.fssurf_to_gifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.fssurf_to_gifti</span></code></a>(surf[, fn])</p></td>
+<td><p>Converts FreeSurfer <cite>surf</cite> surface file to GIFTI format</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.images.fsmorph_to_gifti.html#brainnotation.images.fsmorph_to_gifti" title="brainnotation.images.fsmorph_to_gifti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.images.fsmorph_to_gifti</span></code></a>(morph)</p></td>
+<td><p>Converts FreeSurfer <cite>morph</cite> data file to GIFTI format</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-brainnotation.nulls">
+<span id="brainnotation-nulls-null-models"></span><span id="ref-nulls"></span><h2><a class="toc-backref" href="#id13"><a class="reference internal" href="#module-brainnotation.nulls" title="brainnotation.nulls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.nulls</span></code></a> - Null models</a><a class="headerlink" href="#module-brainnotation.nulls" title="Permalink to this headline">¶</a></h2>
+<p>Functions for computing null models</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.nulls.naive_nonparametric.html#brainnotation.nulls.naive_nonparametric" title="brainnotation.nulls.naive_nonparametric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.naive_nonparametric</span></code></a>(data)</p></td>
+<td><p>Generates null maps from <cite>data</cite> using naive non-parametric method</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.nulls.alexander_bloch.html#brainnotation.nulls.alexander_bloch" title="brainnotation.nulls.alexander_bloch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.alexander_bloch</span></code></a>(data[, …])</p></td>
+<td><p>Generates null maps from <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.vazquez_rodriguez.html#sn1" id="id1"><span>[SN1]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.nulls.vazquez_rodriguez.html#brainnotation.nulls.vazquez_rodriguez" title="brainnotation.nulls.vazquez_rodriguez"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.vazquez_rodriguez</span></code></a>(data)</p></td>
+<td><p>Generates null maps from <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.vazquez_rodriguez.html#sn1" id="id2"><span>[SN1]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.nulls.vasa.html#brainnotation.nulls.vasa" title="brainnotation.nulls.vasa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.vasa</span></code></a>(data[, atlas, …])</p></td>
+<td><p>Generates null maps for parcellated <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.vasa.html#sn2" id="id3"><span>[SN2]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.nulls.hungarian.html#brainnotation.nulls.hungarian" title="brainnotation.nulls.hungarian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.hungarian</span></code></a>(data[, atlas, …])</p></td>
+<td><p>Generates null maps for parcellated <cite>data</cite> using the Hungarian method (<a class="reference internal" href="generated/brainnotation.nulls.hungarian.html#sn3" id="id4"><span>[SN3]</span></a>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.nulls.baum.html#brainnotation.nulls.baum" title="brainnotation.nulls.baum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.baum</span></code></a>(data[, atlas, …])</p></td>
+<td><p>Generates null maps for parcellated <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.baum.html#sn4" id="id5"><span>[SN4]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.nulls.cornblath.html#brainnotation.nulls.cornblath" title="brainnotation.nulls.cornblath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.cornblath</span></code></a>(data[, atlas, …])</p></td>
+<td><p>Generates null maps for parcellated <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.cornblath.html#sn5" id="id6"><span>[SN5]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.nulls.burt2018.html#brainnotation.nulls.burt2018" title="brainnotation.nulls.burt2018"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.burt2018</span></code></a>(data[, atlas, …])</p></td>
+<td><p>Generates null maps for <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.burt2018.html#sn6" id="id7"><span>[SN6]</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.nulls.burt2020.html#brainnotation.nulls.burt2020" title="brainnotation.nulls.burt2020"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.burt2020</span></code></a>(data[, atlas, …])</p></td>
+<td><p>Generates null maps for <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.burt2020.html#sn7" id="id8"><span>[SN7]</span></a> and <a class="reference internal" href="generated/brainnotation.nulls.burt2020.html#sn8" id="id9"><span>[SN8]</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.nulls.moran.html#brainnotation.nulls.moran" title="brainnotation.nulls.moran"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.nulls.moran</span></code></a>(data[, atlas, …])</p></td>
+<td><p>Generates null maps for <cite>data</cite> using method from <a class="reference internal" href="generated/brainnotation.nulls.moran.html#sn9" id="id10"><span>[SN9]</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-brainnotation.parcellate">
+<span id="brainnotation-parcellate-parcellation-utilities"></span><span id="ref-parcellating"></span><h2><a class="toc-backref" href="#id14"><a class="reference internal" href="#module-brainnotation.parcellate" title="brainnotation.parcellate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.parcellate</span></code></a> - Parcellation utilities</a><a class="headerlink" href="#module-brainnotation.parcellate" title="Permalink to this headline">¶</a></h2>
+<p>Functionality for parcellating data</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.parcellate.Parcellater.html#brainnotation.parcellate.Parcellater" title="brainnotation.parcellate.Parcellater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.parcellate.Parcellater</span></code></a>(…[, …])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-brainnotation.plotting">
+<span id="brainnotation-plotting-plotting-functions"></span><span id="ref-plotting"></span><h2><a class="toc-backref" href="#id15"><a class="reference internal" href="#module-brainnotation.plotting" title="brainnotation.plotting"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.plotting</span></code></a> - Plotting functions</a><a class="headerlink" href="#module-brainnotation.plotting" title="Permalink to this headline">¶</a></h2>
+<p>Functionality for plotting</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.plotting.plot_surf_template.html#brainnotation.plotting.plot_surf_template" title="brainnotation.plotting.plot_surf_template"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.plotting.plot_surf_template</span></code></a>(…)</p></td>
+<td><p>Plots <cite>data</cite> on <cite>template</cite> surface</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-brainnotation.resampling">
+<span id="brainnotation-resampling-resampling-workflows"></span><span id="ref-resampling"></span><h2><a class="toc-backref" href="#id16"><a class="reference internal" href="#module-brainnotation.resampling" title="brainnotation.resampling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.resampling</span></code></a> - Resampling workflows</a><a class="headerlink" href="#module-brainnotation.resampling" title="Permalink to this headline">¶</a></h2>
+<p>Functions for comparing data</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.resampling.resample_images.html#brainnotation.resampling.resample_images" title="brainnotation.resampling.resample_images"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.resampling.resample_images</span></code></a>(…)</p></td>
+<td><p>Resamples images <cite>src</cite> and <cite>trg</cite> to same space/density with <cite>resampling</cite> method</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-brainnotation.transforms">
+<span id="brainnotation-transforms-transformations-between-spaces"></span><span id="ref-transforms"></span><h2><a class="toc-backref" href="#id17"><a class="reference internal" href="#module-brainnotation.transforms" title="brainnotation.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.transforms</span></code></a> - Transformations between spaces</a><a class="headerlink" href="#module-brainnotation.transforms" title="Permalink to this headline">¶</a></h2>
+<p>Functionality for transforming files between spaces</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_civet.html#brainnotation.transforms.mni152_to_civet" title="brainnotation.transforms.mni152_to_civet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.mni152_to_civet</span></code></a>(img)</p></td>
+<td><p>Projects <cite>img</cite> in MNI152 space to CIVET surface</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_fsaverage.html#brainnotation.transforms.mni152_to_fsaverage" title="brainnotation.transforms.mni152_to_fsaverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.mni152_to_fsaverage</span></code></a>(img)</p></td>
+<td><p>Projects <cite>img</cite> in MNI152 space to fsaverage surface</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_fslr.html#brainnotation.transforms.mni152_to_fslr" title="brainnotation.transforms.mni152_to_fslr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.mni152_to_fslr</span></code></a>(img)</p></td>
+<td><p>Projects <cite>img</cite> in MNI152 space to fsLR surface</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.transforms.mni152_to_mni152.html#brainnotation.transforms.mni152_to_mni152" title="brainnotation.transforms.mni152_to_mni152"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.mni152_to_mni152</span></code></a>(img)</p></td>
+<td><p>Resamples <cite>img</cite> to <cite>target</cite> image (if supplied) or target <cite>resolution</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.transforms.civet_to_fslr.html#brainnotation.transforms.civet_to_fslr" title="brainnotation.transforms.civet_to_fslr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.civet_to_fslr</span></code></a>(data, …)</p></td>
+<td><p>Resamples <cite>data</cite> on CIVET surface to the fsLR surface</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.transforms.fslr_to_civet.html#brainnotation.transforms.fslr_to_civet" title="brainnotation.transforms.fslr_to_civet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.fslr_to_civet</span></code></a>(data, …)</p></td>
+<td><p>Resamples <cite>data</cite> on fsLR surface to the CIVET surface</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.transforms.civet_to_fsaverage.html#brainnotation.transforms.civet_to_fsaverage" title="brainnotation.transforms.civet_to_fsaverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.civet_to_fsaverage</span></code></a>(…)</p></td>
+<td><p>Resamples <cite>data</cite> on CIVET surface to the fsaverage surface</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.transforms.fsaverage_to_civet.html#brainnotation.transforms.fsaverage_to_civet" title="brainnotation.transforms.fsaverage_to_civet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.fsaverage_to_civet</span></code></a>(…)</p></td>
+<td><p>Resamples <cite>data</cite> on fsaverage surface to the CIVET surface</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.transforms.civet_to_civet.html#brainnotation.transforms.civet_to_civet" title="brainnotation.transforms.civet_to_civet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.civet_to_civet</span></code></a>(…)</p></td>
+<td><p>Resamples <cite>data</cite> on CIVET surface to new density</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.transforms.fslr_to_fsaverage.html#brainnotation.transforms.fslr_to_fsaverage" title="brainnotation.transforms.fslr_to_fsaverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.fslr_to_fsaverage</span></code></a>(…)</p></td>
+<td><p>Resamples <cite>data</cite> on fsLR surface to the fsaverage surface</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.transforms.fsaverage_to_fslr.html#brainnotation.transforms.fsaverage_to_fslr" title="brainnotation.transforms.fsaverage_to_fslr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.fsaverage_to_fslr</span></code></a>(…)</p></td>
+<td><p>Resamples <cite>data</cite> on fsaverage surface to the fsLR surface</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.transforms.fslr_to_fslr.html#brainnotation.transforms.fslr_to_fslr" title="brainnotation.transforms.fslr_to_fslr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.fslr_to_fslr</span></code></a>(data, …)</p></td>
+<td><p>Resamples <cite>data</cite> on fsLR surface to new density</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.transforms.fsaverage_to_fsaverage.html#brainnotation.transforms.fsaverage_to_fsaverage" title="brainnotation.transforms.fsaverage_to_fsaverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.transforms.fsaverage_to_fsaverage</span></code></a>(…)</p></td>
+<td><p>Resamples <cite>data</cite> on fsaverage surface to new density</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-brainnotation.stats">
+<span id="brainnotation-stats-statistical-functions"></span><span id="ref-stats"></span><h2><a class="toc-backref" href="#id18"><a class="reference internal" href="#module-brainnotation.stats" title="brainnotation.stats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.stats</span></code></a> - Statistical functions</a><a class="headerlink" href="#module-brainnotation.stats" title="Permalink to this headline">¶</a></h2>
+<p>Functions for statistical analyses</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.stats.correlate_images.html#brainnotation.stats.correlate_images" title="brainnotation.stats.correlate_images"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.stats.correlate_images</span></code></a>(src, trg)</p></td>
+<td><p>Correlates images <cite>src</cite> and <cite>trg</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/brainnotation.stats.efficient_pearsonr.html#brainnotation.stats.efficient_pearsonr" title="brainnotation.stats.efficient_pearsonr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.stats.efficient_pearsonr</span></code></a>(a, b)</p></td>
+<td><p>Computes correlation of matching columns in <cite>a</cite> and <cite>b</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/brainnotation.stats.permtest_pearsonr.html#brainnotation.stats.permtest_pearsonr" title="brainnotation.stats.permtest_pearsonr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">brainnotation.stats.permtest_pearsonr</span></code></a>(a, b)</p></td>
+<td><p>Non-parametric equivalent of <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html#scipy.stats.pearsonr" title="(in SciPy v1.6.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.stats.pearsonr()</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="generated/brainnotation.datasets.fetch_atlas.html" class="btn btn-neutral float-right" title="brainnotation.datasets.fetch_atlas" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="auto_examples/plot_spatial_nulls.html" class="btn btn-neutral float-left" title="Using spatial null models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, brainnotation developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

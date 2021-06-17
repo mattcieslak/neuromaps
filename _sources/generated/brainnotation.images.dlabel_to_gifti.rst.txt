@@ -1,0 +1,12 @@
+﻿brainnotation.images.dlabel_to_gifti
+====================================
+
+.. currentmodule:: brainnotation.images
+
+.. autofunction:: dlabel_to_gifti
+
+.. .. include:: modules/brainnotation.images.dlabel_to_gifti.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>
