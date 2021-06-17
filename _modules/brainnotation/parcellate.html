@@ -194,34 +194,33 @@
 
 
 <div class="viewcode-block" id="Parcellater"><a class="viewcode-back" href="../../generated/brainnotation.parcellate.Parcellater.html#brainnotation.parcellate.Parcellater">[docs]</a><span class="k">class</span> <span class="nc">Parcellater</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for parcellating arbitrary volumetric / surface data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parcellation : str or os.PathLike or Nifti1Image or GiftiImage or tuple</span>
+<span class="sd">        Parcellation image or surfaces, where each region is identified by a</span>
+<span class="sd">        unique integer ID. All regions with an ID of 0 are ignored.</span>
+<span class="sd">    space : str</span>
+<span class="sd">        The space in which `parcellation` is defined</span>
+<span class="sd">    resampling_target : {&#39;data&#39;, &#39;parcellation&#39;, None}, optional</span>
+<span class="sd">        Gives which image gives the final shape/size. For example, if</span>
+<span class="sd">        `resampling_target` is &#39;data&#39;, the `parcellation` is resampled to the</span>
+<span class="sd">        space + resolution of the data, if needed. If it is &#39;parcellation&#39; then</span>
+<span class="sd">        any data provided to `.fit()` are transformed to the space + resolution</span>
+<span class="sd">        of `parcellation`. Providing None means no resampling; if spaces +</span>
+<span class="sd">        resolutions of the `parcellation` and data provided to `.fit()` do not</span>
+<span class="sd">        match a ValueError is raised. Default: &#39;data&#39;</span>
+<span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
+<span class="sd">        If provided `parcellation` represents only one hemisphere of a surface</span>
+<span class="sd">        atlas then this specifies which hemisphere. If not specified it is</span>
+<span class="sd">        assumed that `parcellation` is (L, R) hemisphere. Ignored if `space` is</span>
+<span class="sd">        &#39;MNI152&#39;. Default: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parcellation</span><span class="p">,</span> <span class="n">space</span><span class="p">,</span> <span class="n">resampling_target</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
                  <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Class for parcellating arbitrary volumetric / surface data</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        parcellation : str or os.PathLike or Nifti1Image or GiftiImage or tuple</span>
-<span class="sd">            Parcellation image or surfaces, where each region is identified by</span>
-<span class="sd">            a unique integer ID. All regions with an ID of 0 are ignored.</span>
-<span class="sd">        space : str</span>
-<span class="sd">            The space in which `parcellation` is defined</span>
-<span class="sd">        resampling_target : {&#39;data&#39;, &#39;parcellation&#39;, None}, optional</span>
-<span class="sd">            Gives which image gives the final shape/size. For example, if</span>
-<span class="sd">            `resampling_target` is &#39;data&#39;, the `parcellation` is resampled to</span>
-<span class="sd">            the space + resolution of the data, if needed. If it is</span>
-<span class="sd">            &#39;parcellation&#39; then any data provided to `.fit()` are transformed</span>
-<span class="sd">            to the space + resolution of `parcellation`. Providing None means</span>
-<span class="sd">            no resampling; if spaces + resolutions of the `parcellation` and</span>
-<span class="sd">            data provided to `.fit()` do not match a ValueError is raised.</span>
-<span class="sd">            Default: &#39;data&#39;</span>
-<span class="sd">        hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
-<span class="sd">            If provided `parcellation` represents only one hemisphere of a</span>
-<span class="sd">            surface atlas then this specifies which hemisphere. If not</span>
-<span class="sd">            specified it is assumed that `parcellation` is (L, R) hemisphere.</span>
-<span class="sd">            Ignored if `space` is &#39;MNI152&#39;. Default: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">parcellation</span> <span class="o">=</span> <span class="n">parcellation</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">ALIAS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resampling_target</span> <span class="o">=</span> <span class="n">resampling_target</span>
@@ -281,8 +280,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_fitted</span><span class="p">()</span>
 
         <span class="n">space</span> <span class="o">=</span> <span class="n">ALIAS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">space</span><span class="p">,</span> <span class="n">space</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resampling_target</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span> <span class="ow">and</span> <span class="n">space</span> <span class="o">==</span> <span class="s1">&#39;MNI152&#39;</span> <span class="ow">and</span>
-                <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volumetric</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resampling_target</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span> <span class="ow">and</span> <span class="n">space</span> <span class="o">==</span> <span class="s1">&#39;MNI152&#39;</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_volumetric</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot use resampling_target=&quot;data&quot; when &#39;</span>
                              <span class="s1">&#39;provided parcellation is in surface space and &#39;</span>
                              <span class="s1">&#39;provided data are in MNI1512 space.&#39;</span><span class="p">)</span>

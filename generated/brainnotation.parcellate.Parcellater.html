@@ -186,7 +186,28 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="brainnotation.parcellate.Parcellater">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">brainnotation.parcellate.</span></span><span class="sig-name descname"><span class="pre">Parcellater</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parcellation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resampling_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/parcellate.html#Parcellater"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.parcellate.Parcellater" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
+<dd><p>Class for parcellating arbitrary volumetric / surface data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parcellation</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>Nifti1Image</em><em> or </em><em>GiftiImage</em><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a>) – Parcellation image or surfaces, where each region is identified by a
+unique integer ID. All regions with an ID of 0 are ignored.</p></li>
+<li><p><strong>space</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – The space in which <cite>parcellation</cite> is defined</p></li>
+<li><p><strong>resampling_target</strong> (<em>{'data'</em><em>, </em><em>'parcellation'</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – Gives which image gives the final shape/size. For example, if
+<cite>resampling_target</cite> is ‘data’, the <cite>parcellation</cite> is resampled to the
+space + resolution of the data, if needed. If it is ‘parcellation’ then
+any data provided to <cite>.fit()</cite> are transformed to the space + resolution
+of <cite>parcellation</cite>. Providing None means no resampling; if spaces +
+resolutions of the <cite>parcellation</cite> and data provided to <cite>.fit()</cite> do not
+match a ValueError is raised. Default: ‘data’</p></li>
+<li><p><strong>hemi</strong> (<em>{'L'</em><em>, </em><em>'R'}</em><em>, </em><em>optional</em>) – If provided <cite>parcellation</cite> represents only one hemisphere of a surface
+atlas then this specifies which hemisphere. If not specified it is
+assumed that <cite>parcellation</cite> is (L, R) hemisphere. Ignored if <cite>space</cite> is
+‘MNI152’. Default: None</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="brainnotation.parcellate.Parcellater.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/parcellate.html#Parcellater.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.parcellate.Parcellater.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare parcellation for data extraction</p>

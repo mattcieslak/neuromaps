@@ -185,7 +185,7 @@ atlases and annotations.</p>
 atlases and atlas files provided with it. In many cases these atlases are
 fetched “behind-the-scenes” when you call functions that depend on them, but
 they can be access directly.</p>
-<p>There is a general purpose <code class="xref py py-func docutils literal notranslate"><span class="pre">brainnotaiton.datasets.fetch_atlas()</span></code>
+<p>There is a general purpose <a class="reference internal" href="../generated/brainnotation.datasets.fetch_atlas.html#brainnotation.datasets.fetch_atlas" title="brainnotation.datasets.fetch_atlas"><code class="xref py py-func docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_atlas()</span></code></a>
 function that can fetch any of the atlases provided with <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brainnotation</span> <span class="kn">import</span> <span class="n">datasets</span>
 
@@ -194,7 +194,10 @@ function that can fetch any of the atlases provided with <code class="docutils l
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;midthickness&#39;, &#39;inflated&#39;, &#39;veryinflated&#39;, &#39;sphere&#39;, &#39;medial&#39;, &#39;sulc&#39;, &#39;vaavg&#39;])
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684b53a6df1021bd4df2d ...
+ ...done. (1 seconds, 0 min)
+Extracting data from /home/runner/brainnotation-data/ac53e497d7d6c6379ee7bd7bda6e0267/fsLR32k.tar.gz..... done.
+dict_keys([&#39;midthickness&#39;, &#39;inflated&#39;, &#39;veryinflated&#39;, &#39;sphere&#39;, &#39;medial&#39;, &#39;sulc&#39;, &#39;vaavg&#39;])
 </pre></div>
 </div>
 <p>The values corresponding to the keys of the atlas dictionary are length-2
@@ -284,7 +287,11 @@ brain (from the Allen Human Brain Atlas):</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{(&#39;abagen&#39;, &#39;genepc1&#39;, &#39;fsaverage&#39;, &#39;10k&#39;): [&#39;/home/rmarkello/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/rmarkello/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]}
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c2290118f70b01fca797eb ...
+ ...done. (1 seconds, 0 min)
+Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521 ...
+ ...done. (2 seconds, 0 min)
+{(&#39;abagen&#39;, &#39;genepc1&#39;, &#39;fsaverage&#39;, &#39;10k&#39;): [&#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]}
 </pre></div>
 </div>
 <p>Notice that the returned annotation <code class="docutils literal notranslate"><span class="pre">abagen</span></code> is a dictionary. We can subset
@@ -297,13 +304,13 @@ argument to the fetch call:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;/home/rmarkello/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/rmarkello/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]
 </pre></div>
 </div>
 <p>And that’s it! This example provided a quick overview on how to fetch the
 various atlases and datasets provided with <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code>. For more
 information please refer to the <a class="reference internal" href="../api.html#ref-datasets"><span class="std std-ref">API reference</span></a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.013 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.036 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-fetch-datasets-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/a04ac8d81d8fed9e456dd9e2eb4c4519/plot_fetch_datasets.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fetch_datasets.py</span></code></a></p>

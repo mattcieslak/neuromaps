@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Contents &mdash; brainnotation 0.0.1 documentation</title>
+  <title>brainnotation &mdash; brainnotation 0.0.1 documentation</title>
   
 
   
@@ -148,7 +148,7 @@
     
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Contents</li>
+      <li>brainnotation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -165,8 +165,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="contents">
-<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="brainnotation">
+<h1>brainnotation<a class="headerlink" href="#brainnotation" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code> toolbox is designed to help researchers make easy,
+statistically-rigorous comparisons between brain maps (or brain annotations).</p>
+<div class="section" id="installation-requirements">
+<h2>Installation requirements<a class="headerlink" href="#installation-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code> works with Python 3.7+ and requires a few
+dependencies:</p>
+<ul class="simple">
+<li><p>matplotlib</p></li>
+<li><p>nibabel (&gt;=3.0)</p></li>
+<li><p>nilearn (&gt;=0.7)</p></li>
+<li><p>numpy (&gt;=1.14)</p></li>
+<li><p>scikit-learn (&gt;=0.17)</p></li>
+<li><p>scipy</p></li>
+</ul>
+<p>You can get started by installing <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code> from the source repository
+with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/rmarkello/brainnotation
+<span class="nb">cd</span> brainnotation
+pip install brainnotation
+</pre></div>
+</div>
+<p>You will also need to have <a class="reference external" href="https://www.humanconnectome.org/software/connectome-workbench">Connectome Workbench</a> installed and available on your path in
+order to use most of the transformation / resampling functionality of
+<code class="docutils literal notranslate"><span class="pre">brainnotation</span></code>.</p>
+</div>
+<div class="section" id="license-information">
+<span id="installation"></span><h2>License information<a class="headerlink" href="#license-information" title="Permalink to this headline">¶</a></h2>
+<p>This codebase is licensed under the <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause">3-clause BSD license</a>. The full license can be found in the
+<a class="reference external" href="https://github.com/netneurolab/brainnotation/blob/main/brainnotation/LICENSE">LICENSE</a> file in the <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code> distribution.</p>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and setup</a><ul>
@@ -192,6 +224,7 @@
 </ul>
 </li>
 </ul>
+</div>
 </div>
 </div>
 
