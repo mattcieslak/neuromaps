@@ -68,7 +68,7 @@ dictionary will always be returned if multiple annotations match our query.)
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c22953f3ce9401fa24e651 ...
-     ...done. (0 seconds, 0 min)
+     ...done. (1 seconds, 0 min)
     Neurosynth:  /home/runner/brainnotation-data/annotations/neurosynth/cogpc1/MNI152/source-neurosynth_desc-cogpc1_space-MNI152_res-2mm_feature.nii.gz
     Gene PC1:  ['/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
 
@@ -111,7 +111,7 @@ The data returned will always be pre-loaded nibabel image instances:
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684c03a6df1020ed525f6 ...
      ...done. (1 seconds, 0 min)
     Extracting data from /home/runner/brainnotation-data/529deda7a30dc28b5106317477efbaf2/regfusion.tar.gz..... done.
-    (<nibabel.gifti.gifti.GiftiImage object at 0x7fdaf0052850>, <nibabel.gifti.gifti.GiftiImage object at 0x7fdaf0427710>) (<nibabel.gifti.gifti.GiftiImage object at 0x7fdaf041fbd0>, <nibabel.gifti.gifti.GiftiImage object at 0x7fdb15808b90>)
+    (<nibabel.gifti.gifti.GiftiImage object at 0x7f132eac8090>, <nibabel.gifti.gifti.GiftiImage object at 0x7f130815a250>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f1308254ad0>, <nibabel.gifti.gifti.GiftiImage object at 0x7f1308139c50>)
 
 
 
@@ -180,7 +180,7 @@ function so we use the :func:`brainnotation.images.load_data` utility.)
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684ab9096b7021b63cf6b ...
-     ...done. (1 seconds, 0 min)
+     ...done. (2 seconds, 0 min)
     Extracting data from /home/runner/brainnotation-data/6e43ea0419f74680d0863fb09ee53700/fsaverage10k.tar.gz..... done.
     (20484, 100)
 
@@ -227,7 +227,7 @@ null maps; they have (nearly) identical function signatures, so refer to the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.209 seconds)
+   **Total running time of the script:** ( 0 minutes  6.877 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_spatial_nulls.py:
