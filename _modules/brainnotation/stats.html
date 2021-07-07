@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>brainnotation.stats &mdash; brainnotation 0+untagged.1.ge6f678c documentation</title>
+  <title>brainnotation.stats &mdash; brainnotation 0+untagged.1.g09ef3c8 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge6f678c
+                0+untagged.1.g09ef3c8
               </div>
             
           
@@ -180,7 +180,7 @@
 
 
 <div class="viewcode-block" id="correlate_images"><a class="viewcode-back" href="../../generated/brainnotation.stats.correlate_images.html#brainnotation.stats.correlate_images">[docs]</a><span class="k">def</span> <span class="nf">correlate_images</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">,</span> <span class="n">corrtype</span><span class="o">=</span><span class="s1">&#39;pearsonr&#39;</span><span class="p">,</span> <span class="n">ignore_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                     <span class="n">nulls</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                     <span class="n">nulls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;omit&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Correlates images `src` and `trg`</span>
 
@@ -197,7 +197,12 @@
 <span class="sd">        Whether to perform correlations ignoring all zero values in `src` and</span>
 <span class="sd">        `trg` data. Default: True</span>
 <span class="sd">    nulls : array_like, optional</span>
-<span class="sd">        Null data for `src`</span>
+<span class="sd">        Null data for `src` to use in generating a non-parametric p-value.</span>
+<span class="sd">        If not specified a parameteric p-value is generated. Default: None</span>
+<span class="sd">    nan_policy : {&#39;propagate&#39;, &#39;raise&#39;, &#39;omit&#39;}, optional</span>
+<span class="sd">        Defines how to handle when input contains nan. &#39;propagate&#39; returns nan,</span>
+<span class="sd">        &#39;raise&#39; throws an error, &#39;omit&#39; performs the calculations ignoring nan</span>
+<span class="sd">        values. Default: &#39;omit&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -227,12 +232,14 @@
     <span class="k">if</span> <span class="n">nulls</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">n_perm</span> <span class="o">=</span> <span class="n">nulls</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">nulls</span> <span class="o">=</span> <span class="n">nulls</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">permtest_pearsonr</span><span class="p">(</span><span class="n">srcdata</span><span class="p">,</span> <span class="n">trgdata</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">nulls</span><span class="o">=</span><span class="n">nulls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">permtest_pearsonr</span><span class="p">(</span><span class="n">srcdata</span><span class="p">,</span> <span class="n">trgdata</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="n">n_perm</span><span class="p">,</span> <span class="n">nulls</span><span class="o">=</span><span class="n">nulls</span><span class="p">,</span>
+                                 <span class="n">nan_policy</span><span class="o">=</span><span class="n">nan_policy</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">efficient_pearsonr</span><span class="p">(</span><span class="n">srcdata</span><span class="p">,</span> <span class="n">trgdata</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">efficient_pearsonr</span><span class="p">(</span><span class="n">srcdata</span><span class="p">,</span> <span class="n">trgdata</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="n">nan_policy</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="permtest_pearsonr"><a class="viewcode-back" href="../../generated/brainnotation.stats.permtest_pearsonr.html#brainnotation.stats.permtest_pearsonr">[docs]</a><span class="k">def</span> <span class="nf">permtest_pearsonr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nulls</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="permtest_pearsonr"><a class="viewcode-back" href="../../generated/brainnotation.stats.permtest_pearsonr.html#brainnotation.stats.permtest_pearsonr">[docs]</a><span class="k">def</span> <span class="nf">permtest_pearsonr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n_perm</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nulls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">nan_policy</span><span class="o">=</span><span class="s1">&#39;propagate&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Non-parametric equivalent of :py:func:`scipy.stats.pearsonr`</span>
 
@@ -257,6 +264,10 @@
 <span class="sd">        and `b`. Providing this will override the value supplied to `n_perm`.</span>
 <span class="sd">        When not specified a standard permutation is used to shuffle `a`.</span>
 <span class="sd">        Default: None</span>
+<span class="sd">    nan_policy : {&#39;propagate&#39;, &#39;raise&#39;, &#39;omit&#39;}, optional</span>
+<span class="sd">        Defines how to handle when input contains nan. &#39;propagate&#39; returns nan,</span>
+<span class="sd">        &#39;raise&#39; throws an error, &#39;omit&#39; performs the calculations ignoring nan</span>
+<span class="sd">        values. Default: &#39;omit&#39;</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -284,14 +295,16 @@
         <span class="n">n_perm</span> <span class="o">=</span> <span class="n">nulls</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="c1"># divide by one forces coercion to float if ndim = 0</span>
-    <span class="n">true_corr</span> <span class="o">=</span> <span class="n">efficient_pearsonr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1</span>
+    <span class="n">true_corr</span> <span class="o">=</span> <span class="n">efficient_pearsonr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="n">nan_policy</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1</span>
     <span class="n">abs_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">true_corr</span><span class="p">)</span>
 
     <span class="n">permutations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">true_corr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_perm</span><span class="p">):</span>
         <span class="c1"># permute `a` and determine whether correlations exceed original</span>
         <span class="n">ap</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">rs</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))]</span> <span class="k">if</span> <span class="n">nulls</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">nulls</span><span class="p">[:,</span> <span class="n">perm</span><span class="p">]</span>
-        <span class="n">permutations</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">efficient_pearsonr</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span> <span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">abs_true</span>
+        <span class="n">permutations</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+            <span class="n">efficient_pearsonr</span><span class="p">(</span><span class="n">ap</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">nan_policy</span><span class="o">=</span><span class="n">nan_policy</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span> <span class="o">&gt;=</span> <span class="n">abs_true</span>
 
     <span class="n">pvals</span> <span class="o">=</span> <span class="n">permutations</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_perm</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># + 1 in denom accounts for true_corr</span>
 
@@ -310,7 +323,7 @@
 <span class="sd">    ddof : int, optional</span>
 <span class="sd">        Degrees of freedom correction in the calculation of the standard</span>
 <span class="sd">        deviation. Default: 1</span>
-<span class="sd">    nan_policy : bool, optional</span>
+<span class="sd">    nan_policy : {&#39;propagate&#39;, &#39;raise&#39;, &#39;omit&#39;}, optional</span>
 <span class="sd">        Defines how to handle when input contains nan. &#39;propagate&#39; returns nan,</span>
 <span class="sd">        &#39;raise&#39; throws an error, &#39;omit&#39; performs the calculations ignoring nan</span>
 <span class="sd">        values. Default: &#39;propagate&#39;</span>

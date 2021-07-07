@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Using spatial null models &mdash; brainnotation 0+untagged.1.ge6f678c documentation</title>
+  <title>Using spatial null models &mdash; brainnotation 0+untagged.1.g09ef3c8 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge6f678c
+                0+untagged.1.g09ef3c8
               </div>
             
           
@@ -206,7 +206,7 @@ dictionary will always be returned if multiple annotations match our query.)</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c22953f3ce9401fa24e651 ...
- ...done. (1 seconds, 0 min)
+ ...done. (3 seconds, 0 min)
 Neurosynth:  /home/runner/brainnotation-data/annotations/neurosynth/cogpc1/MNI152/source-neurosynth_desc-cogpc1_space-MNI152_res-2mm_feature.nii.gz
 Gene PC1:  [&#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]
 </pre></div>
@@ -219,8 +219,9 @@ performed for those data. (We could alternatively specify ‘transform_to_trg’
 for the <cite>resampling</cite> parameter and achieve the same outcome.)</p>
 <p>The data returned will always be pre-loaded nibabel image instances:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brainnotation</span> <span class="kn">import</span> <span class="n">resampling</span>
-<a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nsynth</span></a><span class="p">,</span> <a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">genepc</span></a> <span class="o">=</span> <span class="n">resampling</span><span class="o">.</span><span class="n">resample_images</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nsynth</span></a><span class="p">,</span> <a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">genepc</span></a><span class="p">,</span>
-                                            <span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
+<a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nsynth</span></a><span class="p">,</span> <a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">genepc</span></a> <span class="o">=</span> <span class="n">resampling</span><span class="o">.</span><span class="n">resample_images</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nsynth</span></a><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">genepc</span></a><span class="p">,</span>
+                                            <span class="n">src_space</span><span class="o">=</span><span class="s1">&#39;MNI152&#39;</span><span class="p">,</span>
+                                            <span class="n">trg_space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
                                             <span class="n">resampling</span><span class="o">=</span><span class="s1">&#39;transform_to_alt&#39;</span><span class="p">,</span>
                                             <span class="n">alt_spec</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="s1">&#39;10k&#39;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nsynth</span></a><span class="p">,</span> <a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">genepc</span></a><span class="p">)</span>
@@ -228,9 +229,9 @@ for the <cite>resampling</cite> parameter and achieve the same outcome.)</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684c03a6df1020ed525f6 ...
- ...done. (1 seconds, 0 min)
+ ...done. (2 seconds, 0 min)
 Extracting data from /home/runner/brainnotation-data/529deda7a30dc28b5106317477efbaf2/regfusion.tar.gz..... done.
-(&lt;nibabel.gifti.gifti.GiftiImage object at 0x7f132eac8090&gt;, &lt;nibabel.gifti.gifti.GiftiImage object at 0x7f130815a250&gt;) (&lt;nibabel.gifti.gifti.GiftiImage object at 0x7f1308254ad0&gt;, &lt;nibabel.gifti.gifti.GiftiImage object at 0x7f1308139c50&gt;)
+(&lt;nibabel.gifti.gifti.GiftiImage object at 0x7f4f72fb4e50&gt;, &lt;nibabel.gifti.gifti.GiftiImage object at 0x7f4f72ee5a50&gt;) (&lt;nibabel.gifti.gifti.GiftiImage object at 0x7f4f79626f90&gt;, &lt;nibabel.gifti.gifti.GiftiImage object at 0x7f4f79811ed0&gt;)
 </pre></div>
 </div>
 <p>Once the images are resampled we can easily correlate them:</p>
@@ -261,16 +262,18 @@ function so we use the <code class="xref py py-func docutils literal notranslate
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684ab9096b7021b63cf6b ...
- ...done. (2 seconds, 0 min)
+ ...done. (1 seconds, 0 min)
 Extracting data from /home/runner/brainnotation-data/6e43ea0419f74680d0863fb09ee53700/fsaverage10k.tar.gz..... done.
 (20484, 100)
 </pre></div>
 </div>
 <p>We can supply the generated null array to the
 <a class="reference internal" href="../generated/brainnotation.stats.correlate_images.html#brainnotation.stats.correlate_images" title="brainnotation.stats.correlate_images"><code class="xref py py-func docutils literal notranslate"><span class="pre">brainnotation.stats.correlate_images()</span></code></a> function and it will be used to
-generate a non-parameteric p-value. Note that the correlation remains
-identical to that above but the p-value has now changed, revealing that the
-correlation is no longer significant:</p>
+generate a non-parameteric p-value. The function assumes that the array
+provided to the <cite>nulls</cite> parameter corresponds to the <em>first</em> dataset passed
+to the function (i.e., <cite>nsynth</cite>).</p>
+<p>Note that the correlation remains identical to that above but the p-value has
+now changed, revealing that the correlation is no longer significant:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">corr</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">pval</span></a> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">correlate_images</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nsynth</span></a><span class="p">,</span> <a href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">genepc</span></a><span class="p">,</span> <span class="n">nulls</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rotated</span></a><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Correlation: r = </span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">corr</span></a><span class="si">:</span><span class="s1">.02f</span><span class="si">}</span><span class="s1">, p = </span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">pval</span></a><span class="si">:</span><span class="s1">.04f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
@@ -282,7 +285,7 @@ correlation is no longer significant:</p>
 <p>There are a number of different null functions that can be used to generate
 null maps; they have (nearly) identical function signatures, so refer to the
 <a class="reference internal" href="../api.html#ref-nulls"><span class="std std-ref">API reference</span></a> for more information.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.877 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.531 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-spatial-nulls-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/4636241e41ad728ff42e2f84e370335d/plot_spatial_nulls.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_spatial_nulls.py</span></code></a></p>

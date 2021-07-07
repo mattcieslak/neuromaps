@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Fetching atlases and annotations &mdash; brainnotation 0+untagged.1.ge6f678c documentation</title>
+  <title>Fetching atlases and annotations &mdash; brainnotation 0+untagged.1.g09ef3c8 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge6f678c
+                0+untagged.1.g09ef3c8
               </div>
             
           
@@ -184,12 +184,12 @@ atlases and annotations.</p>
 <p>Much of the functionality of the <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code> toolbox relies on the
 atlases and atlas files provided with it. In many cases these atlases are
 fetched “behind-the-scenes” when you call functions that depend on them, but
-they can be access directly.</p>
+they can be accessed directly.</p>
 <p>There is a general purpose <a class="reference internal" href="../generated/brainnotation.datasets.fetch_atlas.html#brainnotation.datasets.fetch_atlas" title="brainnotation.datasets.fetch_atlas"><code class="xref py py-func docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_atlas()</span></code></a>
 function that can fetch any of the atlases provided with <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brainnotation</span> <span class="kn">import</span> <span class="n">datasets</span>
 
-<span class="n">fslr</span> <span class="o">=</span> <a href="../generated/brainnotation.datasets.fetch_atlas.html#brainnotation.datasets.fetch_atlas" title="brainnotation.datasets.fetch_atlas" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_atlas</span></a><span class="p">(</span><span class="s1">&#39;fslr&#39;</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">)</span>
+<span class="n">fslr</span> <span class="o">=</span> <a href="../generated/brainnotation.datasets.fetch_atlas.html#brainnotation.datasets.fetch_atlas" title="brainnotation.datasets.fetch_atlas" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_atlas</span></a><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="s1">&#39;fslr&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">fslr</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -288,9 +288,9 @@ brain (from the Allen Human Brain Atlas):</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c2290118f70b01fca797eb ...
- ...done. (2 seconds, 0 min)
+ ...done. (1 seconds, 0 min)
 Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521 ...
- ...done. (2 seconds, 0 min)
+ ...done. (1 seconds, 0 min)
 {(&#39;abagen&#39;, &#39;genepc1&#39;, &#39;fsaverage&#39;, &#39;10k&#39;): [&#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]}
 </pre></div>
 </div>
@@ -310,7 +310,7 @@ argument to the fetch call:</p>
 <p>And that’s it! This example provided a quick overview on how to fetch the
 various atlases and datasets provided with <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code>. For more
 information please refer to the <a class="reference internal" href="../api.html#ref-datasets"><span class="std std-ref">API reference</span></a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.986 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.261 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-fetch-datasets-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/a04ac8d81d8fed9e456dd9e2eb4c4519/plot_fetch_datasets.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fetch_datasets.py</span></code></a></p>

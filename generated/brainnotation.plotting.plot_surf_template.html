@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>brainnotation.plotting.plot_surf_template &mdash; brainnotation 0+untagged.1.ge6f678c documentation</title>
+  <title>brainnotation.plotting.plot_surf_template &mdash; brainnotation 0+untagged.1.g09ef3c8 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge6f678c
+                0+untagged.1.g09ef3c8
               </div>
             
           
@@ -186,7 +186,7 @@
 <h1>brainnotation.plotting.plot_surf_template<a class="headerlink" href="#brainnotation-plotting-plot-surf-template" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainnotation.plotting.plot_surf_template">
-<span class="sig-prename descclassname"><span class="pre">brainnotation.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_surf_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inflated'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/plotting.html#plot_surf_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.plotting.plot_surf_template" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">brainnotation.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_surf_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inflated'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_medial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/plotting.html#plot_surf_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.plotting.plot_surf_template" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots <cite>data</cite> on <cite>template</cite> surface</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -199,6 +199,7 @@ hemisphere.</p></li>
 <cite>space</cite>. Default: ‘inflated’</p></li>
 <li><p><strong>hemi</strong> (<em>{'L'</em><em>, </em><em>'R'}</em><em>, </em><em>optional</em>) – If <cite>data</cite> is not a tuple, which hemisphere it should be plotted on.
 Default: None</p></li>
+<li><p><strong>mask_medial</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to mask vertices along the medial wall. Default: True</p></li>
 <li><p><strong>kwargs</strong> (<em>key-value pairs</em>) – Passed directly to <cite>nilearn.plotting.plot_surf</cite></p></li>
 </ul>
 </dd>

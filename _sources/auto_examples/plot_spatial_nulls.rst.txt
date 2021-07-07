@@ -68,7 +68,7 @@ dictionary will always be returned if multiple annotations match our query.)
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c22953f3ce9401fa24e651 ...
-     ...done. (1 seconds, 0 min)
+     ...done. (3 seconds, 0 min)
     Neurosynth:  /home/runner/brainnotation-data/annotations/neurosynth/cogpc1/MNI152/source-neurosynth_desc-cogpc1_space-MNI152_res-2mm_feature.nii.gz
     Gene PC1:  ['/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
 
@@ -86,14 +86,15 @@ for the `resampling` parameter and achieve the same outcome.)
 
 The data returned will always be pre-loaded nibabel image instances:
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-54
+.. GENERATED FROM PYTHON SOURCE LINES 46-55
 
 .. code-block:: default
 
 
     from brainnotation import resampling
-    nsynth, genepc = resampling.resample_images(nsynth, genepc,
-                                                'MNI152', 'fsaverage',
+    nsynth, genepc = resampling.resample_images(src=nsynth, trg=genepc,
+                                                src_space='MNI152',
+                                                trg_space='fsaverage',
                                                 resampling='transform_to_alt',
                                                 alt_spec=('fsaverage', '10k'))
     print(nsynth, genepc)
@@ -109,18 +110,18 @@ The data returned will always be pre-loaded nibabel image instances:
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684c03a6df1020ed525f6 ...
-     ...done. (1 seconds, 0 min)
+     ...done. (2 seconds, 0 min)
     Extracting data from /home/runner/brainnotation-data/529deda7a30dc28b5106317477efbaf2/regfusion.tar.gz..... done.
-    (<nibabel.gifti.gifti.GiftiImage object at 0x7f132eac8090>, <nibabel.gifti.gifti.GiftiImage object at 0x7f130815a250>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f1308254ad0>, <nibabel.gifti.gifti.GiftiImage object at 0x7f1308139c50>)
+    (<nibabel.gifti.gifti.GiftiImage object at 0x7f4f72fb4e50>, <nibabel.gifti.gifti.GiftiImage object at 0x7f4f72ee5a50>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f4f79626f90>, <nibabel.gifti.gifti.GiftiImage object at 0x7f4f79811ed0>)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
+.. GENERATED FROM PYTHON SOURCE LINES 56-57
 
 Once the images are resampled we can easily correlate them:
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-61
+.. GENERATED FROM PYTHON SOURCE LINES 57-62
 
 .. code-block:: default
 
@@ -144,7 +145,7 @@ Once the images are resampled we can easily correlate them:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-73
+.. GENERATED FROM PYTHON SOURCE LINES 63-74
 
 The returned p-value here is generated from a spatially-naive parameteric
 distribution, which is inappropriate for brain annotations. Instead, we can
@@ -158,7 +159,7 @@ return array will be vertices x permutations.
 (Note that we need to pass the loaded data from the provided map to the null
 function so we use the :func:`brainnotation.images.load_data` utility.)
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-80
+.. GENERATED FROM PYTHON SOURCE LINES 74-81
 
 .. code-block:: default
 
@@ -180,22 +181,25 @@ function so we use the :func:`brainnotation.images.load_data` utility.)
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684ab9096b7021b63cf6b ...
-     ...done. (2 seconds, 0 min)
+     ...done. (1 seconds, 0 min)
     Extracting data from /home/runner/brainnotation-data/6e43ea0419f74680d0863fb09ee53700/fsaverage10k.tar.gz..... done.
     (20484, 100)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-86
+.. GENERATED FROM PYTHON SOURCE LINES 82-90
 
 We can supply the generated null array to the
 :func:`brainnotation.stats.correlate_images` function and it will be used to
-generate a non-parameteric p-value. Note that the correlation remains
-identical to that above but the p-value has now changed, revealing that the
-correlation is no longer significant:
+generate a non-parameteric p-value. The function assumes that the array
+provided to the `nulls` parameter corresponds to the *first* dataset passed
+to the function (i.e., `nsynth`).
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-90
+Note that the correlation remains identical to that above but the p-value has
+now changed, revealing that the correlation is no longer significant:
+
+.. GENERATED FROM PYTHON SOURCE LINES 90-94
 
 .. code-block:: default
 
@@ -218,7 +222,7 @@ correlation is no longer significant:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-94
+.. GENERATED FROM PYTHON SOURCE LINES 95-98
 
 There are a number of different null functions that can be used to generate
 null maps; they have (nearly) identical function signatures, so refer to the
@@ -227,7 +231,7 @@ null maps; they have (nearly) identical function signatures, so refer to the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.877 seconds)
+   **Total running time of the script:** ( 0 minutes  8.531 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_spatial_nulls.py:

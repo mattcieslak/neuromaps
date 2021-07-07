@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>brainnotation.plotting &mdash; brainnotation 0+untagged.1.ge6f678c documentation</title>
+  <title>brainnotation.plotting &mdash; brainnotation 0+untagged.1.g09ef3c8 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge6f678c
+                0+untagged.1.g09ef3c8
               </div>
             
           
@@ -188,8 +188,8 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="plot_surf_template"><a class="viewcode-back" href="../../generated/brainnotation.plotting.plot_surf_template.html#brainnotation.plotting.plot_surf_template">[docs]</a><span class="k">def</span> <span class="nf">plot_surf_template</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">surf</span><span class="o">=</span><span class="s1">&#39;inflated&#39;</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                       <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_surf_template"><a class="viewcode-back" href="../../generated/brainnotation.plotting.plot_surf_template.html#brainnotation.plotting.plot_surf_template">[docs]</a><span class="k">def</span> <span class="nf">plot_surf_template</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">surf</span><span class="o">=</span><span class="s1">&#39;inflated&#39;</span><span class="p">,</span>
+                       <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mask_medial</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots `data` on `template` surface</span>
 
@@ -208,6 +208,8 @@
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple, which hemisphere it should be plotted on.</span>
 <span class="sd">        Default: None</span>
+<span class="sd">    mask_medial : bool, optional</span>
+<span class="sd">        Whether to mask vertices along the medial wall. Default: True</span>
 <span class="sd">    kwargs : key-value pairs</span>
 <span class="sd">        Passed directly to `nilearn.plotting.plot_surf`</span>
 
@@ -225,7 +227,7 @@
                          <span class="s1">&#39;and plotting the projection instead.&#39;</span><span class="p">)</span>
     <span class="n">surf</span><span class="p">,</span> <span class="n">medial</span> <span class="o">=</span> <span class="n">atlas</span><span class="p">[</span><span class="n">surf</span><span class="p">],</span> <span class="n">atlas</span><span class="p">[</span><span class="s1">&#39;medial&#39;</span><span class="p">]</span>
 
-    <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">spacing</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bg_map&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">opts</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
@@ -238,8 +240,9 @@
         <span class="n">geom</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">hemi</span><span class="p">))</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
         <span class="c1"># set medial wall to NaN; this will avoid it being plotted</span>
-        <span class="n">med</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">medial</span><span class="p">,</span> <span class="n">hemi</span><span class="p">))</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
-        <span class="n">img</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">med</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="n">mask_medial</span><span class="p">:</span>
+            <span class="n">med</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">medial</span><span class="p">,</span> <span class="n">hemi</span><span class="p">))</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+            <span class="n">img</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">med</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
         <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">view</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;lateral&#39;</span><span class="p">,</span> <span class="s1">&#39;medial&#39;</span><span class="p">]):</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">disable_mouse_rotation</span><span class="p">()</span>

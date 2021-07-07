@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>brainnotation.stats.correlate_images &mdash; brainnotation 0+untagged.1.ge6f678c documentation</title>
+  <title>brainnotation.stats.correlate_images &mdash; brainnotation 0+untagged.1.g09ef3c8 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge6f678c
+                0+untagged.1.g09ef3c8
               </div>
             
           
@@ -188,7 +188,7 @@
 <h1>brainnotation.stats.correlate_images<a class="headerlink" href="#brainnotation-stats-correlate-images" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="brainnotation.stats.correlate_images">
-<span class="sig-prename descclassname"><span class="pre">brainnotation.stats.</span></span><span class="sig-name descname"><span class="pre">correlate_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corrtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pearsonr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nulls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/stats.html#correlate_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.stats.correlate_images" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">brainnotation.stats.</span></span><span class="sig-name descname"><span class="pre">correlate_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corrtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pearsonr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nulls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'omit'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/brainnotation/stats.html#correlate_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brainnotation.stats.correlate_images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Correlates images <cite>src</cite> and <cite>trg</cite></p>
 <p>If <cite>src</cite> and <cite>trg</cite> represent data from multiple hemispheres the data are
 concatenated across hemispheres prior to correlation</p>
@@ -200,7 +200,11 @@ concatenated across hemispheres prior to correlation</p>
 <li><p><strong>corrtype</strong> (<em>{'pearsonr'</em><em>, </em><em>'spearmanr'}</em><em>, </em><em>optional</em>) – Type of correlation to perform. Default: ‘pearsonr’</p></li>
 <li><p><strong>ignore_zero</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to perform correlations ignoring all zero values in <cite>src</cite> and
 <cite>trg</cite> data. Default: True</p></li>
-<li><p><strong>nulls</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Null data for <cite>src</cite></p></li>
+<li><p><strong>nulls</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Null data for <cite>src</cite> to use in generating a non-parametric p-value.
+If not specified a parameteric p-value is generated. Default: None</p></li>
+<li><p><strong>nan_policy</strong> (<em>{'propagate'</em><em>, </em><em>'raise'</em><em>, </em><em>'omit'}</em><em>, </em><em>optional</em>) – Defines how to handle when input contains nan. ‘propagate’ returns nan,
+‘raise’ throws an error, ‘omit’ performs the calculations ignoring nan
+values. Default: ‘omit’</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
