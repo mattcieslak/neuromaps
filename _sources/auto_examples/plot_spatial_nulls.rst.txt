@@ -112,7 +112,7 @@ The data returned will always be pre-loaded nibabel image instances:
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684c03a6df1020ed525f6 ...
      ...done. (2 seconds, 0 min)
     Extracting data from /home/runner/neuromaps-data/529deda7a30dc28b5106317477efbaf2/regfusion.tar.gz..... done.
-    (<nibabel.gifti.gifti.GiftiImage object at 0x7f85840c1390>, <nibabel.gifti.gifti.GiftiImage object at 0x7f85877ce190>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f857c6f8890>, <nibabel.gifti.gifti.GiftiImage object at 0x7f858614f250>)
+    (<nibabel.gifti.gifti.GiftiImage object at 0x7f7879363bd0>, <nibabel.gifti.gifti.GiftiImage object at 0x7f786e4b7f50>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f786e4b7e90>, <nibabel.gifti.gifti.GiftiImage object at 0x7f78762ad690>)
 
 
 
@@ -127,8 +127,8 @@ Once the images are resampled we can easily correlate them:
 
 
     from neuromaps import stats
-    corr, pval = stats.correlate_images(nsynth, genepc)
-    print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
+    corr = stats.compare_images(nsynth, genepc)
+    print(f'Correlation: r = {corr:.02f}')
 
 
 
@@ -140,21 +140,21 @@ Once the images are resampled we can easily correlate them:
 
  .. code-block:: none
 
-    Correlation: r = 0.34, p = 0.0000
+    Correlation: r = 0.34
 
 
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 63-74
 
-The returned p-value here is generated from a spatially-naive parameteric
-distribution, which is inappropriate for brain annotations. Instead, we can
-opt to use a null model from the :mod:`neuromaps.nulls` module.
+What if we want to assess the statistical significance of this correlation?
+In this case, we can use a null model from the :mod:`neuromaps.nulls` module.
 
-Here, we'll use the original null model proposed be Alexander-Bloch et al.,
-2018, *NeuroImage*. We provide one of the maps we're comparing, the space +
-density of the map, and the number of permutations we want to generate. The
-return array will be vertices x permutations.
+Here, we'll employ the null model proposed in Alexander-Bloch et al., 2018,
+*NeuroImage*. We provide one of the maps we're comparing, the space + density
+of the map, and the number of permutations we want to generate. The returned
+array will have two dimensions, where each row corresponds to a vertex and
+each column to a unique permutation.
 
 (Note that we need to pass the loaded data from the provided map to the null
 function so we use the :func:`neuromaps.images.load_data` utility.)
@@ -191,20 +191,20 @@ function so we use the :func:`neuromaps.images.load_data` utility.)
 .. GENERATED FROM PYTHON SOURCE LINES 82-90
 
 We can supply the generated null array to the
-:func:`neuromaps.stats.correlate_images` function and it will be used to
+:func:`neuromaps.stats.compare_images` function and it will be used to
 generate a non-parameteric p-value. The function assumes that the array
 provided to the `nulls` parameter corresponds to the *first* dataset passed
 to the function (i.e., `nsynth`).
 
-Note that the correlation remains identical to that above but the p-value has
-now changed, revealing that the correlation is no longer significant:
+Note that the correlation remains identical to that above but the p-value is
+now returned as well:
 
 .. GENERATED FROM PYTHON SOURCE LINES 90-94
 
 .. code-block:: default
 
 
-    corr, pval = stats.correlate_images(nsynth, genepc, nulls=rotated)
+    corr, pval = stats.compare_images(nsynth, genepc, nulls=rotated)
     print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
 
 
@@ -231,7 +231,7 @@ null maps; they have (nearly) identical function signatures, so refer to the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.420 seconds)
+   **Total running time of the script:** ( 0 minutes  6.845 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_spatial_nulls.py:

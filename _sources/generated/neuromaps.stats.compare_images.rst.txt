@@ -1,0 +1,12 @@
+﻿neuromaps.stats.compare_images
+==============================
+
+.. currentmodule:: neuromaps.stats
+
+.. autofunction:: compare_images
+
+.. .. include:: modules/neuromaps.stats.compare_images.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

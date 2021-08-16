@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>neuromaps.stats.correlate_images &mdash; neuromaps 0+untagged.1.g75dddf3 documentation</title>
+  <title>neuromaps.stats.permtest_metric &mdash; neuromaps 0+untagged.1.gef229ef documentation</title>
   
 
   
@@ -46,8 +46,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="neuromaps.stats.efficient_pearsonr" href="neuromaps.stats.efficient_pearsonr.html" />
-    <link rel="prev" title="neuromaps.resampling.resample_images" href="neuromaps.resampling.resample_images.html" /> 
+    <link rel="next" title="neuromaps.transforms.mni152_to_civet" href="neuromaps.transforms.mni152_to_civet.html" />
+    <link rel="prev" title="neuromaps.stats.compare_images" href="neuromaps.stats.compare_images.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.g75dddf3
+                0+untagged.1.gef229ef
               </div>
             
           
@@ -109,9 +109,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-neuromaps.points"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.points</span></code> - Triangle mesh utilites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-neuromaps.resampling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.resampling</span></code> - Resampling workflows</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-neuromaps.stats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.stats</span></code> - Statistical functions</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">neuromaps.stats.correlate_images</a></li>
-<li class="toctree-l3"><a class="reference internal" href="neuromaps.stats.efficient_pearsonr.html">neuromaps.stats.efficient_pearsonr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="neuromaps.stats.permtest_pearsonr.html">neuromaps.stats.permtest_pearsonr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neuromaps.stats.compare_images.html">neuromaps.stats.compare_images</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">neuromaps.stats.permtest_metric</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-neuromaps.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.transforms</span></code> - Transformations between spaces</a></li>
@@ -167,7 +166,7 @@
         
           <li><a href="../api.html">Reference API</a> &raquo;</li>
         
-      <li>neuromaps.stats.correlate_images</li>
+      <li>neuromaps.stats.permtest_metric</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,36 +183,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="neuromaps-stats-correlate-images">
-<h1>neuromaps.stats.correlate_images<a class="headerlink" href="#neuromaps-stats-correlate-images" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="neuromaps-stats-permtest-metric">
+<h1>neuromaps.stats.permtest_metric<a class="headerlink" href="#neuromaps-stats-permtest-metric" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="neuromaps.stats.correlate_images">
-<span class="sig-prename descclassname"><span class="pre">neuromaps.stats.</span></span><span class="sig-name descname"><span class="pre">correlate_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corrtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pearsonr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nulls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'omit'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neuromaps/stats.html#correlate_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neuromaps.stats.correlate_images" title="Permalink to this definition">¶</a></dt>
-<dd><p>Correlates images <cite>src</cite> and <cite>trg</cite></p>
-<p>If <cite>src</cite> and <cite>trg</cite> represent data from multiple hemispheres the data are
-concatenated across hemispheres prior to correlation</p>
+<dt class="sig sig-object py" id="neuromaps.stats.permtest_metric">
+<span class="sig-prename descclassname"><span class="pre">neuromaps.stats.</span></span><span class="sig-name descname"><span class="pre">permtest_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pearsonr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_perm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nulls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_policy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'propagate'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neuromaps/stats.html#permtest_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neuromaps.stats.permtest_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates non-parameteric p-value of <cite>a</cite> and <cite>b</cite> for <cite>metric</cite></p>
+<p>Calculates two-tailed p-value for hypothesis of whether samples <cite>a</cite> and <cite>b</cite>
+are related using permutation tests</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>src</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>nib.GiftiImage</em><em> or </em><em>niimg_like</em><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a>) – Images to be correlated</p></li>
-<li><p><strong>trg</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>nib.GiftiImage</em><em> or </em><em>niimg_like</em><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a>) – Images to be correlated</p></li>
-<li><p><strong>corrtype</strong> (<em>{'pearsonr'</em><em>, </em><em>'spearmanr'}</em><em>, </em><em>optional</em>) – Type of correlation to perform. Default: ‘pearsonr’</p></li>
-<li><p><strong>ignore_zero</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to perform correlations ignoring all zero values in <cite>src</cite> and
-<cite>trg</cite> data. Default: True</p></li>
-<li><p><strong>nulls</strong> (<em>array_like</em><em>, </em><em>optional</em>) – Null data for <cite>src</cite> to use in generating a non-parametric p-value.
-If not specified a parameteric p-value is generated. Default: None</p></li>
-<li><p><strong>nan_policy</strong> (<em>{'propagate'</em><em>, </em><em>'raise'</em><em>, </em><em>'omit'}</em><em>, </em><em>optional</em>) – Defines how to handle when input contains nan. ‘propagate’ returns nan,
+<li><p><strong>a</strong> (<em>(</em><em>N</em><em>,</em><em>) </em><em>array_like</em>) – Sample observations. These arrays must have the same length</p></li>
+<li><p><strong>b</strong> (<em>(</em><em>N</em><em>,</em><em>) </em><em>array_like</em>) – Sample observations. These arrays must have the same length</p></li>
+<li><p><strong>metric</strong> (<em>{'pearsonr'</em><em>, </em><em>'spearmanr'</em><em>, </em><em>callable}</em><em>, </em><em>optional</em>) – Type of similarity metric to use to compare <cite>a</cite> and <cite>b</cite>. If a callable
+function is provided it must accept two inputs and return a single
+value (the similarity metric). Default: ‘pearsonr’</p></li>
+<li><p><strong>n_perm</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – Number of permutations to assess. Unless <cite>a</cite> and <cite>b</cite> are very small
+this will approximate a randomization test via Monte Carlo simulations.
+Default: 1000</p></li>
+<li><p><strong>seed</strong> (<em>{int</em><em>, </em><em>np.random.RandomState instance</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – Seed for random number generation. Set to None for pseudo-randomness.
+Default: 0</p></li>
+<li><p><strong>nulls</strong> (<em>(</em><em>N</em><em>, </em><em>P</em><em>) </em><em>array_like</em><em>, </em><em>optional</em>) – Null array used in place of shuffled <cite>a</cite> array to compute null
+distribution of correlations. Array must have the same length as <cite>a</cite>
+and <cite>b</cite>. Providing this will override the value supplied to <cite>n_perm</cite>.
+When not specified a standard permutation is used to shuffle <cite>a</cite>.
+Default: None</p></li>
+<li><p><strong>nan_policy</strong> (<em>{'propagate'</em><em>, </em><em>'raise'</em><em>, </em><em>'omit'}</em><em>, </em><em>optional</em>) – Defines how to handle when inputs contain nan. ‘propagate’ returns nan,
 ‘raise’ throws an error, ‘omit’ performs the calculations ignoring nan
-values. Default: ‘omit’</p></li>
+values. Default: ‘propagate’</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>correlation</strong> – Correlation between <cite>src</cite> and <cite>trg</cite></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)">float</a></p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>similarity</strong> (<em>float</em>) – Similarity metric</p></li>
+<li><p><strong>pvalue</strong> (<em>float</em>) – Non-parametric p-value</p></li>
+</ul>
+</p>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<p>The lowest p-value that can be returned by this function is equal to 1 /
+(<cite>n_perm</cite> + 1).</p>
 </dd></dl>
 
 <div style='clear:both'></div></div>
@@ -224,8 +235,8 @@ values. Default: ‘omit’</p></li>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="neuromaps.stats.efficient_pearsonr.html" class="btn btn-neutral float-right" title="neuromaps.stats.efficient_pearsonr" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="neuromaps.resampling.resample_images.html" class="btn btn-neutral float-left" title="neuromaps.resampling.resample_images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="neuromaps.transforms.mni152_to_civet.html" class="btn btn-neutral float-right" title="neuromaps.transforms.mni152_to_civet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="neuromaps.stats.compare_images.html" class="btn btn-neutral float-left" title="neuromaps.stats.compare_images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
