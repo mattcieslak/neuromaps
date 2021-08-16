@@ -1,0 +1,12 @@
+﻿neuromaps.nulls.burt2018
+========================
+
+.. currentmodule:: neuromaps.nulls
+
+.. autofunction:: burt2018
+
+.. .. include:: modules/neuromaps.nulls.burt2018.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

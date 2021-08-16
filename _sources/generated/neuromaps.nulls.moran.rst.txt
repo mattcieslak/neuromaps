@@ -1,0 +1,12 @@
+﻿neuromaps.nulls.moran
+=====================
+
+.. currentmodule:: neuromaps.nulls
+
+.. autofunction:: moran
+
+.. .. include:: modules/neuromaps.nulls.moran.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

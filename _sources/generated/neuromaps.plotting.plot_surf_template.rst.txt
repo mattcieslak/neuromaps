@@ -1,0 +1,12 @@
+﻿neuromaps.plotting.plot_surf_template
+=====================================
+
+.. currentmodule:: neuromaps.plotting
+
+.. autofunction:: plot_surf_template
+
+.. .. include:: modules/neuromaps.plotting.plot_surf_template.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

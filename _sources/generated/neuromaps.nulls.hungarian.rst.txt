@@ -1,0 +1,12 @@
+﻿neuromaps.nulls.hungarian
+=========================
+
+.. currentmodule:: neuromaps.nulls
+
+.. autofunction:: hungarian
+
+.. .. include:: modules/neuromaps.nulls.hungarian.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

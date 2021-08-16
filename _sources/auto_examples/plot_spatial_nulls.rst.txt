@@ -22,7 +22,7 @@ Using spatial null models
 =========================
 
 This example demonstrates how to use spatial null models in
-:mod:`brainnotation.nulls` to test the correlation between two brain
+:mod:`neuromaps.nulls` to test the correlation between two brain
 annotations.
 
 .. GENERATED FROM PYTHON SOURCE LINES 12-30
@@ -34,14 +34,14 @@ for this spatial autocorrelation.
 Enter: spatial null models.
 
 Spatial null models need to be used whenever you're comparing brain maps. In
-order to demonstrate how use them in ``brainnotation`` we need two
+order to demonstrate how use them in ``neuromaps`` we need two
 annotations to compare. We'll use the first principal component of cognitive
 terms from NeuroSynth (Yarkoni et al., 2011, Nat Methods) and the first
 principal component of gene expression across the brain (from the Allen Human
 Brain Atlas).
 
 Note that we pass `return_single=True` to
-:func:`brainnotation.datasets.fetch_annotation` so that the returned data are
+:func:`neuromaps.datasets.fetch_annotation` so that the returned data are
 a list of filepaths rather than the default dictionary format. (This only
 works since we know that there is only one annotation matching our query; a
 dictionary will always be returned if multiple annotations match our query.)
@@ -51,7 +51,7 @@ dictionary will always be returned if multiple annotations match our query.)
 .. code-block:: default
 
 
-    from brainnotation import datasets
+    from neuromaps import datasets
     nsynth = datasets.fetch_annotation(source='neurosynth', return_single=True)
     genepc = datasets.fetch_annotation(desc='genepc1', return_single=True)
     print('Neurosynth: ', nsynth)
@@ -68,9 +68,9 @@ dictionary will always be returned if multiple annotations match our query.)
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c22953f3ce9401fa24e651 ...
-     ...done. (3 seconds, 0 min)
-    Neurosynth:  /home/runner/brainnotation-data/annotations/neurosynth/cogpc1/MNI152/source-neurosynth_desc-cogpc1_space-MNI152_res-2mm_feature.nii.gz
-    Gene PC1:  ['/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
+     ...done. (1 seconds, 0 min)
+    Neurosynth:  /home/runner/neuromaps-data/annotations/neurosynth/cogpc1/MNI152/source-neurosynth_desc-cogpc1_space-MNI152_res-2mm_feature.nii.gz
+    Gene PC1:  ['/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
 
 
 
@@ -91,7 +91,7 @@ The data returned will always be pre-loaded nibabel image instances:
 .. code-block:: default
 
 
-    from brainnotation import resampling
+    from neuromaps import resampling
     nsynth, genepc = resampling.resample_images(src=nsynth, trg=genepc,
                                                 src_space='MNI152',
                                                 trg_space='fsaverage',
@@ -111,8 +111,8 @@ The data returned will always be pre-loaded nibabel image instances:
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684c03a6df1020ed525f6 ...
      ...done. (2 seconds, 0 min)
-    Extracting data from /home/runner/brainnotation-data/529deda7a30dc28b5106317477efbaf2/regfusion.tar.gz..... done.
-    (<nibabel.gifti.gifti.GiftiImage object at 0x7f4f72fb4e50>, <nibabel.gifti.gifti.GiftiImage object at 0x7f4f72ee5a50>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f4f79626f90>, <nibabel.gifti.gifti.GiftiImage object at 0x7f4f79811ed0>)
+    Extracting data from /home/runner/neuromaps-data/529deda7a30dc28b5106317477efbaf2/regfusion.tar.gz..... done.
+    (<nibabel.gifti.gifti.GiftiImage object at 0x7f85840c1390>, <nibabel.gifti.gifti.GiftiImage object at 0x7f85877ce190>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f857c6f8890>, <nibabel.gifti.gifti.GiftiImage object at 0x7f858614f250>)
 
 
 
@@ -126,7 +126,7 @@ Once the images are resampled we can easily correlate them:
 .. code-block:: default
 
 
-    from brainnotation import stats
+    from neuromaps import stats
     corr, pval = stats.correlate_images(nsynth, genepc)
     print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
 
@@ -149,7 +149,7 @@ Once the images are resampled we can easily correlate them:
 
 The returned p-value here is generated from a spatially-naive parameteric
 distribution, which is inappropriate for brain annotations. Instead, we can
-opt to use a null model from the :mod:`brainnotation.nulls` module.
+opt to use a null model from the :mod:`neuromaps.nulls` module.
 
 Here, we'll use the original null model proposed be Alexander-Bloch et al.,
 2018, *NeuroImage*. We provide one of the maps we're comparing, the space +
@@ -157,14 +157,14 @@ density of the map, and the number of permutations we want to generate. The
 return array will be vertices x permutations.
 
 (Note that we need to pass the loaded data from the provided map to the null
-function so we use the :func:`brainnotation.images.load_data` utility.)
+function so we use the :func:`neuromaps.images.load_data` utility.)
 
 .. GENERATED FROM PYTHON SOURCE LINES 74-81
 
 .. code-block:: default
 
 
-    from brainnotation import images, nulls
+    from neuromaps import images, nulls
     nsynth_data = images.load_data(nsynth)
     rotated = nulls.alexander_bloch(nsynth_data, atlas='fsaverage', density='10k',
                                     n_perm=100, seed=1234)
@@ -182,7 +182,7 @@ function so we use the :func:`brainnotation.images.load_data` utility.)
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684ab9096b7021b63cf6b ...
      ...done. (1 seconds, 0 min)
-    Extracting data from /home/runner/brainnotation-data/6e43ea0419f74680d0863fb09ee53700/fsaverage10k.tar.gz..... done.
+    Extracting data from /home/runner/neuromaps-data/6e43ea0419f74680d0863fb09ee53700/fsaverage10k.tar.gz..... done.
     (20484, 100)
 
 
@@ -191,7 +191,7 @@ function so we use the :func:`brainnotation.images.load_data` utility.)
 .. GENERATED FROM PYTHON SOURCE LINES 82-90
 
 We can supply the generated null array to the
-:func:`brainnotation.stats.correlate_images` function and it will be used to
+:func:`neuromaps.stats.correlate_images` function and it will be used to
 generate a non-parameteric p-value. The function assumes that the array
 provided to the `nulls` parameter corresponds to the *first* dataset passed
 to the function (i.e., `nsynth`).
@@ -231,7 +231,7 @@ null maps; they have (nearly) identical function signatures, so refer to the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.531 seconds)
+   **Total running time of the script:** ( 0 minutes  7.420 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_spatial_nulls.py:

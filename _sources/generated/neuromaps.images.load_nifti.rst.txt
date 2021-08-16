@@ -1,0 +1,12 @@
+﻿neuromaps.images.load_nifti
+===========================
+
+.. currentmodule:: neuromaps.images
+
+.. autofunction:: load_nifti
+
+.. .. include:: modules/neuromaps.images.load_nifti.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

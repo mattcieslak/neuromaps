@@ -21,25 +21,25 @@
 Fetching atlases and annotations
 ================================
 
-This example demonstrates how to use :mod:`brainnotation.datasets` to fetch
+This example demonstrates how to use :mod:`neuromaps.datasets` to fetch
 atlases and annotations.
 
 .. GENERATED FROM PYTHON SOURCE LINES 11-18
 
-Much of the functionality of the ``brainnotation`` toolbox relies on the
+Much of the functionality of the ``neuromaps`` toolbox relies on the
 atlases and atlas files provided with it. In many cases these atlases are
 fetched "behind-the-scenes" when you call functions that depend on them, but
 they can be accessed directly.
 
-There is a general purpose :func:`brainnotation.datasets.fetch_atlas`
-function that can fetch any of the atlases provided with ``brainnotation``:
+There is a general purpose :func:`neuromaps.datasets.fetch_atlas`
+function that can fetch any of the atlases provided with ``neuromaps``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 18-24
 
 .. code-block:: default
 
 
-    from brainnotation import datasets
+    from neuromaps import datasets
 
     fslr = datasets.fetch_atlas(atlas='fslr', density='32k')
     print(fslr.keys())
@@ -55,8 +55,8 @@ function that can fetch any of the atlases provided with ``brainnotation``:
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684b53a6df1021bd4df2d ...
-     ...done. (1 seconds, 0 min)
-    Extracting data from /home/runner/brainnotation-data/ac53e497d7d6c6379ee7bd7bda6e0267/fsLR32k.tar.gz..... done.
+     ...done. (2 seconds, 0 min)
+    Extracting data from /home/runner/neuromaps-data/ac53e497d7d6c6379ee7bd7bda6e0267/fsLR32k.tar.gz..... done.
     dict_keys(['midthickness', 'inflated', 'veryinflated', 'sphere', 'medial', 'sulc', 'vaavg'])
 
 
@@ -97,7 +97,7 @@ You can load them directly with ``nibabel`` to confirm their validity:
 
 .. GENERATED FROM PYTHON SOURCE LINES 37-41
 
-The other datasets that are provided with ``brainnotation`` are annotations
+The other datasets that are provided with ``neuromaps`` are annotations
 (i.e., brain maps!). While we are slowly making more and more of these openly
 available, for now only a subset are accessible to the general public; these
 are returned by default via :func:`datasets.available_annotations`.
@@ -120,7 +120,7 @@ are returned by default via :func:`datasets.available_annotations`.
 
  .. code-block:: none
 
-    Available annotations: 14
+    Available annotations: 12
 
 
 
@@ -249,7 +249,7 @@ list will only return those annotations that match ALL supplied tags:
 .. GENERATED FROM PYTHON SOURCE LINES 83-91
 
 Once we have an annotation that we want we can use the
-:func:`brainnotation.datasets.fetch_annotation` to actually download the
+:func:`neuromaps.datasets.fetch_annotation` to actually download the
 files. This has a very similar signature to the
 :func:`~.available_annotations` function, accepting almost all the same
 keyword arguments to specify which annotations are desired.
@@ -279,7 +279,7 @@ brain (from the Allen Human Brain Atlas):
      ...done. (1 seconds, 0 min)
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521 ...
      ...done. (1 seconds, 0 min)
-    {('abagen', 'genepc1', 'fsaverage', '10k'): ['/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']}
+    {('abagen', 'genepc1', 'fsaverage', '10k'): ['/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']}
 
 
 
@@ -310,7 +310,7 @@ argument to the fetch call:
 
  .. code-block:: none
 
-    ['/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
+    ['/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
 
 
 
@@ -318,13 +318,13 @@ argument to the fetch call:
 .. GENERATED FROM PYTHON SOURCE LINES 106-109
 
 And that's it! This example provided a quick overview on how to fetch the
-various atlases and datasets provided with ``brainnotation``. For more
+various atlases and datasets provided with ``neuromaps``. For more
 information please refer to the :ref:`API reference <ref_datasets>`.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.261 seconds)
+   **Total running time of the script:** ( 0 minutes  4.274 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_fetch_datasets.py:

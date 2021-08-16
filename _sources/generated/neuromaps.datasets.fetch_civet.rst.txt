@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.fetch_civet
+==============================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: fetch_civet
+
+.. .. include:: modules/neuromaps.datasets.fetch_civet.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

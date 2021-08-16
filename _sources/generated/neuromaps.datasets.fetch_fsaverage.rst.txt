@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.fetch_fsaverage
+==================================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: fetch_fsaverage
+
+.. .. include:: modules/neuromaps.datasets.fetch_fsaverage.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

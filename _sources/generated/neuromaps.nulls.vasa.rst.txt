@@ -1,0 +1,12 @@
+﻿neuromaps.nulls.vasa
+====================
+
+.. currentmodule:: neuromaps.nulls
+
+.. autofunction:: vasa
+
+.. .. include:: modules/neuromaps.nulls.vasa.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

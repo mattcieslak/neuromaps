@@ -1,0 +1,12 @@
+﻿neuromaps.stats.efficient_pearsonr
+==================================
+
+.. currentmodule:: neuromaps.stats
+
+.. autofunction:: efficient_pearsonr
+
+.. .. include:: modules/neuromaps.stats.efficient_pearsonr.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

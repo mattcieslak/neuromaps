@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Fetching atlases and annotations &mdash; brainnotation 0+untagged.1.g09ef3c8 documentation</title>
+  <title>Fetching atlases and annotations &mdash; neuromaps 0+untagged.1.g75dddf3 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> brainnotation
+            <a href="../index.html" class="icon icon-home"> neuromaps
           
 
           
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.g09ef3c8
+                0+untagged.1.g75dddf3
               </div>
             
           
@@ -120,7 +120,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">brainnotation</a>
+          <a href="../index.html">neuromaps</a>
         
       </nav>
 
@@ -179,24 +179,24 @@ to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="fetching-atlases-and-annotations">
 <span id="sphx-glr-auto-examples-plot-fetch-datasets-py"></span><h1>Fetching atlases and annotations<a class="headerlink" href="#fetching-atlases-and-annotations" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstrates how to use <a class="reference internal" href="../api.html#module-brainnotation.datasets" title="brainnotation.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">brainnotation.datasets</span></code></a> to fetch
+<p>This example demonstrates how to use <a class="reference internal" href="../api.html#module-neuromaps.datasets" title="neuromaps.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.datasets</span></code></a> to fetch
 atlases and annotations.</p>
-<p>Much of the functionality of the <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code> toolbox relies on the
+<p>Much of the functionality of the <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> toolbox relies on the
 atlases and atlas files provided with it. In many cases these atlases are
 fetched “behind-the-scenes” when you call functions that depend on them, but
 they can be accessed directly.</p>
-<p>There is a general purpose <a class="reference internal" href="../generated/brainnotation.datasets.fetch_atlas.html#brainnotation.datasets.fetch_atlas" title="brainnotation.datasets.fetch_atlas"><code class="xref py py-func docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_atlas()</span></code></a>
-function that can fetch any of the atlases provided with <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">brainnotation</span> <span class="kn">import</span> <span class="n">datasets</span>
+<p>There is a general purpose <a class="reference internal" href="../generated/neuromaps.datasets.fetch_atlas.html#neuromaps.datasets.fetch_atlas" title="neuromaps.datasets.fetch_atlas"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.datasets.fetch_atlas()</span></code></a>
+function that can fetch any of the atlases provided with <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">neuromaps</span> <span class="kn">import</span> <span class="n">datasets</span>
 
-<span class="n">fslr</span> <span class="o">=</span> <a href="../generated/brainnotation.datasets.fetch_atlas.html#brainnotation.datasets.fetch_atlas" title="brainnotation.datasets.fetch_atlas" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_atlas</span></a><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="s1">&#39;fslr&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">)</span>
+<span class="n">fslr</span> <span class="o">=</span> <a href="../generated/neuromaps.datasets.fetch_atlas.html#neuromaps.datasets.fetch_atlas" title="neuromaps.datasets.fetch_atlas" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_atlas</span></a><span class="p">(</span><span class="n">atlas</span><span class="o">=</span><span class="s1">&#39;fslr&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">fslr</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684b53a6df1021bd4df2d ...
- ...done. (1 seconds, 0 min)
-Extracting data from /home/runner/brainnotation-data/ac53e497d7d6c6379ee7bd7bda6e0267/fsLR32k.tar.gz..... done.
+ ...done. (2 seconds, 0 min)
+Extracting data from /home/runner/neuromaps-data/ac53e497d7d6c6379ee7bd7bda6e0267/fsLR32k.tar.gz..... done.
 dict_keys([&#39;midthickness&#39;, &#39;inflated&#39;, &#39;veryinflated&#39;, &#39;sphere&#39;, &#39;medial&#39;, &#39;sulc&#39;, &#39;vaavg&#39;])
 </pre></div>
 </div>
@@ -214,23 +214,23 @@ are provide in gifti format (whereas MNI files are in gzipped nifti format).</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(32492, 3) (64980, 3)
 </pre></div>
 </div>
-<p>The other datasets that are provided with <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code> are annotations
+<p>The other datasets that are provided with <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> are annotations
 (i.e., brain maps!). While we are slowly making more and more of these openly
 available, for now only a subset are accessible to the general public; these
 are returned by default via <code class="xref py py-func docutils literal notranslate"><span class="pre">datasets.available_annotations()</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">annotations</span></a> <span class="o">=</span> <a href="../generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">annotations</span></a> <span class="o">=</span> <a href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Available annotations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">annotations</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Available annotations: 14
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Available annotations: 12
 </pre></div>
 </div>
-<p>The <a class="reference internal" href="../generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a> function accepts a number of keyword
+<p>The <a class="reference internal" href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a> function accepts a number of keyword
 arguments that you can use to query specific datasets. For example, providing
 the <cite>format=’volume</cite>’ argument will return only those annotations that
 are, by default, a volumetric image:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">volume_annotations</span></a> <span class="o">=</span> <a href="../generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">volume_annotations</span></a> <span class="o">=</span> <a href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;volume&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Available volumetric annotations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">volume_annotations</span></a><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -244,7 +244,7 @@ from (i.e., a dataset from a manuscript or a data repository or toolbox),
 <cite>desc</cite> refers to a brief description of the annotation, <cite>space</cite> clarifies
 which space the annotation is in, and <cite>den</cite> (specific to surface annotations)
 clarifies the density of the surface on which the annotation is defined:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">annot</span></a> <span class="o">=</span> <a href="../generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;genepc1&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">annot</span></a> <span class="o">=</span> <a href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;genepc1&#39;</span><span class="p">,</span>
                                        <span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="s1">&#39;10k&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">annot</span></a><span class="p">)</span>
 </pre></div>
@@ -254,9 +254,9 @@ clarifies the density of the surface on which the annotation is defined:</p>
 </pre></div>
 </div>
 <p>Annotations also have tags to help sort them into categories. You can see
-what tags can be used to query annotations with the <a class="reference internal" href="../generated/brainnotation.datasets.available_tags.html#brainnotation.datasets.available_tags" title="brainnotation.datasets.available_tags"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_tags()</span></code></a>
+what tags can be used to query annotations with the <a class="reference internal" href="../generated/neuromaps.datasets.available_tags.html#neuromaps.datasets.available_tags" title="neuromaps.datasets.available_tags"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_tags()</span></code></a>
 functions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tags</span></a> <span class="o">=</span> <a href="../generated/brainnotation.datasets.available_tags.html#brainnotation.datasets.available_tags" title="brainnotation.datasets.available_tags" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_tags</span></a><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tags</span></a> <span class="o">=</span> <a href="../generated/neuromaps.datasets.available_tags.html#neuromaps.datasets.available_tags" title="neuromaps.datasets.available_tags" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_tags</span></a><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tags</span></a><span class="p">)</span>
 </pre></div>
 </div>
@@ -264,10 +264,10 @@ functions:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;MRI&#39;, &#39;fMRI&#39;, &#39;functional&#39;, &#39;genetics&#39;, &#39;meta-analysis&#39;, &#39;structural&#39;]
 </pre></div>
 </div>
-<p>Tags can be used as a keyword argumnet with <a class="reference internal" href="../generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a>.
+<p>Tags can be used as a keyword argumnet with <a class="reference internal" href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a>.
 You can supply either a single tag or a list of tags. Note that supplying a
 list will only return those annotations that match ALL supplied tags:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmri_annotations</span></a> <span class="o">=</span> <a href="../generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tags</span></a><span class="o">=</span><span class="s1">&#39;fMRI&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmri_annotations</span></a> <span class="o">=</span> <a href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">available_annotations</span></a><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tags</span></a><span class="o">=</span><span class="s1">&#39;fMRI&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmri_annotations</span></a><span class="p">)</span>
 </pre></div>
 </div>
@@ -276,13 +276,13 @@ list will only return those annotations that match ALL supplied tags:</p>
 </pre></div>
 </div>
 <p>Once we have an annotation that we want we can use the
-<a class="reference internal" href="../generated/brainnotation.datasets.fetch_annotation.html#brainnotation.datasets.fetch_annotation" title="brainnotation.datasets.fetch_annotation"><code class="xref py py-func docutils literal notranslate"><span class="pre">brainnotation.datasets.fetch_annotation()</span></code></a> to actually download the
+<a class="reference internal" href="../generated/neuromaps.datasets.fetch_annotation.html#neuromaps.datasets.fetch_annotation" title="neuromaps.datasets.fetch_annotation"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.datasets.fetch_annotation()</span></code></a> to actually download the
 files. This has a very similar signature to the
-<a class="reference internal" href="../generated/brainnotation.datasets.available_annotations.html#brainnotation.datasets.available_annotations" title="brainnotation.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a> function, accepting almost all the same
+<a class="reference internal" href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a> function, accepting almost all the same
 keyword arguments to specify which annotations are desired.</p>
 <p>Here, we’ll grab the first principal component of gene expression across the
 brain (from the Allen Human Brain Atlas):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">abagen</span></a> <span class="o">=</span> <a href="../generated/brainnotation.datasets.fetch_annotation.html#brainnotation.datasets.fetch_annotation" title="brainnotation.datasets.fetch_annotation" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_annotation</span></a><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;genepc1&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">abagen</span></a> <span class="o">=</span> <a href="../generated/neuromaps.datasets.fetch_annotation.html#neuromaps.datasets.fetch_annotation" title="neuromaps.datasets.fetch_annotation" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_annotation</span></a><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;genepc1&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">abagen</span></a><span class="p">)</span>
 </pre></div>
 </div>
@@ -291,26 +291,26 @@ brain (from the Allen Human Brain Atlas):</p>
  ...done. (1 seconds, 0 min)
 Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521 ...
  ...done. (1 seconds, 0 min)
-{(&#39;abagen&#39;, &#39;genepc1&#39;, &#39;fsaverage&#39;, &#39;10k&#39;): [&#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]}
+{(&#39;abagen&#39;, &#39;genepc1&#39;, &#39;fsaverage&#39;, &#39;10k&#39;): [&#39;/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]}
 </pre></div>
 </div>
 <p>Notice that the returned annotation <code class="docutils literal notranslate"><span class="pre">abagen</span></code> is a dictionary. We can subset
 the dictionary with the appropriate key or, if we know that our query is
 going to return only one annotation, also provide the <cite>return_single=True</cite>
 argument to the fetch call:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">abagen</span></a> <span class="o">=</span> <a href="../generated/brainnotation.datasets.fetch_annotation.html#brainnotation.datasets.fetch_annotation" title="brainnotation.datasets.fetch_annotation" class="sphx-glr-backref-module-brainnotation-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_annotation</span></a><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;genepc1&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">abagen</span></a> <span class="o">=</span> <a href="../generated/neuromaps.datasets.fetch_annotation.html#neuromaps.datasets.fetch_annotation" title="neuromaps.datasets.fetch_annotation" class="sphx-glr-backref-module-neuromaps-datasets sphx-glr-backref-type-py-function"><span class="n">datasets</span><span class="o">.</span><span class="n">fetch_annotation</span></a><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;genepc1&#39;</span><span class="p">,</span>
                                    <span class="n">return_single</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3.6/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">abagen</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/brainnotation-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]
 </pre></div>
 </div>
 <p>And that’s it! This example provided a quick overview on how to fetch the
-various atlases and datasets provided with <code class="docutils literal notranslate"><span class="pre">brainnotation</span></code>. For more
+various atlases and datasets provided with <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code>. For more
 information please refer to the <a class="reference internal" href="../api.html#ref-datasets"><span class="std std-ref">API reference</span></a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.261 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.274 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-fetch-datasets-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/a04ac8d81d8fed9e456dd9e2eb4c4519/plot_fetch_datasets.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fetch_datasets.py</span></code></a></p>
@@ -336,7 +336,7 @@ information please refer to the <a class="reference internal" href="../api.html#
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, brainnotation developers.
+        &#169; Copyright 2021, neuromaps developers.
 
     </p>
   </div>

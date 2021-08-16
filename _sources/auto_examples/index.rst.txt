@@ -17,7 +17,7 @@ Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to use brainnotation.datasets to fetch atlases and annotations.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to use neuromaps.datasets to fetch atlases and annotations.">
 
 .. only:: html
 
@@ -38,7 +38,7 @@ Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to use spatial null models in brainnotation.nulls to test the cor...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to use spatial null models in neuromaps.nulls to test the correla...">
 
 .. only:: html
 

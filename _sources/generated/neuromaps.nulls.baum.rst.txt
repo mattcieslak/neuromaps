@@ -1,0 +1,12 @@
+﻿neuromaps.nulls.baum
+====================
+
+.. currentmodule:: neuromaps.nulls
+
+.. autofunction:: baum
+
+.. .. include:: modules/neuromaps.nulls.baum.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

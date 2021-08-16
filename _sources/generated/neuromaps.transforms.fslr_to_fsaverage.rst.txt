@@ -1,0 +1,12 @@
+﻿neuromaps.transforms.fslr_to_fsaverage
+======================================
+
+.. currentmodule:: neuromaps.transforms
+
+.. autofunction:: fslr_to_fsaverage
+
+.. .. include:: modules/neuromaps.transforms.fslr_to_fsaverage.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

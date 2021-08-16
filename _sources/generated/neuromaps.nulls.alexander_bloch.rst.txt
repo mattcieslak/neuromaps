@@ -1,0 +1,12 @@
+﻿neuromaps.nulls.alexander_bloch
+===============================
+
+.. currentmodule:: neuromaps.nulls
+
+.. autofunction:: alexander_bloch
+
+.. .. include:: modules/neuromaps.nulls.alexander_bloch.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

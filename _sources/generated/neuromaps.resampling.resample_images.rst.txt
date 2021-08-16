@@ -1,0 +1,12 @@
+﻿neuromaps.resampling.resample_images
+====================================
+
+.. currentmodule:: neuromaps.resampling
+
+.. autofunction:: resample_images
+
+.. .. include:: modules/neuromaps.resampling.resample_images.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

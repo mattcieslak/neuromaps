@@ -1,0 +1,813 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>neuromaps.images &mdash; neuromaps 0+untagged.1.g75dddf3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> neuromaps
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.1.g75dddf3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation and setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Reference API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">neuromaps</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>neuromaps.images</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for neuromaps.images</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions for operating on images + surfaces</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
+
+<span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
+<span class="kn">from</span> <span class="nn">nibabel.filebasedimages</span> <span class="kn">import</span> <span class="n">ImageFileError</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">griddata</span>
+
+<span class="n">PARCIGNORE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;corpuscallosum&#39;</span><span class="p">,</span> <span class="s1">&#39;Background+FreeSurfer_Defined_Medial_Wall&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;???&#39;</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">construct_surf_gii</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="n">tri</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs surface gifti image from `vert` and `tri`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vert : (N, 3)</span>
+<span class="sd">        Vertices of surface mesh</span>
+<span class="sd">    tri : (T, 3)</span>
+<span class="sd">        Triangles comprising surface mesh</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    img : nib.gifti.GiftiImage</span>
+<span class="sd">        Surface image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">vert</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiDataArray</span><span class="p">(</span><span class="n">vert</span><span class="p">,</span> <span class="s1">&#39;NIFTI_INTENT_POINTSET&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;NIFTI_TYPE_FLOAT32&#39;</span><span class="p">,</span>
+                                    <span class="n">coordsys</span><span class="o">=</span><span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiCoordSystem</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">tri</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiDataArray</span><span class="p">(</span><span class="n">tri</span><span class="p">,</span> <span class="s1">&#39;NIFTI_INTENT_TRIANGLE&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;NIFTI_TYPE_INT32&#39;</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">GiftiImage</span><span class="p">(</span><span class="n">darrays</span><span class="o">=</span><span class="p">[</span><span class="n">vert</span><span class="p">,</span> <span class="n">tri</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">img</span>
+
+
+<span class="k">def</span> <span class="nf">construct_shape_gii</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">intent</span><span class="o">=</span><span class="s1">&#39;NIFTI_INTENT_SHAPE&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs shape gifti image from `data`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : (N[, F]) array_like</span>
+<span class="sd">        Input data (where `F` corresponds to different features, if applicable)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    img : nib.gifti.GiftiImage</span>
+<span class="sd">        Shape image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">intent_dtypes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;NIFTI_INTENT_SHAPE&#39;</span><span class="p">:</span> <span class="s1">&#39;float32&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NIFTI_INTENT_LABEL&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span>
+    <span class="p">}</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">intent_dtypes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">intent</span><span class="p">,</span> <span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Length of provided `names` does not match &#39;</span>
+                             <span class="s1">&#39;number of features in `data`&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[{}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+
+    <span class="k">return</span> <span class="n">nib</span><span class="o">.</span><span class="n">GiftiImage</span><span class="p">(</span><span class="n">darrays</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiDataArray</span><span class="p">(</span><span class="n">darr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">),</span> <span class="n">intent</span><span class="o">=</span><span class="n">intent</span><span class="p">,</span>
+                                 <span class="n">datatype</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;NIFTI_TYPE_</span><span class="si">{</span><span class="n">dtype</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                 <span class="n">meta</span><span class="o">=</span><span class="n">meta</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">darr</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">names</span><span class="p">)</span>
+    <span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">fix_coordsys</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sets {xform,data}space of coordsys for GIFTI image `fn` to `val`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fn : str or os.PathLike</span>
+<span class="sd">        Path to GIFTI image</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fn : os.PathLike</span>
+<span class="sd">        Path to GIFTI image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;dataspace&#39;</span><span class="p">,</span> <span class="s1">&#39;xformspace&#39;</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">coordsys</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="n">nib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fn</span>
+
+
+<div class="viewcode-block" id="load_nifti"><a class="viewcode-back" href="../../generated/neuromaps.images.load_nifti.html#neuromaps.images.load_nifti">[docs]</a><span class="k">def</span> <span class="nf">load_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads nifti file `img`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img : os.PathLike or nib.Nifti1Image object</span>
+<span class="sd">        Image to be loaded</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    img : nib.Nifti1Image</span>
+<span class="sd">        Loaded NIFTI image</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;stat: path should be string, bytes, os.PathLike or integer, &#39;</span>
+               <span class="s1">&#39;not Nifti1Image&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="o">==</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">err</span>
+    <span class="k">return</span> <span class="n">img</span></div>
+
+
+<div class="viewcode-block" id="load_gifti"><a class="viewcode-back" href="../../generated/neuromaps.images.load_gifti.html#neuromaps.images.load_gifti">[docs]</a><span class="k">def</span> <span class="nf">load_gifti</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads gifti file `img`</span>
+
+<span class="sd">    Will try to gunzip `img` if gzip is detected, and will pass pre-loaded</span>
+<span class="sd">    GiftiImage object</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img : os.PathLike or nib.GiftiImage object</span>
+<span class="sd">        Image to be loaded</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    img : nib.GiftiImage</span>
+<span class="sd">        Loaded GIFTI images</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">ImageFileError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="c1"># it&#39;s gzipped, so read the gzip and pipe it in</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">ImageFileError</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gii.gz&quot;&#39;</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="k">as</span> <span class="n">gz</span><span class="p">:</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">GiftiImage</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">gz</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="c1"># it&#39;s not a pre-loaded GiftiImage so error out</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">)</span>
+              <span class="ow">and</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;stat: path should be string, bytes, os.&#39;</span>
+                                  <span class="s1">&#39;PathLike or integer, not GiftiImage&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">err</span>
+
+    <span class="k">return</span> <span class="n">img</span></div>
+
+
+<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Small utility function to load + stack `data` images (gifti / nifti)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : tuple-of-str or os.PathLike or nib.GiftiImage or nib.Nifti1Image</span>
+<span class="sd">        Data to be loaded</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : np.ndarray</span>
+<span class="sd">        Loaded `data`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">))</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="p">(</span><span class="n">load_gifti</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">(),)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="p">(</span><span class="n">load_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(),)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="obj_to_gifti"><a class="viewcode-back" href="../../generated/neuromaps.images.obj_to_gifti.html#neuromaps.images.obj_to_gifti">[docs]</a><span class="k">def</span> <span class="nf">obj_to_gifti</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts CIVET `obj` surface file to GIFTI format</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obj : str or os.PathLike</span>
+<span class="sd">        CIVET file to be converted</span>
+<span class="sd">    fn : str or os.PathLike, None</span>
+<span class="sd">        Output filename. If not supplied uses input `obj` filename (with</span>
+<span class="sd">        appropriate suffix). Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fn : os.PathLike</span>
+<span class="sd">        Path to saved image file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">neuromaps.civet</span> <span class="kn">import</span> <span class="n">read_civet_surf</span>
+
+    <span class="n">img</span> <span class="o">=</span> <span class="n">construct_surf_gii</span><span class="p">(</span><span class="o">*</span><span class="n">read_civet_surf</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">obj</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">obj</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">fn</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.obj&#39;</span><span class="p">):</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">fn</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.obj&#39;</span><span class="p">,</span> <span class="s1">&#39;.surf.gii&#39;</span><span class="p">)</span>
+    <span class="n">nib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fn</span></div>
+
+
+<div class="viewcode-block" id="fssurf_to_gifti"><a class="viewcode-back" href="../../generated/neuromaps.images.fssurf_to_gifti.html#neuromaps.images.fssurf_to_gifti">[docs]</a><span class="k">def</span> <span class="nf">fssurf_to_gifti</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts FreeSurfer `surf` surface file to GIFTI format</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obj : str or os.PathLike</span>
+<span class="sd">        FreeSurfer surface file to be converted</span>
+<span class="sd">    fn : str or os.PathLike, None</span>
+<span class="sd">        Output filename. If not supplied uses input `surf` filename (with</span>
+<span class="sd">        appropriate suffix). Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fn : os.PathLike</span>
+<span class="sd">        Path to saved image file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">img</span> <span class="o">=</span> <span class="n">construct_surf_gii</span><span class="p">(</span><span class="o">*</span><span class="n">nib</span><span class="o">.</span><span class="n">freesurfer</span><span class="o">.</span><span class="n">read_geometry</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">surf</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">surf</span> <span class="o">+</span> <span class="s1">&#39;.surf.gii&#39;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">nib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fn</span></div>
+
+
+<div class="viewcode-block" id="fsmorph_to_gifti"><a class="viewcode-back" href="../../generated/neuromaps.images.fsmorph_to_gifti.html#neuromaps.images.fsmorph_to_gifti">[docs]</a><span class="k">def</span> <span class="nf">fsmorph_to_gifti</span><span class="p">(</span><span class="n">morph</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts FreeSurfer `morph` data file to GIFTI format</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    obj : str or os.PathLike</span>
+<span class="sd">        FreeSurfer morph file to be converted</span>
+<span class="sd">    fn : str or os.PathLike, None</span>
+<span class="sd">        Output filename. If not supplied uses input `morph` filename (with</span>
+<span class="sd">        appropriate suffix). Default: None</span>
+<span class="sd">    modifier : float, optional</span>
+<span class="sd">        Scalar factor to modify (multiply) the morphometric data. Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fn : os.PathLike</span>
+<span class="sd">        Path to saved image file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">freesurfer</span><span class="o">.</span><span class="n">read_morph_data</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">morph</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">modifier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">*=</span> <span class="nb">float</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">construct_shape_gii</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">morph</span> <span class="o">+</span> <span class="s1">&#39;.shape.gii&#39;</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">nib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fn</span></div>
+
+
+<div class="viewcode-block" id="interp_surface"><a class="viewcode-back" href="../../generated/neuromaps.images.interp_surface.html#neuromaps.images.interp_surface">[docs]</a><span class="k">def</span> <span class="nf">interp_surface</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interpolate `data` on `src` surface to `trg` surface</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : str or os.PathLike</span>
+<span class="sd">        Path to (gifti) data file defined on `src` surface</span>
+<span class="sd">    src : str or os.PathLike</span>
+<span class="sd">        Path to (gifti) file defining surface of `data`</span>
+<span class="sd">    trg : str or os.PathLike</span>
+<span class="sd">        Path to (gifti) file defining desired output surface</span>
+<span class="sd">    method : {&#39;nearest&#39;, &#39;linear&#39;}</span>
+<span class="sd">        Method for interpolation. Default {&#39;nearest&#39;}</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    interp : np.ndarray</span>
+<span class="sd">        Input `data` interpolated to `trg` surface</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Provided method </span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s1"> invalid&#39;</span><span class="p">)</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">(</span><span class="s1">&#39;NIFTI_INTENT_POINTSET&#39;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">src</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided `src` file has different number of &#39;</span>
+                         <span class="s1">&#39;vertices from `data` file&#39;</span><span class="p">)</span>
+    <span class="n">trg</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">trg</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">(</span><span class="s1">&#39;NIFTI_INTENT_POINTSET&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">griddata</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">trg</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="vertex_areas"><a class="viewcode-back" href="../../generated/neuromaps.images.vertex_areas.html#neuromaps.images.vertex_areas">[docs]</a><span class="k">def</span> <span class="nf">vertex_areas</span><span class="p">(</span><span class="n">surface</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates vertex areas from `surface` file</span>
+
+<span class="sd">    Vertex area is calculated as the sum of 1/3 the area of each triangle in</span>
+<span class="sd">    which the vertex participates</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    surface : str or os.PathLike</span>
+<span class="sd">        Path to (gifti) file defining surface for which areas should be</span>
+<span class="sd">        computed</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    areas : np.ndarray</span>
+<span class="sd">        Vertex areas</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">vert</span><span class="p">,</span> <span class="n">tri</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">surface</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span>
+    <span class="n">vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">vert</span><span class="p">[</span><span class="n">tri</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cross</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">vectors</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">triareas</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cross</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+    <span class="n">areas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">tri</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">weights</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">triareas</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">areas</span></div>
+
+
+<div class="viewcode-block" id="average_surfaces"><a class="viewcode-back" href="../../generated/neuromaps.images.average_surfaces.html#neuromaps.images.average_surfaces">[docs]</a><span class="k">def</span> <span class="nf">average_surfaces</span><span class="p">(</span><span class="o">*</span><span class="n">surfs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates average surface from input `surfs`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    surfs : str or os.PathLike</span>
+<span class="sd">        Path to (gifti) surfaces to be averaged. Surfaces should be aligned!</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    average : nib.gifti.GiftiImage</span>
+<span class="sd">        Averaged surface</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n_surfs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">surfs</span><span class="p">)</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">triangles</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">surf</span> <span class="ow">in</span> <span class="n">surfs</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">surf</span><span class="p">)</span>
+        <span class="n">vert</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">agg_data</span><span class="p">(</span><span class="s1">&#39;NIFTI_INTENT_POINTSET&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vertices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">vert</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">triangles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">triangles</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">agg_data</span><span class="p">(</span><span class="s1">&#39;NIFTI_INTENT_TRIANGLE&#39;</span><span class="p">)</span>
+        <span class="n">vertices</span> <span class="o">+=</span> <span class="n">vert</span>
+
+    <span class="n">vertices</span> <span class="o">/=</span> <span class="n">n_surfs</span>
+
+    <span class="k">return</span> <span class="n">construct_surf_gii</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">triangles</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_relabel</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">minval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bgval</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Relabels `labels` so that they&#39;re consecutive</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    labels : (N,) array_like</span>
+<span class="sd">        Labels to be re-labelled</span>
+<span class="sd">    minval : int, optional</span>
+<span class="sd">        What the new minimum value of the labels should be. Default: 0</span>
+<span class="sd">    bgval : int, optional</span>
+<span class="sd">        What the background value should be; the new labels will start at</span>
+<span class="sd">        `minval` but the first value of these labels (i.e., labels == `minval`)</span>
+<span class="sd">        will be set to `bgval`. Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ------</span>
+<span class="sd">    labels : (N,) np.ndarray</span>
+<span class="sd">        New labels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">minval</span>
+    <span class="k">if</span> <span class="n">bgval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">labels</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="n">minval</span><span class="p">]</span> <span class="o">=</span> <span class="n">bgval</span>
+    <span class="k">return</span> <span class="n">labels</span>
+
+
+<div class="viewcode-block" id="relabel_gifti"><a class="viewcode-back" href="../../generated/neuromaps.images.relabel_gifti.html#neuromaps.images.relabel_gifti">[docs]</a><span class="k">def</span> <span class="nf">relabel_gifti</span><span class="p">(</span><span class="n">parcellation</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Updates GIFTI images so label IDs are consecutive across hemispheres</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parcellation : (2,) tuple-of-str</span>
+<span class="sd">        Surface label files in GIFTI format (lh.label.gii, rh.label.gii)</span>
+<span class="sd">    background : list-of-str, optional</span>
+<span class="sd">        If provided, a list of IDs in `parcellation` that should be set to 0</span>
+<span class="sd">        (the presumptive background value). Other IDs will be shifted so they</span>
+<span class="sd">        are consecutive (i.e., 0--N). If not specified will use labels in</span>
+<span class="sd">        `neuromaps.images.PARCIGNORE`. Default: None</span>
+<span class="sd">    offset : int, optional</span>
+<span class="sd">        What the lowest value in `parcellation[1]` should be not including</span>
+<span class="sd">        background value. If not specified it will be purely consecutive from</span>
+<span class="sd">        `parcellation[0]`. Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    relabelled : (2,) tuple-of-nib.gifti.GiftiImage</span>
+<span class="sd">        Re-labelled `parcellation` files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">relabelled</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+    <span class="n">minval</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parcellation</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">parcellation</span> <span class="o">=</span> <span class="p">(</span><span class="n">parcellation</span><span class="p">,)</span>
+
+    <span class="k">if</span> <span class="n">background</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">background</span> <span class="o">=</span> <span class="n">PARCIGNORE</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">hemi</span> <span class="ow">in</span> <span class="n">parcellation</span><span class="p">:</span>
+        <span class="c1"># get necessary info from file</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">load_gifti</span><span class="p">(</span><span class="n">hemi</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">labeltable</span><span class="o">.</span><span class="n">labels</span>
+        <span class="n">lt</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">img</span><span class="o">.</span><span class="n">labeltable</span><span class="o">.</span><span class="n">get_labels_as_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+        <span class="c1"># get rid of labels we want to drop</span>
+        <span class="k">if</span> <span class="n">background</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">background</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">lt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">==</span> <span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">labels</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">key</span> <span class="o">!=</span> <span class="n">idx</span><span class="p">]</span>
+
+        <span class="c1"># reset labels so they&#39;re consecutive and update label keys</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">_relabel</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">minval</span><span class="o">=</span><span class="n">minval</span><span class="p">,</span> <span class="n">bgval</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">new_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+                <span class="n">lab</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+                <span class="n">lab</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">new_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span>
+        <span class="n">minval</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">offset</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># make new gifti image with updated information</span>
+        <span class="n">darr</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiDataArray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">intent</span><span class="o">=</span><span class="s1">&#39;NIFTI_INTENT_LABEL&#39;</span><span class="p">,</span>
+                                        <span class="n">datatype</span><span class="o">=</span><span class="s1">&#39;NIFTI_TYPE_INT32&#39;</span><span class="p">)</span>
+        <span class="n">labeltable</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiLabelTable</span><span class="p">()</span>
+        <span class="n">labeltable</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">new_labels</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">GiftiImage</span><span class="p">(</span><span class="n">darrays</span><span class="o">=</span><span class="p">[</span><span class="n">darr</span><span class="p">],</span> <span class="n">labeltable</span><span class="o">=</span><span class="n">labeltable</span><span class="p">)</span>
+        <span class="n">relabelled</span> <span class="o">+=</span> <span class="p">(</span><span class="n">img</span><span class="p">,)</span>
+
+    <span class="k">return</span> <span class="n">relabelled</span></div>
+
+
+<div class="viewcode-block" id="annot_to_gifti"><a class="viewcode-back" href="../../generated/neuromaps.images.annot_to_gifti.html#neuromaps.images.annot_to_gifti">[docs]</a><span class="k">def</span> <span class="nf">annot_to_gifti</span><span class="p">(</span><span class="n">parcellation</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts FreeSurfer-style annotation `parcellation` files to GIFTI images</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parcellation : tuple of str or os.PathLike</span>
+<span class="sd">        Paths to surface annotation files (.annot)</span>
+<span class="sd">    background : list-of-str, optional</span>
+<span class="sd">        If provided, a list of IDs in `parcellation` that should be set to 0</span>
+<span class="sd">        (the presumptive background value). Other IDs will be shifted so they</span>
+<span class="sd">        are consecutive (i.e., 0--N). If not specified will use labels in</span>
+<span class="sd">        `neuromaps.images.PARCIGNORE`. Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    gifti : tuple-of-nib.GiftiImage</span>
+<span class="sd">        Converted GIFTI images</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parcellation</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">parcellation</span> <span class="o">=</span> <span class="p">(</span><span class="n">parcellation</span><span class="p">,)</span>
+
+    <span class="n">gifti</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">atlas</span> <span class="ow">in</span> <span class="n">parcellation</span><span class="p">:</span>
+        <span class="n">labels</span><span class="p">,</span> <span class="n">ctab</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">freesurfer</span><span class="o">.</span><span class="n">read_annot</span><span class="p">(</span><span class="n">atlas</span><span class="p">)</span>
+
+        <span class="n">darr</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiDataArray</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">intent</span><span class="o">=</span><span class="s1">&#39;NIFTI_INTENT_LABEL&#39;</span><span class="p">,</span>
+                                        <span class="n">datatype</span><span class="o">=</span><span class="s1">&#39;NIFTI_TYPE_INT32&#39;</span><span class="p">)</span>
+        <span class="n">labeltable</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiLabelTable</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+            <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctab</span><span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="mi">255</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.0</span> <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">glabel</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiLabel</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="n">glabel</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+            <span class="n">labeltable</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">glabel</span><span class="p">)</span>
+
+        <span class="n">gifti</span> <span class="o">+=</span> <span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">GiftiImage</span><span class="p">(</span><span class="n">darrays</span><span class="o">=</span><span class="p">[</span><span class="n">darr</span><span class="p">],</span> <span class="n">labeltable</span><span class="o">=</span><span class="n">labeltable</span><span class="p">),)</span>
+
+    <span class="k">return</span> <span class="n">relabel_gifti</span><span class="p">(</span><span class="n">gifti</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="n">background</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dlabel_to_gifti"><a class="viewcode-back" href="../../generated/neuromaps.images.dlabel_to_gifti.html#neuromaps.images.dlabel_to_gifti">[docs]</a><span class="k">def</span> <span class="nf">dlabel_to_gifti</span><span class="p">(</span><span class="n">parcellation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts CIFTI dlabel file to GIFTI images</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parcellation : str or os.PathLike</span>
+<span class="sd">        Path to CIFTI parcellation file (.dlabel.nii)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    gifti : tuple-of-nib.GiftiImage</span>
+<span class="sd">        Converted GIFTI images</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">structures</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;CORTEX_LEFT&#39;</span><span class="p">,</span> <span class="s1">&#39;CORTEX_RIGHT&#39;</span><span class="p">)</span>
+
+    <span class="n">dlabel</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">parcellation</span><span class="p">)</span>
+    <span class="n">parcdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dlabel</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+    <span class="n">gifti</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+    <span class="n">label_dict</span> <span class="o">=</span> <span class="n">dlabel</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">bm</span> <span class="ow">in</span> <span class="n">dlabel</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get_index_map</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">brain_models</span><span class="p">:</span>
+        <span class="n">structure</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">brain_structure</span>
+        <span class="k">if</span> <span class="n">structure</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;CIFTI_STRUCTURE_&#39;</span><span class="p">):</span>
+            <span class="n">structure</span> <span class="o">=</span> <span class="n">structure</span><span class="p">[</span><span class="mi">16</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">structure</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">structures</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">surface_number_of_vertices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">vertex_indices</span><span class="p">)</span>
+        <span class="n">slicer</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">index_offset</span><span class="p">,</span> <span class="n">bm</span><span class="o">.</span><span class="n">index_offset</span> <span class="o">+</span> <span class="n">bm</span><span class="o">.</span><span class="n">index_count</span><span class="p">)</span>
+        <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">parcdata</span><span class="p">[</span><span class="n">slicer</span><span class="p">]</span>
+
+        <span class="n">darr</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiDataArray</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">intent</span><span class="o">=</span><span class="s1">&#39;NIFTI_INTENT_LABEL&#39;</span><span class="p">,</span>
+                                        <span class="n">datatype</span><span class="o">=</span><span class="s1">&#39;NIFTI_TYPE_INT32&#39;</span><span class="p">)</span>
+        <span class="n">labeltable</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiLabelTable</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span> <span class="ow">in</span> <span class="n">label_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">glabel</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">gifti</span><span class="o">.</span><span class="n">GiftiLabel</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="n">glabel</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+            <span class="n">labeltable</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">glabel</span><span class="p">)</span>
+        <span class="n">gifti</span> <span class="o">+=</span> <span class="p">(</span><span class="n">nib</span><span class="o">.</span><span class="n">GiftiImage</span><span class="p">(</span><span class="n">darrays</span><span class="o">=</span><span class="p">[</span><span class="n">darr</span><span class="p">],</span> <span class="n">labeltable</span><span class="o">=</span><span class="n">labeltable</span><span class="p">),)</span>
+
+    <span class="k">return</span> <span class="n">gifti</span></div>
+
+
+<span class="k">def</span> <span class="nf">minc_to_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts MINC `img` to NIfTI format (and re-orients to RAS)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img : str or os.PathLike</span>
+<span class="sd">        Path to MINC file to be converted</span>
+<span class="sd">    fn : str or os.PathLike, optional</span>
+<span class="sd">        Filepath to where converted NIfTI image should be stored. If not</span>
+<span class="sd">        supplied the converted image is not saved to disk and is returned.</span>
+<span class="sd">        Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : nib.Nifti1Image or os.PathLike</span>
+<span class="sd">        Converted image (if `fn` is None) or path to saved file on disk</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">mnc</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">nifti</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mnc</span><span class="o">.</span><span class="n">dataobj</span><span class="p">),</span> <span class="n">mnc</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+
+    <span class="c1"># re-orient nifti image RAS</span>
+    <span class="n">orig_ornt</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">io_orientation</span><span class="p">(</span><span class="n">nifti</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+    <span class="n">targ_ornt</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">orientations</span><span class="o">.</span><span class="n">axcodes2ornt</span><span class="p">(</span><span class="s1">&#39;RAS&#39;</span><span class="p">)</span>
+    <span class="n">transform</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">orientations</span><span class="o">.</span><span class="n">ornt_transform</span><span class="p">(</span><span class="n">orig_ornt</span><span class="p">,</span> <span class="n">targ_ornt</span><span class="p">)</span>
+    <span class="n">nifti</span> <span class="o">=</span> <span class="n">nifti</span><span class="o">.</span><span class="n">as_reoriented</span><span class="p">(</span><span class="n">transform</span><span class="p">)</span>
+
+    <span class="c1"># save file (if desired)</span>
+    <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">fn</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.mnc&#39;</span><span class="p">):</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">fn</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.mnc&#39;</span><span class="p">,</span> <span class="s1">&#39;.nii.gz&#39;</span><span class="p">)</span>
+        <span class="n">nib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">nifti</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fn</span>
+    <span class="k">return</span> <span class="n">nifti</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, neuromaps developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

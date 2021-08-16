@@ -1,0 +1,12 @@
+﻿neuromaps.images.load_gifti
+===========================
+
+.. currentmodule:: neuromaps.images
+
+.. autofunction:: load_gifti
+
+.. .. include:: modules/neuromaps.images.load_gifti.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

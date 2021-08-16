@@ -1,0 +1,12 @@
+﻿neuromaps.points.make_surf_graph
+================================
+
+.. currentmodule:: neuromaps.points
+
+.. autofunction:: make_surf_graph
+
+.. .. include:: modules/neuromaps.points.make_surf_graph.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

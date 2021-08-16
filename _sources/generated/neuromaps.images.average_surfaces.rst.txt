@@ -1,0 +1,12 @@
+﻿neuromaps.images.average_surfaces
+=================================
+
+.. currentmodule:: neuromaps.images
+
+.. autofunction:: average_surfaces
+
+.. .. include:: modules/neuromaps.images.average_surfaces.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.available_tags
+=================================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: available_tags
+
+.. .. include:: modules/neuromaps.datasets.available_tags.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

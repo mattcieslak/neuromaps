@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.fetch_atlas
+==============================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: fetch_atlas
+
+.. .. include:: modules/neuromaps.datasets.fetch_atlas.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

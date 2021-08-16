@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.fetch_fslr
+=============================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: fetch_fslr
+
+.. .. include:: modules/neuromaps.datasets.fetch_fslr.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

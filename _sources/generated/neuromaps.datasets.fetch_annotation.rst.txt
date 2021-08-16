@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.fetch_annotation
+===================================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: fetch_annotation
+
+.. .. include:: modules/neuromaps.datasets.fetch_annotation.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

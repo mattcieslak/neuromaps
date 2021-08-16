@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.available_annotations
+========================================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: available_annotations
+
+.. .. include:: modules/neuromaps.datasets.available_annotations.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

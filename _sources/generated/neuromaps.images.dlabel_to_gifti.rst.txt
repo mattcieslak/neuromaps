@@ -1,0 +1,12 @@
+﻿neuromaps.images.dlabel_to_gifti
+================================
+
+.. currentmodule:: neuromaps.images
+
+.. autofunction:: dlabel_to_gifti
+
+.. .. include:: modules/neuromaps.images.dlabel_to_gifti.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

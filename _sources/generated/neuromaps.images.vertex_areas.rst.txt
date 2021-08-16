@@ -1,0 +1,12 @@
+﻿neuromaps.images.vertex_areas
+=============================
+
+.. currentmodule:: neuromaps.images
+
+.. autofunction:: vertex_areas
+
+.. .. include:: modules/neuromaps.images.vertex_areas.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

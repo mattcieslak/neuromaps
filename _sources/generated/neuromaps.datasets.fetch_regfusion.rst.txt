@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.fetch_regfusion
+==================================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: fetch_regfusion
+
+.. .. include:: modules/neuromaps.datasets.fetch_regfusion.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

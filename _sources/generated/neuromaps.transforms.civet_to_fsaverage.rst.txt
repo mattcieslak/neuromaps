@@ -1,0 +1,12 @@
+﻿neuromaps.transforms.civet_to_fsaverage
+=======================================
+
+.. currentmodule:: neuromaps.transforms
+
+.. autofunction:: civet_to_fsaverage
+
+.. .. include:: modules/neuromaps.transforms.civet_to_fsaverage.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

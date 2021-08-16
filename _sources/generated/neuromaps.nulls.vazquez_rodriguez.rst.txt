@@ -1,0 +1,12 @@
+﻿neuromaps.nulls.vazquez_rodriguez
+=================================
+
+.. currentmodule:: neuromaps.nulls
+
+.. autofunction:: vazquez_rodriguez
+
+.. .. include:: modules/neuromaps.nulls.vazquez_rodriguez.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

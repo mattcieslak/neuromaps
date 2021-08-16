@@ -1,0 +1,12 @@
+﻿neuromaps.transforms.mni152_to_mni152
+=====================================
+
+.. currentmodule:: neuromaps.transforms
+
+.. autofunction:: mni152_to_mni152
+
+.. .. include:: modules/neuromaps.transforms.mni152_to_mni152.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

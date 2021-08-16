@@ -1,0 +1,12 @@
+﻿neuromaps.images.interp_surface
+===============================
+
+.. currentmodule:: neuromaps.images
+
+.. autofunction:: interp_surface
+
+.. .. include:: modules/neuromaps.images.interp_surface.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

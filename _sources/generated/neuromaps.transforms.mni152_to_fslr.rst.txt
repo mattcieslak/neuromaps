@@ -1,0 +1,12 @@
+﻿neuromaps.transforms.mni152_to_fslr
+===================================
+
+.. currentmodule:: neuromaps.transforms
+
+.. autofunction:: mni152_to_fslr
+
+.. .. include:: modules/neuromaps.transforms.mni152_to_fslr.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>

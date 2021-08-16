@@ -1,0 +1,12 @@
+﻿neuromaps.datasets.get_atlas_dir
+================================
+
+.. currentmodule:: neuromaps.datasets
+
+.. autofunction:: get_atlas_dir
+
+.. .. include:: modules/neuromaps.datasets.get_atlas_dir.examples
+
+.. raw:: html
+
+    <div style='clear:both'></div>
