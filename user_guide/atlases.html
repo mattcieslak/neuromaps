@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Coordinate systems &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Brain maps and annotations" href="annotations.html" />
+    <link rel="prev" title="User guide" href="../usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> neuromaps
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.1.gbb468c1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation and setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../usage.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Coordinate systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#supported-coordinate-systems">Supported coordinate systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessing-coordinate-systems">Accessing coordinate systems</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="annotations.html">Brain maps and annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformations.html">Transformations between coordinate systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparisons.html">Comparing brain maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nulls.html">Spatial nulls for significance testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing a new brain map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Reference API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">neuromaps</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../usage.html">User guide</a> &raquo;</li>
+        
+      <li>Coordinate systems</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="coordinate-systems">
+<span id="usage-atlases"></span><h1>Coordinate systems<a class="headerlink" href="#coordinate-systems" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="supported-coordinate-systems">
+<span id="usage-atlases-supported"></span><h2>Supported coordinate systems<a class="headerlink" href="#supported-coordinate-systems" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> toolbox supports data in four standard coordinate systems:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>MNI152 (volumetric) space,</p></li>
+<li><p>fsLR (surface) space,</p></li>
+<li><p>fsaverage (surface) space, and</p></li>
+<li><p>CIVET (surface) space</p></li>
+</ol>
+</div></blockquote>
+<p><cite>MNI152</cite> space is an relatively arbitrary designation. Here, when we refer to
+the MNI152 coordinate system we are referencing the variation of the MNI ICBM
+152 non-linear 6th generation symmetric template provided with FSL and used
+throughout the Minn/Wash-U Human Connectome Project processing pipelines. On
+the other hand, <cite>fsLR</cite> space refers to the surface-based coordinate system
+originally developed by the Minn/Wash-U Human Connectome Project; <cite>fsaverage</cite>
+refers to the surface-based coordinate system used throughout FreeSurfer; and
+<cite>CIVET</cite> refers to the surface-based coordinate system derived from the MNI152
+volumetric template and is used in the CIVET processing software.</p>
+<p>All of these coordinate systems have multiple resolutions (or densities), and
+the <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> distributions supports data in the following representations:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>MNI152: 1mm, 2mm, 3mm (isotropic voxel sizes)</p></li>
+<li><p>fsLR: 4k, 8k, 32k, 164k (number of vertices per hemisphere)</p></li>
+<li><p>fsaverage: 1k, 3k, 10k, 41k, 164k (number of vertices per hemisphere)</p></li>
+<li><p>CIVET: 41k (number of vertices per hemisphere)</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="accessing-coordinate-systems">
+<span id="usage-atlases-access"></span><h2>Accessing coordinate systems<a class="headerlink" href="#accessing-coordinate-systems" title="Permalink to this headline">¶</a></h2>
+<p>In order to access the templates for the coordinate systems provided with
+<code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> you can use the <a class="reference internal" href="../generated/neuromaps.datasets.fetch_atlas.html#neuromaps.datasets.fetch_atlas" title="neuromaps.datasets.fetch_atlas"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.datasets.fetch_atlas()</span></code></a> function.
+This function accepts two positional arguments: (1) the name of the standard
+coordinate system you want, and (2) a density (for surface-based systems) or
+resolution (for volumetric systems). The returned object will be a dictionary
+whose keys will depend on the specified system.</p>
+<p>For volumetric systems (i.e., the MNI152 system), the object will have the
+following keys:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.datasets</span> <span class="kn">import</span> <span class="n">fetch_atlas</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mni152</span> <span class="o">=</span> <span class="n">fetch_atlas</span><span class="p">(</span><span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="s1">&#39;1mm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">mni152</span><span class="p">))</span>
+<span class="go">[&#39;CSF&#39;, &#39;GM&#39;, &#39;PD&#39;, &#39;T1w&#39;, &#39;T2w&#39;, &#39;WM&#39;, &#39;brainmask&#39;]</span>
+</pre></div>
+</div>
+<p>The corresponding values in the <code class="docutils literal notranslate"><span class="pre">mni151</span></code> dictionary all point to gzipped
+NIFTI files that contain data relevant to the specified key (i.e., probability
+maps for ‘CSF’, ‘GM’, and ‘WM’, whole-brain images for ‘T1w’ [T1-weighted],
+‘T2w’ [T2-weighted], and ‘PD’ [proton density’], and a brain mask for
+‘brainmask’). These files can all be loaded with <code class="docutils literal notranslate"><span class="pre">nibabel</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<dl>
+<dt>x</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">brainmask</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mni152</span><span class="p">[</span><span class="s1">&#39;brainmask&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">brainmask</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(193, 229, 193)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>For surface-based systems (i.e., the fsLR, fsaverage, and CIVET systems), the
+keys in the returned object will vary slightly; however, all of these atlases
+will have the following keys: ‘inflated’, ‘sphere’, ‘medial’, ‘sulc’, and
+‘vaavg’. Here, ‘inflated’ and ‘sphere’ refer to two different representations
+of the surface mesh, ‘medial’ is a mask where vertices of the surface along the
+medial wall have values of 1, ‘sulc’ provides sulcal depth information
+calculated from the relevant surface, and ‘vaavg’ is the average vertex area
+for each vertex of the surface mesh (derived from a group of participants from
+the Human Connectome Project).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fslr</span> <span class="o">=</span> <span class="n">fetch_atlas</span><span class="p">(</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">fslr</span><span class="p">))</span>
+<span class="go">[&#39;inflated&#39;, &#39;medial&#39;, &#39;midthickness&#39;, &#39;sphere&#39;, &#39;sulc&#39;, &#39;vaavg&#39;, &#39;veryinflated&#39;]</span>
+</pre></div>
+</div>
+<p>The corresponding values of these keys are all named tuples of GIFTI files
+(with fields ‘L’ and ‘R’ for the left and right hemisphere files). These files
+can be loaded using <code class="docutils literal notranslate"><span class="pre">nibabel</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fslr_left_infl</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fslr</span><span class="p">[</span><span class="s1">&#39;inflated&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">L</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vertices</span> <span class="o">=</span> <span class="n">fslr_left_infl</span><span class="o">.</span><span class="n">agg_data</span><span class="p">(</span><span class="s1">&#39;NIFTI_INTENT_POINTSET&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">vertices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">32492</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="annotations.html" class="btn btn-neutral float-right" title="Brain maps and annotations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../usage.html" class="btn btn-neutral float-left" title="User guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, neuromaps developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

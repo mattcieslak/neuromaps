@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>neuromaps.transforms &mdash; neuromaps 0+untagged.1.ge356c91 documentation</title>
+  <title>neuromaps.transforms &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge356c91
+                0+untagged.1.gbb468c1
               </div>
             
           
@@ -181,7 +181,8 @@
 
 <span class="kn">from</span> <span class="nn">neuromaps.datasets</span> <span class="kn">import</span> <span class="p">(</span><span class="n">ALIAS</span><span class="p">,</span> <span class="n">DENSITIES</span><span class="p">,</span> <span class="n">fetch_atlas</span><span class="p">,</span>
                                 <span class="n">fetch_regfusion</span><span class="p">,</span> <span class="n">get_atlas_dir</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">neuromaps.images</span> <span class="kn">import</span> <span class="n">construct_shape_gii</span><span class="p">,</span> <span class="n">load_gifti</span><span class="p">,</span> <span class="n">load_nifti</span>
+<span class="kn">from</span> <span class="nn">neuromaps.images</span> <span class="kn">import</span> <span class="p">(</span><span class="n">construct_shape_gii</span><span class="p">,</span> <span class="n">load_gifti</span><span class="p">,</span> <span class="n">load_nifti</span><span class="p">,</span>
+                              <span class="n">load_data</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">neuromaps.utils</span> <span class="kn">import</span> <span class="n">tmpname</span><span class="p">,</span> <span class="n">run</span>
 
 <span class="n">METRICRESAMPLE</span> <span class="o">=</span> <span class="s1">&#39;wb_command -metric-resample </span><span class="si">{metric}</span><span class="s1"> </span><span class="si">{src}</span><span class="s1"> </span><span class="si">{trg}</span><span class="s1"> &#39;</span> \
@@ -194,6 +195,62 @@
 <span class="n">SURFFMT</span> <span class="o">=</span> <span class="s1">&#39;tpl-</span><span class="si">{space}{trg}</span><span class="s1">_den-</span><span class="si">{den}</span><span class="s1">_hemi-</span><span class="si">{hemi}</span><span class="s1">_sphere.surf.gii&#39;</span>
 <span class="n">VAFMT</span> <span class="o">=</span> <span class="s1">&#39;tpl-</span><span class="si">{space}</span><span class="s1">_den-</span><span class="si">{den}</span><span class="s1">_hemi-</span><span class="si">{hemi}</span><span class="s1">_desc-vaavg_midthickness.shape.gii&#39;</span>
 <span class="n">MLFMT</span> <span class="o">=</span> <span class="s1">&#39;tpl-</span><span class="si">{space}</span><span class="s1">_den-</span><span class="si">{den}</span><span class="s1">_hemi-</span><span class="si">{hemi}</span><span class="s1">_desc-nomedialwall_dparc.label.gii&#39;</span>
+<span class="n">DENSITY_MAP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">642</span><span class="p">:</span> <span class="s1">&#39;1k&#39;</span><span class="p">,</span> <span class="mi">2562</span><span class="p">:</span> <span class="s1">&#39;3k&#39;</span><span class="p">,</span> <span class="mi">4002</span><span class="p">:</span> <span class="s1">&#39;4k&#39;</span><span class="p">,</span> <span class="mi">7842</span><span class="p">:</span> <span class="s1">&#39;8k&#39;</span><span class="p">,</span> <span class="mi">10242</span><span class="p">:</span> <span class="s1">&#39;10k&#39;</span><span class="p">,</span>
+    <span class="mi">32492</span><span class="p">:</span> <span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="mi">40962</span><span class="p">:</span> <span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="mi">163842</span><span class="p">:</span> <span class="s1">&#39;164k&#39;</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">_estimate_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tries to estimate standard density of `data`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : (2,) tuple of (2,) tuple of str or os.PathLike or nib.GiftiImage</span>
+<span class="sd">        Input data for (src, trg), where src and trg are len-2 tuples of images</span>
+<span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
+<span class="sd">        If entries of `data` are not tuples this specifies the hemisphere the</span>
+<span class="sd">        data represent. Default: None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    density : tuple-of-str</span>
+<span class="sd">        Tuple of strings representing approximate density of data</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If density of `data` is not one of the standard expected values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">densities</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="c1"># if `img` is actually just a density string then return that!</span>
+        <span class="k">if</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">DENSITY_MAP</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">densities</span> <span class="o">+=</span> <span class="p">(</span><span class="n">img</span><span class="p">,)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># we expect `img` here to actually be a tuple-of-str (L/R hemisphere)</span>
+        <span class="c1"># if not, hemi is required</span>
+        <span class="n">img</span><span class="p">,</span> <span class="n">hemi</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">_check_hemi</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">hemi</span><span class="p">))</span>
+
+        <span class="c1"># confirm that both entries in `img` (if a tuple) have same density</span>
+        <span class="n">n_vert</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">load_data</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">img</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="n">n_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_vert</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided data have different resolutions across &#39;</span>
+                             <span class="s1">&#39;hemispheres?&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">n_vert</span> <span class="o">=</span> <span class="n">n_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># get string-abbreviated density for data</span>
+        <span class="n">density</span> <span class="o">=</span> <span class="n">DENSITY_MAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">n_vert</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">density</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided data resolution is non-standard. &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;Number of vertices estimated in data: </span><span class="si">{</span><span class="n">n_vert</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">densities</span> <span class="o">+=</span> <span class="p">(</span><span class="n">density</span><span class="p">,)</span>
+
+    <span class="k">return</span> <span class="n">densities</span>
 
 
 <span class="k">def</span> <span class="nf">_regfusion_project</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ras</span><span class="p">,</span> <span class="n">affine</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
@@ -402,7 +459,7 @@
         <span class="n">hemi</span> <span class="o">=</span> <span class="p">(</span><span class="n">hemi</span><span class="p">,)</span>
     <span class="k">elif</span> <span class="n">hemi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">h</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hemi</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid hemisphere designations: </span><span class="si">{</span><span class="n">hemi</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">hemi</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">hemi</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span>
@@ -480,9 +537,7 @@
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">MASKSURF</span><span class="p">):</span>
             <span class="n">run</span><span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">),</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">resampled</span> <span class="o">+=</span> <span class="p">(</span><span class="n">construct_shape_gii</span><span class="p">(</span>
-            <span class="n">load_gifti</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;out&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span>
-        <span class="p">),)</span>
+        <span class="n">resampled</span> <span class="o">+=</span> <span class="p">(</span><span class="n">construct_shape_gii</span><span class="p">(</span><span class="n">load_data</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;out&#39;</span><span class="p">])),)</span>
         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;out&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">tmpimg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">tmpimg</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
@@ -490,8 +545,7 @@
     <span class="k">return</span> <span class="n">resampled</span>
 
 
-<div class="viewcode-block" id="civet_to_fslr"><a class="viewcode-back" href="../../generated/neuromaps.transforms.civet_to_fslr.html#neuromaps.transforms.civet_to_fslr">[docs]</a><span class="k">def</span> <span class="nf">civet_to_fslr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">fslr_density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                  <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="civet_to_fslr"><a class="viewcode-back" href="../../generated/neuromaps.transforms.civet_to_fslr.html#neuromaps.transforms.civet_to_fslr">[docs]</a><span class="k">def</span> <span class="nf">civet_to_fslr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on CIVET surface to the fsLR surface</span>
 
@@ -499,9 +553,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input CIVET data to be resampled to fsLR surface</span>
-<span class="sd">    density : {&#39;41k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    fslr_density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output fsLR surface. Default: &#39;32k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -516,13 +568,13 @@
 <span class="sd">        Input `data` resampled to new surface</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsLR&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">fslr_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fslr_to_civet"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fslr_to_civet.html#neuromaps.transforms.fslr_to_civet">[docs]</a><span class="k">def</span> <span class="nf">fslr_to_civet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">civet_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                  <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="fslr_to_civet"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fslr_to_civet.html#neuromaps.transforms.fslr_to_civet">[docs]</a><span class="k">def</span> <span class="nf">fslr_to_civet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on fsLR surface to the CIVET surface</span>
 
@@ -530,9 +582,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input fsLR data to be resampled to CIVET surface</span>
-<span class="sd">    density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    civet_density : {&#39;41k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;41k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output CIVET surface. Default: &#39;41k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -547,13 +597,13 @@
 <span class="sd">        Input `data` resampled to new surface</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">civet_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsLR&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsLR&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="civet_to_fsaverage"><a class="viewcode-back" href="../../generated/neuromaps.transforms.civet_to_fsaverage.html#neuromaps.transforms.civet_to_fsaverage">[docs]</a><span class="k">def</span> <span class="nf">civet_to_fsaverage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">fsavg_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                       <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="civet_to_fsaverage"><a class="viewcode-back" href="../../generated/neuromaps.transforms.civet_to_fsaverage.html#neuromaps.transforms.civet_to_fsaverage">[docs]</a><span class="k">def</span> <span class="nf">civet_to_fsaverage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on CIVET surface to the fsaverage surface</span>
 
@@ -561,9 +611,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input CIVET data to be resampled to fsaverage surface</span>
-<span class="sd">    density : {&#39;41k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    fsavg_density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output fsaverage surface. Default: &#39;32k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -578,13 +626,13 @@
 <span class="sd">        Input `data` resampled to new surface</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsaverage&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">fsavg_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fsaverage_to_civet"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fsaverage_to_civet.html#neuromaps.transforms.fsaverage_to_civet">[docs]</a><span class="k">def</span> <span class="nf">fsaverage_to_civet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">civet_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                       <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="fsaverage_to_civet"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fsaverage_to_civet.html#neuromaps.transforms.fsaverage_to_civet">[docs]</a><span class="k">def</span> <span class="nf">fsaverage_to_civet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on fsaverage surface to the CIVET surface</span>
 
@@ -592,9 +640,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input fsaverage data to be resampled to CIVET surface</span>
-<span class="sd">    density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    civet_density : {&#39;41k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;41k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output CIVET surface. Default: &#39;41k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -609,13 +655,13 @@
 <span class="sd">        Input `data` resampled to new surface</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">civet_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsaverage&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsaverage&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fslr_to_fsaverage"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fslr_to_fsaverage.html#neuromaps.transforms.fslr_to_fsaverage">[docs]</a><span class="k">def</span> <span class="nf">fslr_to_fsaverage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">fsavg_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                      <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="fslr_to_fsaverage"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fslr_to_fsaverage.html#neuromaps.transforms.fslr_to_fsaverage">[docs]</a><span class="k">def</span> <span class="nf">fslr_to_fsaverage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on fsLR surface to the fsaverage surface</span>
 
@@ -623,9 +669,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input fsLR data to be resampled to fsaverage surface</span>
-<span class="sd">    density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    fsavg_density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output fsaverage surface. Default: &#39;41k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -640,13 +684,13 @@
 <span class="sd">        Input `data` resampled to new surface</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsaverage&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">fsavg_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fsaverage_to_fslr"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fsaverage_to_fslr.html#neuromaps.transforms.fsaverage_to_fslr">[docs]</a><span class="k">def</span> <span class="nf">fsaverage_to_fslr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">fslr_density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                      <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="fsaverage_to_fslr"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fsaverage_to_fslr.html#neuromaps.transforms.fsaverage_to_fslr">[docs]</a><span class="k">def</span> <span class="nf">fsaverage_to_fslr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on fsaverage surface to the fsLR surface</span>
 
@@ -654,9 +698,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input fsaverage data to be resampled to fsLR surface</span>
-<span class="sd">    density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    fslr_density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output fsLR surface. Default: &#39;32k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -671,13 +713,13 @@
 <span class="sd">        Input `data` resampled to new surface</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">fslr_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsaverage&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;_space-fsaverage&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="civet_to_civet"><a class="viewcode-back" href="../../generated/neuromaps.transforms.civet_to_civet.html#neuromaps.transforms.civet_to_civet">[docs]</a><span class="k">def</span> <span class="nf">civet_to_civet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">civet_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                   <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="civet_to_civet"><a class="viewcode-back" href="../../generated/neuromaps.transforms.civet_to_civet.html#neuromaps.transforms.civet_to_civet">[docs]</a><span class="k">def</span> <span class="nf">civet_to_civet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on CIVET surface to new density</span>
 
@@ -685,9 +727,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input CIVET data to be resampled</span>
-<span class="sd">    density : {&#39;41k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    civet_density : {&#39;41k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;41k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output surface. Default: &#39;41k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -702,13 +742,13 @@
 <span class="sd">        Input `data` resampled to new surface</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">civet_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;civet&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fslr_to_fslr"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fslr_to_fslr.html#neuromaps.transforms.fslr_to_fslr">[docs]</a><span class="k">def</span> <span class="nf">fslr_to_fslr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">fslr_density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="fslr_to_fslr"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fslr_to_fslr.html#neuromaps.transforms.fslr_to_fslr">[docs]</a><span class="k">def</span> <span class="nf">fslr_to_fslr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on fsLR surface to new density</span>
 
@@ -716,9 +756,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input fsLR data to be resampled</span>
-<span class="sd">    density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    fslr_density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;4k&#39;, &#39;8k&#39;, &#39;32k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output surface. Default: &#39;32k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -733,12 +771,13 @@
 <span class="sd">        Input `data` resampled to new density</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">fslr_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsLR&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="fsaverage_to_fsaverage"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fsaverage_to_fsaverage.html#neuromaps.transforms.fsaverage_to_fsaverage">[docs]</a><span class="k">def</span> <span class="nf">fsaverage_to_fsaverage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">fsavg_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="fsaverage_to_fsaverage"><a class="viewcode-back" href="../../generated/neuromaps.transforms.fsaverage_to_fsaverage.html#neuromaps.transforms.fsaverage_to_fsaverage">[docs]</a><span class="k">def</span> <span class="nf">fsaverage_to_fsaverage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_density</span><span class="o">=</span><span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                            <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples `data` on fsaverage surface to new density</span>
@@ -747,9 +786,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or os.PathLike or nib.GiftiImage or tuple</span>
 <span class="sd">        Input fsaverage data to be resampled</span>
-<span class="sd">    density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}</span>
-<span class="sd">        Resolution of provided `data`</span>
-<span class="sd">    fsavg_density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}, optional</span>
+<span class="sd">    target_density : {&#39;3k&#39;, &#39;10k&#39;, &#39;41k&#39;, &#39;164k&#39;}, optional</span>
 <span class="sd">        Desired density of output surface. Default: &#39;41k&#39;</span>
 <span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
 <span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
@@ -764,8 +801,9 @@
 <span class="sd">        Input `data` resampled to new density</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">density</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">data</span><span class="p">,),</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">)</span>
     <span class="n">srcparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">fsavg_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">trgparams</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="n">target_density</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_surf_to_surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">srcparams</span><span class="p">,</span> <span class="n">trgparams</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">hemi</span><span class="p">)</span></div>
 </pre></div>
 

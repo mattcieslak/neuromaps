@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Spatial nulls for significance testing &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="../auto_examples/index.html" />
+    <link rel="prev" title="Comparing brain maps" href="comparisons.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> neuromaps
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.1.gbb468c1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation and setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../usage.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="atlases.html">Coordinate systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotations.html">Brain maps and annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformations.html">Transformations between coordinate systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comparisons.html">Comparing brain maps</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Spatial nulls for significance testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nulls-with-surface-based-data">Nulls with surface-based data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nulls-with-non-parcellated-data">Nulls with non-parcellated data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nulls-with-parcellated-data">Nulls with parcellated data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nulls-for-volumetric-data">Nulls for volumetric data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing a new brain map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Reference API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">neuromaps</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../usage.html">User guide</a> &raquo;</li>
+        
+      <li>Spatial nulls for significance testing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spatial-nulls-for-significance-testing">
+<span id="usage-nulls"></span><h1>Spatial nulls for significance testing<a class="headerlink" href="#spatial-nulls-for-significance-testing" title="Permalink to this headline">¶</a></h1>
+<p>In the <a class="reference internal" href="comparisons.html#usage-comparisons"><span class="std std-ref">last section</span></a> we showed how to resample and
+statistically compare two brain annotations. This process gave us a correlation
+estimate (or other image similarity metric) but no means by which to test the
+significance of the association between the tested maps. Enter: the
+<a class="reference internal" href="../api.html#module-neuromaps.nulls" title="neuromaps.nulls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.nulls</span></code></a> module.</p>
+<p>This module provides access to a variety of null models that can be used to
+generate “null” brain maps that retain aspects of the spatial autocorrelation
+of the original brain maps. (For a review of these models refer to <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2021.118052">Markello &amp;
+Misic, 2021, NeuroImage</a>.)</p>
+<p>There are four available null models that can be used with voxel- and
+vertex-wise data and eight null models that can be used with parcellated data.
+Refer to the <a class="reference internal" href="../api.html#module-neuromaps.nulls" title="neuromaps.nulls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.nulls</span></code></a> API for the complete list of null models.</p>
+<div class="section" id="nulls-with-surface-based-data">
+<span id="usage-nulls-surface"></span><h2>Nulls with surface-based data<a class="headerlink" href="#nulls-with-surface-based-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nulls-with-non-parcellated-data">
+<span id="usage-nulls-nonparc"></span><h3>Nulls with non-parcellated data<a class="headerlink" href="#nulls-with-non-parcellated-data" title="Permalink to this headline">¶</a></h3>
+<p>All of the null model functions in <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> have (more-or-less) identical
+interfaces. They accept (1) a data array or tuple-of-images, (2) the coordinate
+system + density of the provided data, (3) the number of desired nulls
+(i.e., permutations), and (4) a random seed for reproducibility. The functions
+will yield a two-dimensional array of shape (vertices, nulls):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">nulls</span><span class="p">,</span> <span class="n">resampling</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neurosynth</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;neurosynth&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abagen</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neurosynth</span><span class="p">,</span> <span class="n">abagen</span> <span class="o">=</span> <span class="n">resampling</span><span class="o">.</span><span class="n">resample_images</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">,</span> <span class="n">abagen</span><span class="p">,</span> <span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotated</span> <span class="o">=</span> <span class="n">nulls</span><span class="o">.</span><span class="n">alexander_bloch</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">,</span> <span class="n">atlas</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="s1">&#39;10k&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rotated</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(20484, 100)</span>
+</pre></div>
+</div>
+<p>Once we’ve generated the null maps we can pass them directly to the optional
+<code class="docutils literal notranslate"><span class="pre">nulls</span></code> argument of <a class="reference internal" href="../generated/neuromaps.stats.compare_images.html#neuromaps.stats.compare_images" title="neuromaps.stats.compare_images"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.stats.compare_images()</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corr</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">compare_images</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">,</span> <span class="n">abagen</span><span class="p">,</span> <span class="n">nulls</span><span class="o">=</span><span class="n">rotated</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;r = </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, p = </span><span class="si">{</span><span class="n">pval</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">r = 0.339, p = 0.178</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The null array provided to the <code class="docutils literal notranslate"><span class="pre">nulls</span></code> argument must be for the data
+passed as the first positional argument of the function! In the above
+example, the <code class="docutils literal notranslate"><span class="pre">rotated</span></code> array corresponds to null maps for <code class="docutils literal notranslate"><span class="pre">neurosynth</span></code>.
+If we called the function like <code class="docutils literal notranslate"><span class="pre">stats.compare_images(abagen,</span> <span class="pre">neurosynth)</span></code>
+then we would have had to generate our <code class="docutils literal notranslate"><span class="pre">rotated</span></code> array for the <code class="docutils literal notranslate"><span class="pre">abagen</span></code>
+data instead. The function has no way of checking this so you must be very
+careful when providing null arrays!</p>
+</div>
+<p>Now, our call to <code class="docutils literal notranslate"><span class="pre">compare_images()</span></code> returns both a correlation and a p-value.
+Note that the p-values are bounded based on the requested number of
+permutations. That is, if you provide an array to <code class="docutils literal notranslate"><span class="pre">nulls</span></code> the smallest
+p-value that can be returned is <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">nulls.shape[1]))</span></code>.</p>
+</div>
+<div class="section" id="nulls-with-parcellated-data">
+<span id="usage-nulls-parc"></span><h3>Nulls with parcellated data<a class="headerlink" href="#nulls-with-parcellated-data" title="Permalink to this headline">¶</a></h3>
+<p>The null model functions in <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> can also handle parcellated data, and
+do so by accepting an additional optional keyword parameter: <code class="docutils literal notranslate"><span class="pre">parcellation</span></code>.
+If provided, the null functions assume this is a tuple-of-images (left, right
+hemisphere, as usual) that is in the same space as the provided <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<p>Generally you will already have pre-parcellated data, but for the purposes of
+demonstration we we will fetch a surface parcellation (for the 10k <cite>fsaverage</cite>
+system) using <code class="docutils literal notranslate"><span class="pre">nilearn</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nilearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_atlas_surf_destrieux</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destrieux</span> <span class="o">=</span> <span class="n">fetch_atlas_surf_destrieux</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">destrieux</span><span class="p">))</span>
+<span class="go">[&#39;description&#39;, &#39;labels&#39;, &#39;map_left&#39;, &#39;map_right&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">destrieux</span><span class="p">[</span><span class="s1">&#39;map_left&#39;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">destrieux</span><span class="p">[</span><span class="s1">&#39;map_right&#39;</span><span class="p">]))</span>
+<span class="go">10242 10242</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">destrieux</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]))</span>
+<span class="go">76</span>
+</pre></div>
+</div>
+<p>Unfortunately the Destrieux atlas provided here is designed such that left
+and right hemispheres have identical label values. The functions in
+<code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> that handle parcellated data always assume that the labels IDs
+are ascending across hemispheres. Moreover, the <code class="docutils literal notranslate"><span class="pre">map_left</span></code> and <code class="docutils literal notranslate"><span class="pre">map_right</span></code>
+values are simple numpy arrays and <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> prefers to work with GIFTI
+images. We can convert the arrays to GIFTI label images and then relabel them
+so that the labels are consecutive across hemispheres:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">label</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">destrieux</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parc_left</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">construct_shape_gii</span><span class="p">(</span><span class="n">destrieux</span><span class="p">[</span><span class="s1">&#39;map_left&#39;</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+<span class="gp">... </span>                                       <span class="n">intent</span><span class="o">=</span><span class="s1">&#39;NIFTI_INTENT_LABEL&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parc_right</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">construct_shape_gii</span><span class="p">(</span><span class="n">destrieux</span><span class="p">[</span><span class="s1">&#39;map_right&#39;</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">intent</span><span class="o">=</span><span class="s1">&#39;NIFTI_INTENT_LABEL&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parcellation</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">relabel_gifti</span><span class="p">((</span><span class="n">parc_left</span><span class="p">,</span> <span class="n">parc_right</span><span class="p">),</span> <span class="n">background</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Medial_wall&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">parcellation</span><span class="p">)</span>
+<span class="go">(&lt;nibabel.gifti.gifti.GiftiImage object at ...&gt;, &lt;nibabel.gifti.gifti.GiftiImage object at ...&gt;)</span>
+</pre></div>
+</div>
+<p>Note that we set <code class="docutils literal notranslate"><span class="pre">background=['Medial_wall']</span></code> in our call to
+<a class="reference internal" href="../generated/neuromaps.images.relabel_gifti.html#neuromaps.images.relabel_gifti" title="neuromaps.images.relabel_gifti"><code class="xref py py-func docutils literal notranslate"><span class="pre">relabel_gifti()</span></code></a>. This is because, by default, the medial wall
+has a label of 42 and we want it to be set to 0. (The <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> functions
+assume that the 0 label is the background, and it is omitted from most
+calculations.)</p>
+<p>We can use these images to parcellate our data with an instance of the
+<a class="reference internal" href="../generated/neuromaps.parcellate.Parcellater.html#neuromaps.parcellate.Parcellater" title="neuromaps.parcellate.Parcellater"><code class="xref py py-class docutils literal notranslate"><span class="pre">neuromaps.parcellate.Parcellater</span></code></a> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps</span> <span class="kn">import</span> <span class="n">parcellate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">destrieux</span> <span class="o">=</span> <span class="n">parcellate</span><span class="o">.</span><span class="n">Parcellater</span><span class="p">(</span><span class="n">parcellation</span><span class="p">,</span> <span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neurosynth_parc</span> <span class="o">=</span> <span class="n">destrieux</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">,</span> <span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abagen_parc</span> <span class="o">=</span> <span class="n">destrieux</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">abagen</span><span class="p">,</span> <span class="s1">&#39;fsaverage&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">neurosynth_parc</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">abagen_parc</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(148,) (148,)</span>
+</pre></div>
+</div>
+<p>Now that we’ve got our parcellated arrays we can generate our null maps. We
+use the same call as <a class="reference internal" href="#usage-nulls-nonparc"><span class="std std-ref">above</span></a> but provide the
+additional <code class="docutils literal notranslate"><span class="pre">parcellation</span></code> parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rotated</span> <span class="o">=</span> <span class="n">nulls</span><span class="o">.</span><span class="n">alexander_bloch</span><span class="p">(</span><span class="n">neurosynth_parc</span><span class="p">,</span> <span class="n">atlas</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="s1">&#39;10k&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span> <span class="n">parcellation</span><span class="o">=</span><span class="n">parcellation</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">rotated</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(148, 100)</span>
+</pre></div>
+</div>
+<p>We can pass the generated array to the <code class="docutils literal notranslate"><span class="pre">nulls</span></code> argument of
+<a class="reference internal" href="../generated/neuromaps.stats.compare_images.html#neuromaps.stats.compare_images" title="neuromaps.stats.compare_images"><code class="xref py py-func docutils literal notranslate"><span class="pre">compare_images()</span></code></a> as before:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">corr</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">compare_images</span><span class="p">(</span><span class="n">neurosynth_parc</span><span class="p">,</span> <span class="n">abagen_parc</span><span class="p">,</span> <span class="n">nulls</span><span class="o">=</span><span class="n">rotated</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;r = </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, p = </span><span class="si">{</span><span class="n">pval</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">r = 0.416, p = 0.376</span>
+</pre></div>
+</div>
+<p>The correlation has changed (because we parcellated the data!), but remains
+non-significant.</p>
+</div>
+</div>
+<div class="section" id="nulls-for-volumetric-data">
+<span id="usage-nulls-volumetric"></span><h2>Nulls for volumetric data<a class="headerlink" href="#nulls-for-volumetric-data" title="Permalink to this headline">¶</a></h2>
+<p>The majority of spatial nulls work best with data represented in one of the
+surface-based coordinate systems. If you are working with data that are
+represented in the MNI152 system you must use one of the following three null
+models:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><a class="reference internal" href="../generated/neuromaps.nulls.burt2018.html#neuromaps.nulls.burt2018" title="neuromaps.nulls.burt2018"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.nulls.burt2018()</span></code></a>,</p></li>
+<li><p><a class="reference internal" href="../generated/neuromaps.nulls.burt2020.html#neuromaps.nulls.burt2020" title="neuromaps.nulls.burt2020"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.nulls.burt2020()</span></code></a>, or</p></li>
+<li><p><a class="reference internal" href="../generated/neuromaps.nulls.moran.html#neuromaps.nulls.moran" title="neuromaps.nulls.moran"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.nulls.moran()</span></code></a></p></li>
+</ol>
+</div></blockquote>
+<p>Whereas the other available null models assume that the provided data are
+represented on a cortical surface, these models are more flexible. <em>However</em>,
+they all depend on calculating and storing a distance matrix of the provided
+images in memory, and as such will be <strong>very computationally intensive</strong> for
+volumetric images.</p>
+<p>You would call the functions in the same manner as above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">neurosynth_mni152</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;neurosynth&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nulls</span> <span class="o">=</span> <span class="n">nulls</span><span class="o">.</span><span class="n">burt2020</span><span class="p">(</span><span class="n">neurosynth_mni152</span><span class="p">,</span> <span class="n">atlas</span><span class="o">=</span><span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="s1">&#39;2mm&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                       <span class="n">n_perm</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">nulls</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(224705, 100)</span>
+</pre></div>
+</div>
+<p>However, this process will take much more time than for equivalent data
+represented in a surface-based system, and will need to store the full distance
+matrix out as a temporary file (potentially many GB of disk space!). If
+possible it is recommended that you mask your data (i.e., with a gray matter
+mask) before generating nulls using this procedure.</p>
+<p>Note that you can provide parcellation images for volumetric data as described
+above! Simply pass the volumetric parcellation image to the <code class="docutils literal notranslate"><span class="pre">parcellation</span></code>
+keyword argument and the function will take care of the rest.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../auto_examples/index.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="comparisons.html" class="btn btn-neutral float-left" title="Comparing brain maps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, neuromaps developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>neuromaps.resampling &mdash; neuromaps 0+untagged.1.ge356c91 documentation</title>
+  <title>neuromaps.resampling &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge356c91
+                0+untagged.1.gbb468c1
               </div>
             
           
@@ -201,67 +201,18 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_estimate_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Tries to estimate standard density of `data`</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    data : (2,) tuple of str or os.PathLike or nib.GiftiImage or tuple</span>
-<span class="sd">        Input data for (src, trg)</span>
-<span class="sd">    hemi : {&#39;L&#39;, &#39;R&#39;}, optional</span>
-<span class="sd">        If `data` is not a tuple this specifies the hemisphere the data are</span>
-<span class="sd">        representing. Default: None</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    density : str</span>
-<span class="sd">        String representing approximate density of data (e.g., &#39;10k&#39;)</span>
-
-<span class="sd">    Raises</span>
-<span class="sd">    ------</span>
-<span class="sd">    ValueError</span>
-<span class="sd">        If density of `data` is not one of the standard expected values</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">density_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="mi">2562</span><span class="p">:</span> <span class="s1">&#39;3k&#39;</span><span class="p">,</span> <span class="mi">4002</span><span class="p">:</span> <span class="s1">&#39;4k&#39;</span><span class="p">,</span> <span class="mi">7842</span><span class="p">:</span> <span class="s1">&#39;8k&#39;</span><span class="p">,</span> <span class="mi">10242</span><span class="p">:</span> <span class="s1">&#39;10k&#39;</span><span class="p">,</span>
-        <span class="mi">32492</span><span class="p">:</span> <span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="mi">40962</span><span class="p">:</span> <span class="s1">&#39;41k&#39;</span><span class="p">,</span> <span class="mi">163842</span><span class="p">:</span> <span class="s1">&#39;164k&#39;</span>
-    <span class="p">}</span>
-
-    <span class="n">densities</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">density_map</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">densities</span> <span class="o">+=</span> <span class="p">(</span><span class="n">img</span><span class="p">,)</span>
-            <span class="k">continue</span>
-        <span class="n">img</span><span class="p">,</span> <span class="n">hemi</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">transforms</span><span class="o">.</span><span class="n">_check_hemi</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">hemi</span><span class="p">))</span>
-        <span class="n">n_vert</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">load_gifti</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">agg_data</span><span class="p">())</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">img</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="n">n_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_vert</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided data have different resolutions across &#39;</span>
-                             <span class="s1">&#39;hemispheres?&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">n_vert</span> <span class="o">=</span> <span class="n">n_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">density</span> <span class="o">=</span> <span class="n">density_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">n_vert</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">density</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided data resolution is non-standard. &#39;</span>
-                             <span class="sa">f</span><span class="s1">&#39;Number of vertices estimated in data: </span><span class="si">{</span><span class="n">n_vert</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">densities</span> <span class="o">+=</span> <span class="p">(</span><span class="n">density</span><span class="p">,)</span>
-
-    <span class="k">return</span> <span class="n">densities</span>
-
-
 <span class="k">def</span> <span class="nf">downsample_only</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">,</span> <span class="n">src_space</span><span class="p">,</span> <span class="n">trg_space</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
                     <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">),</span> <span class="n">hemi</span><span class="p">)</span>
+    <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">_estimate_density</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">),</span> <span class="n">hemi</span><span class="p">)</span>
     <span class="n">src_num</span><span class="p">,</span> <span class="n">trg_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">src_den</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">trg_den</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">src_space</span><span class="p">,</span> <span class="n">trg_space</span> <span class="o">=</span> <span class="n">src_space</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">trg_space</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">src_num</span> <span class="o">&gt;=</span> <span class="n">trg_num</span><span class="p">:</span>  <span class="c1"># resample to `trg`</span>
         <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">src_space</span><span class="si">}</span><span class="s1">_to_</span><span class="si">{</span><span class="n">trg_space</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">src_num</span> <span class="o">&lt;</span> <span class="n">trg_num</span><span class="p">:</span>  <span class="c1"># resample to `src`</span>
         <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">trg_space</span><span class="si">}</span><span class="s1">_to_</span><span class="si">{</span><span class="n">src_space</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">trg</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">trg</span><span class="p">,</span> <span class="n">trg_den</span><span class="p">,</span> <span class="n">src_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+        <span class="n">trg</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">trg</span><span class="p">,</span> <span class="n">src_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">src</span><span class="p">,</span> <span class="n">trg</span>
 
@@ -285,10 +236,10 @@
 
 <span class="k">def</span> <span class="nf">transform_to_src</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">,</span> <span class="n">src_space</span><span class="p">,</span> <span class="n">trg_space</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span>
                      <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">),</span> <span class="n">hemi</span><span class="p">)</span>
+    <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">_estimate_density</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">),</span> <span class="n">hemi</span><span class="p">)</span>
 
     <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">trg_space</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">_to_</span><span class="si">{</span><span class="n">src_space</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">trg</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">trg</span><span class="p">,</span> <span class="n">trg_den</span><span class="p">,</span> <span class="n">src_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">trg</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">trg</span><span class="p">,</span> <span class="n">src_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">src</span><span class="p">,</span> <span class="n">trg</span>
 
@@ -309,10 +260,10 @@
 
 <span class="k">def</span> <span class="nf">transform_to_trg</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">,</span> <span class="n">src_space</span><span class="p">,</span> <span class="n">trg_space</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">):</span>
-    <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">),</span> <span class="n">hemi</span><span class="p">)</span>
+    <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">_estimate_density</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">),</span> <span class="n">hemi</span><span class="p">)</span>
 
     <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">src_space</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">_to_</span><span class="si">{</span><span class="n">trg_space</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">src</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">src_den</span><span class="p">,</span> <span class="n">trg_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg_den</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">src</span><span class="p">,</span> <span class="n">trg</span>
 
@@ -366,7 +317,7 @@
                          <span class="sa">f</span><span class="s1">&#39;not &quot;MNI152.&quot; Received: </span><span class="si">{</span><span class="n">src_space</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
     <span class="n">trg_den</span> <span class="o">=</span> <span class="n">trg</span>
     <span class="k">if</span> <span class="n">trg_space</span> <span class="o">!=</span> <span class="s1">&#39;MNI152&#39;</span><span class="p">:</span>
-        <span class="n">trg_den</span><span class="p">,</span> <span class="o">=</span> <span class="n">_estimate_density</span><span class="p">((</span><span class="n">trg_den</span><span class="p">,),</span> <span class="n">hemi</span><span class="p">)</span>
+        <span class="n">trg_den</span><span class="p">,</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">_estimate_density</span><span class="p">((</span><span class="n">trg_den</span><span class="p">,),</span> <span class="n">hemi</span><span class="p">)</span>
     <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;mni152_to_</span><span class="si">{</span><span class="n">trg_space</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg_den</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
@@ -437,6 +388,10 @@
     <span class="n">opts</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="p">{},</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">resampling</span> <span class="o">==</span> <span class="s1">&#39;transform_to_alt&#39;</span><span class="p">:</span>
         <span class="n">opts</span><span class="p">[</span><span class="s1">&#39;alt_space&#39;</span><span class="p">],</span> <span class="n">opts</span><span class="p">[</span><span class="s1">&#39;alt_density&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_check_altspec</span><span class="p">(</span><span class="n">alt_spec</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="s1">&#39;alt_space&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MNI152&#39;</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="n">src_space</span> <span class="o">!=</span> <span class="s1">&#39;MNI152&#39;</span> <span class="ow">or</span> <span class="n">trg_space</span> <span class="o">!=</span> <span class="s1">&#39;MNI152&#39;</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot transform to &quot;MNI152&quot; system if either &#39;</span>
+                             <span class="s1">&#39;`src` or `trg` are not in &quot;MNI152&quot; system.&#39;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="p">(</span><span class="n">resampling</span> <span class="o">==</span> <span class="s1">&#39;transform_to_src&#39;</span> <span class="ow">and</span> <span class="n">src_space</span> <span class="o">==</span> <span class="s1">&#39;MNI152&#39;</span>
             <span class="ow">and</span> <span class="n">trg_space</span> <span class="o">!=</span> <span class="s1">&#39;MNI152&#39;</span><span class="p">):</span>
         <span class="n">err</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Specified `src_space` cannot be &quot;MNI152&quot; when `resampling` is &#39;</span>

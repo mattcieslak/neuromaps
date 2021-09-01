@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Transformations between coordinate systems &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Comparing brain maps" href="comparisons.html" />
+    <link rel="prev" title="Brain maps and annotations" href="annotations.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> neuromaps
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.1.gbb468c1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation and setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../usage.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="atlases.html">Coordinate systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotations.html">Brain maps and annotations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Transformations between coordinate systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#transforming-from-volumetric-spaces">Transforming from volumetric spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transforming-to-from-surface-spaces">Transforming to/from surface spaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#single-hemisphere-data">Single-hemisphere data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nearest-neighbors-interpolation">Nearest-neighbors interpolation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="comparisons.html">Comparing brain maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nulls.html">Spatial nulls for significance testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing a new brain map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Reference API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">neuromaps</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../usage.html">User guide</a> &raquo;</li>
+        
+      <li>Transformations between coordinate systems</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="transformations-between-coordinate-systems">
+<span id="usage-transformations"></span><h1>Transformations between coordinate systems<a class="headerlink" href="#transformations-between-coordinate-systems" title="Permalink to this headline">¶</a></h1>
+<p>Much of the “new” functionality in <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> is hosted in the
+<a class="reference internal" href="../api.html#module-neuromaps.transforms" title="neuromaps.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.transforms</span></code></a> module. The functionality in this module provides
+easy-to-use interfaces for transforming brain annotations between all of the
+<a class="reference internal" href="atlases.html#usage-atlases"><span class="std std-ref">four standard coordinate systems</span></a> supported in
+<code class="docutils literal notranslate"><span class="pre">neuromaps</span></code>.</p>
+<p>The functions take on two formats (depending on whether the MNI152 volumetric
+system is involved), which we discuss below.</p>
+<div class="section" id="transforming-from-volumetric-spaces">
+<span id="usage-transformations-volumetric"></span><h2>Transforming from volumetric spaces<a class="headerlink" href="#transforming-from-volumetric-spaces" title="Permalink to this headline">¶</a></h2>
+<p>Curently <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> only supports transforming brain annotations <em>from</em>
+MNI152 volumetric space to one of the other three surface-based coordinate
+systems (though work in ongoing to integrate transformations in the other
+direction!). This transformation is achieved through a process known as
+“registration fusion” (Wu et al., 2018, <em>Hum Brain Mapping</em>). In order to
+transform data from MNI152 space to another space you can use any of the
+<code class="docutils literal notranslate"><span class="pre">neuromaps.transforms.mni152_to_XXX</span></code> functions, where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> is replaced
+with the desired coordinate system.</p>
+<p>For example, to transform data to the fsLR coordinate system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.datasets</span> <span class="kn">import</span> <span class="n">fetch_annotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps</span> <span class="kn">import</span> <span class="n">transforms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neurosynth</span> <span class="o">=</span> <span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;neurosynth&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fslr</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">mni152_to_fslr</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The returned <code class="docutils literal notranslate"><span class="pre">fslr</span></code> object is a tuple of <code class="docutils literal notranslate"><span class="pre">nib.GiftiImage</span></code> objects
+corresponding to data from the (left, right) hemisphere. These data can be
+accessed via the <code class="docutils literal notranslate"><span class="pre">.agg_data()</span></code> method on the image objects:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fslr_lh</span><span class="p">,</span> <span class="n">fslr_rh</span> <span class="o">=</span> <span class="n">fslr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">fslr_lh</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(32492,)</span>
+</pre></div>
+</div>
+<p>It’s just as easy to transform the data to a different space:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fsavg</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">mni152_to_fsaverage</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">,</span> <span class="s1">&#39;164k&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fsavg_lh</span><span class="p">,</span> <span class="n">fsavg_rh</span> <span class="o">=</span> <span class="n">fsavg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">fsavg_lh</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(163842,)</span>
+</pre></div>
+</div>
+<p>Note that you can also transform between different resolutions within the
+MNI152 coordinate system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ns2mm</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ns2mm</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(91, 109, 91)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ns3mm</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">mni152_to_mni152</span><span class="p">(</span><span class="n">neurosynth</span><span class="p">,</span> <span class="s1">&#39;3mm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ns3mm</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(91, 109, 91)</span>
+</pre></div>
+</div>
+<p>(This is frequently referred to as “resampling” and, indeed, we are really just
+calling out to <code class="docutils literal notranslate"><span class="pre">nilearn.image.resample_to_img</span></code>; we simply provide this
+interface to ensure consistency!)</p>
+</div>
+<div class="section" id="transforming-to-from-surface-spaces">
+<span id="usage-transformations-surface"></span><h2>Transforming to/from surface spaces<a class="headerlink" href="#transforming-to-from-surface-spaces" title="Permalink to this headline">¶</a></h2>
+<p>Transforming between surface-based coordinate systems works bidirectionally.
+That is, data in each surface system can be transformed to and from every other
+surface system. Here, the transformation functions take the form of
+<code class="docutils literal notranslate"><span class="pre">neuromaps.transforms.XXX_to_YYY</span></code> where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> is the source system and
+<code class="docutils literal notranslate"><span class="pre">YYY</span></code> is the target system.</p>
+<p>For example, to transform data from the fsaverage to the fsLR coordinate
+system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">abagen</span> <span class="o">=</span> <span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fslr</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">fsaverage_to_fslr</span><span class="p">(</span><span class="n">abagen</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As with the volumetric-to-surface transformation, the returned object is a
+tuple of <code class="docutils literal notranslate"><span class="pre">nib.GiftiImage</span></code> objects corresponding to data from the
+(left, right) hemisphere.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fslr_lh</span><span class="p">,</span> <span class="n">fslr_rh</span> <span class="o">=</span> <span class="n">fslr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">fslr_lh</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(32492,)</span>
+</pre></div>
+</div>
+<p>Note that, by default, all of the transformation functions assume the provided
+tuple contains data in the format (left hemisphere, right hemisphere) and
+performs linear interpolation when resampling data to the new coordinate
+system. However, the surface functions in <a class="reference internal" href="../api.html#module-neuromaps.transforms" title="neuromaps.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.transforms</span></code></a> accept
+two optional keyword parameters that can modify these defaults!</p>
+<div class="section" id="single-hemisphere-data">
+<span id="usage-transformations-hemi"></span><h3>Single-hemisphere data<a class="headerlink" href="#single-hemisphere-data" title="Permalink to this headline">¶</a></h3>
+<p>What happens when you want to transform annotations for which only one
+hemisphere contains data? You can use the <code class="docutils literal notranslate"><span class="pre">hemi</span></code> keyword parameter to let
+the transformation functions know:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">abagen_lh</span> <span class="o">=</span> <span class="n">abagen</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fslr</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">fsaverage_to_fslr</span><span class="p">(</span><span class="n">abagen_lh</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the returned object is still a tuple—it just simply has one entry
+instead of two!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fslr_lh</span><span class="p">,</span> <span class="o">=</span> <span class="n">fslr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">fslr_lh</span><span class="o">.</span><span class="n">agg_data</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="go">(32492,)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">hemi</span></code> parameter accepts values <cite>‘L’</cite> and <cite>‘R’</cite> for the left and right
+hemispheres, respectively.</p>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">hemi</span></code> parameter if you want to provide bilateral data
+that is not in the (left, right) hemisphere format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">abagen_reverse</span> <span class="o">=</span> <span class="p">(</span><span class="n">abagen</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">abagen</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fslr_rh</span><span class="p">,</span> <span class="n">fslr_lh</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">fsaverage_to_fslr</span><span class="p">(</span><span class="n">abagen_reverse</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nearest-neighbors-interpolation">
+<span id="usage-transformations-method"></span><h3>Nearest-neighbors interpolation<a class="headerlink" href="#nearest-neighbors-interpolation" title="Permalink to this headline">¶</a></h3>
+<p>By default the transformation functions in <a class="reference internal" href="../api.html#module-neuromaps.transforms" title="neuromaps.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.transforms</span></code></a> use
+linear interpolation when resampling data; however, this is not ideal if
+the data that are being used are integer-valued (e.g., if the data represent a
+parcellation)—or if you would simply prefer not to use linear interpolation! In
+either case you can pass the <code class="docutils literal notranslate"><span class="pre">method</span></code> keyword parameter to the transform
+functions and specify that you would prefer <code class="docutils literal notranslate"><span class="pre">'nearest'</span></code> neighbors
+interpolation instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fslr_nearest</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">fsaverage_to_fslr</span><span class="p">(</span><span class="n">abagen</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the only accepted values for <code class="docutils literal notranslate"><span class="pre">method</span></code> are <code class="docutils literal notranslate"><span class="pre">'linear'</span></code> and
+<code class="docutils literal notranslate"><span class="pre">'nearest'</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="comparisons.html" class="btn btn-neutral float-right" title="Comparing brain maps" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="annotations.html" class="btn btn-neutral float-left" title="Brain maps and annotations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, neuromaps developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

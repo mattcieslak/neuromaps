@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>neuromaps.datasets.annotations &mdash; neuromaps 0+untagged.1.ge356c91 documentation</title>
+  <title>neuromaps.datasets.annotations &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge356c91
+                0+untagged.1.gbb468c1
               </div>
             
           
@@ -326,7 +326,7 @@
 
 
 <div class="viewcode-block" id="fetch_annotation"><a class="viewcode-back" href="../../../generated/neuromaps.datasets.fetch_annotation.html#neuromaps.datasets.fetch_annotation">[docs]</a><span class="k">def</span> <span class="nf">fetch_annotation</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">space</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">den</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                     <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_single</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                     <span class="n">hemi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_single</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                      <span class="n">token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Downloads files for brain annotations matching requested variables</span>
@@ -338,7 +338,7 @@
 <span class="sd">        any value for the relevant key will be matched. Default: None</span>
 <span class="sd">    return_single : bool, optional</span>
 <span class="sd">        If only one annotation is found matching input parameters return the</span>
-<span class="sd">        list of filepaths instead of the standard dictionary. Default: False</span>
+<span class="sd">        list of filepaths instead of the standard dictionary. Default: True</span>
 <span class="sd">    token : str, optional</span>
 <span class="sd">        OSF personal access token for accessing restricted annotations. Will</span>
 <span class="sd">        also check the environmental variable &#39;NEUROMAPS_OSF_TOKEN&#39; if not</span>

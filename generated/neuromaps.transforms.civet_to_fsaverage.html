@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>neuromaps.transforms.civet_to_fsaverage &mdash; neuromaps 0+untagged.1.ge356c91 documentation</title>
+  <title>neuromaps.transforms.civet_to_fsaverage &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.ge356c91
+                0+untagged.1.gbb468c1
               </div>
             
           
@@ -199,14 +199,13 @@
 <h1>neuromaps.transforms.civet_to_fsaverage<a class="headerlink" href="#neuromaps-transforms-civet-to-fsaverage" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="neuromaps.transforms.civet_to_fsaverage">
-<span class="sig-prename descclassname"><span class="pre">neuromaps.transforms.</span></span><span class="sig-name descname"><span class="pre">civet_to_fsaverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fsavg_density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'41k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neuromaps/transforms.html#civet_to_fsaverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neuromaps.transforms.civet_to_fsaverage" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">neuromaps.transforms.</span></span><span class="sig-name descname"><span class="pre">civet_to_fsaverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'41k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hemi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neuromaps/transforms.html#civet_to_fsaverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neuromaps.transforms.civet_to_fsaverage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resamples <cite>data</cite> on CIVET surface to the fsaverage surface</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>nib.GiftiImage</em><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a>) – Input CIVET data to be resampled to fsaverage surface</p></li>
-<li><p><strong>density</strong> (<em>{'41k'</em><em>, </em><em>'164k'}</em>) – Resolution of provided <cite>data</cite></p></li>
-<li><p><strong>fsavg_density</strong> (<em>{'3k'</em><em>, </em><em>'10k'</em><em>, </em><em>'41k'</em><em>, </em><em>'164k'}</em><em>, </em><em>optional</em>) – Desired density of output fsaverage surface. Default: ‘32k’</p></li>
+<li><p><strong>target_density</strong> (<em>{'3k'</em><em>, </em><em>'10k'</em><em>, </em><em>'41k'</em><em>, </em><em>'164k'}</em><em>, </em><em>optional</em>) – Desired density of output fsaverage surface. Default: ‘32k’</p></li>
 <li><p><strong>hemi</strong> (<em>{'L'</em><em>, </em><em>'R'}</em><em>, </em><em>optional</em>) – If <cite>data</cite> is not a tuple this specifies the hemisphere the data are
 representing. Default: None</p></li>
 <li><p><strong>method</strong> (<em>{'nearest'</em><em>, </em><em>'linear'}</em><em>, </em><em>optional</em>) – Method for resampling. Specify ‘nearest’ if <cite>data</cite> are label images.

@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Comparing brain maps &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spatial nulls for significance testing" href="nulls.html" />
+    <link rel="prev" title="Transformations between coordinate systems" href="transformations.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> neuromaps
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.1.gbb468c1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation and setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../usage.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="atlases.html">Coordinate systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="annotations.html">Brain maps and annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformations.html">Transformations between coordinate systems</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Comparing brain maps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resampling-brain-maps">Resampling brain maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#statistical-associations-between-maps">Statistical associations between maps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nulls.html">Spatial nulls for significance testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing a new brain map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Reference API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">neuromaps</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../usage.html">User guide</a> &raquo;</li>
+        
+      <li>Comparing brain maps</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="comparing-brain-maps">
+<span id="usage-comparisons"></span><h1>Comparing brain maps<a class="headerlink" href="#comparing-brain-maps" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="resampling-brain-maps">
+<h2>Resampling brain maps<a class="headerlink" href="#resampling-brain-maps" title="Permalink to this headline">¶</a></h2>
+<p>So you’ve got a new brain map and you want to compare it to some of the
+annotations in the <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> repository. You know how to <a class="reference internal" href="annotations.html#usage-annotations"><span class="std std-ref">fetch the
+relevant annotations</span></a> and can <span class="xref std std-ref">transform maps between
+coordinate systems</span>. What now?</p>
+<p>The <a class="reference internal" href="../api.html#module-neuromaps.resampling" title="neuromaps.resampling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.resampling</span></code></a> and <a class="reference internal" href="../api.html#module-neuromaps.stats" title="neuromaps.stats"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.stats</span></code></a> modules contain
+functions designed to streamline the process of making these comparisons.
+First, let’s say you have two annotations in different coordinate systems:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.datasets</span> <span class="kn">import</span> <span class="n">fetch_annotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">neurosynth</span> <span class="o">=</span> <span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;neurosynth&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abagen</span> <span class="o">=</span> <span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <cite>abagen</cite> data are in the <cite>fsaverage</cite> system and the <cite>neurosynth</cite> data are
+in the <cite>MNI152</cite> system. We can use <a class="reference internal" href="../generated/neuromaps.resampling.resample_images.html#neuromaps.resampling.resample_images" title="neuromaps.resampling.resample_images"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.resampling.resample_images()</span></code></a>
+to easily resample these images to a standard space.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.resampling</span> <span class="kn">import</span> <span class="n">resample_images</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ns_res</span><span class="p">,</span> <span class="n">aba_res</span> <span class="o">=</span> <span class="n">resample_images</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">neurosynth</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="n">abagen</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">src_space</span><span class="o">=</span><span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="n">trg_space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">resampling</span><span class="o">=</span><span class="s1">&#39;downsample_only&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Only the first four parameters are required (i.e., <code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">trg</span></code>,
+<code class="docutils literal notranslate"><span class="pre">src_space</span></code>, and <code class="docutils literal notranslate"><span class="pre">trg_space</span></code>). The other two parameters provided here
+control how the resampling is done. The <code class="docutils literal notranslate"><span class="pre">method='linear'</span></code> specifies that we
+should use linear interpolation when transforming the data between systems, as
+described in <a class="reference internal" href="transformations.html#usage-transformations-method"><span class="std std-ref">the transformations section</span></a>.
+The <code class="docutils literal notranslate"><span class="pre">resampling='downsample_only'</span></code> parameter, on the other hand, controls
+to what coordinate system the data are transformed.</p>
+<p>There are four options for the <code class="docutils literal notranslate"><span class="pre">resampling</span></code> parameters:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>‘downsample_only’,</p></li>
+<li><p>‘transform_to_src’,</p></li>
+<li><p>‘transform_to_trg’, and</p></li>
+<li><p>‘transform_to_alt’</p></li>
+</ol>
+</div></blockquote>
+<p>The default (‘downsample_only’) specifies that the higher-resolution map will
+be transformed to the space of the lower-resolution map. This ensures that we
+are never artifically “creating” (i.e., upsampling) data that does not exist.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>One caveat to the ‘downsample_only’ transformation: when one of the maps is
+in MNI152 space and the other is in a surface-based coordinate system the
+volumetric map is <strong>always</strong> transformed to the space of the surface-based
+map. In all other instances the higher-resolution map is transformed to the
+space of the lower-resolution map.</p>
+</div>
+<p>Note that when <code class="docutils literal notranslate"><span class="pre">resampling='downsample_only'</span></code> one of the inputs will always
+remain unchanged. In the above example, the <code class="docutils literal notranslate"><span class="pre">aba_res</span></code> output will be
+identical to the <code class="docutils literal notranslate"><span class="pre">abagen</span></code> input</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ns_res</span><span class="p">)</span>
+<span class="go">(&lt;nibabel.gifti.gifti.GiftiImage object at ...&gt;, &lt;nibabel.gifti.gifti.GiftiImage object at ...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">aba_res</span><span class="p">)</span>
+<span class="go">[&#39;/.../neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/.../neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">abagen</span> <span class="o">==</span> <span class="n">aba_res</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The ‘transform_to_src’ and ‘transform_to_trg’ options are relatively
+straightforward: they specify that the function will transform the provided
+data to the space of the ‘src’ or ‘trg’ dataset, respectively.</p>
+<p>The ‘transform_to_alt’ parameter, on the other hand, works a bit differently.
+It requires passing an additional argument to the <code class="docutils literal notranslate"><span class="pre">resample_images</span></code> function,
+<code class="docutils literal notranslate"><span class="pre">alt_spec</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ns_fslr</span><span class="p">,</span> <span class="n">aba_fslr</span> <span class="o">=</span> <span class="n">resample_images</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">neurosynth</span><span class="p">,</span> <span class="n">trg</span><span class="o">=</span><span class="n">abagen</span><span class="p">,</span>
+<span class="gp">... </span>                                    <span class="n">src_space</span><span class="o">=</span><span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="n">trg_space</span><span class="o">=</span><span class="s1">&#39;fsaverage&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                    <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">resampling</span><span class="o">=</span><span class="s1">&#39;transform_to_alt&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                    <span class="n">alt_spec</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;fslr&#39;</span><span class="p">,</span> <span class="s1">&#39;32k&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">alt_spec</span></code> parameter must be a tuple of format (system, density), and
+specifies the target coordinate system and density to which both the <code class="docutils literal notranslate"><span class="pre">src</span></code>
+and <code class="docutils literal notranslate"><span class="pre">trg</span></code> datasets will be transformed. In the above example, both datasets
+are transformed to the fsLR coordinate system and have an output density of 32k
+vertices per hemisphere.</p>
+</div>
+<div class="section" id="statistical-associations-between-maps">
+<h2>Statistical associations between maps<a class="headerlink" href="#statistical-associations-between-maps" title="Permalink to this headline">¶</a></h2>
+<p>To assess the statistical relationship between two brain annotations in the
+same coordinate system we can use <a class="reference internal" href="../generated/neuromaps.stats.compare_images.html#neuromaps.stats.compare_images" title="neuromaps.stats.compare_images"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.stats.compare_images()</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.stats</span> <span class="kn">import</span> <span class="n">compare_images</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corr</span> <span class="o">=</span> <span class="n">compare_images</span><span class="p">(</span><span class="n">ns_res</span><span class="p">,</span> <span class="n">aba_res</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;pearsonr&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;r = </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">r = 0.339</span>
+</pre></div>
+</div>
+<p>We can use other image similarity metrics if we want by passing different
+parameters to the <code class="docutils literal notranslate"><span class="pre">metric</span></code> argument. By default the only accepted string
+arguments are <code class="docutils literal notranslate"><span class="pre">'pearsonr'</span></code> and <code class="docutils literal notranslate"><span class="pre">'spearmanr</span></code>’, but we can provide any
+callable function that takes two vectors and returns a single value. For
+example, we can calculate the cosine similarity of the images with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">cosine</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cossim</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">compare_images</span><span class="p">(</span><span class="n">ns_res</span><span class="p">,</span> <span class="n">aba_res</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">cosine</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cosine similarity = </span><span class="si">{</span><span class="n">cossim</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="go">cosine similarity = 0.335</span>
+</pre></div>
+</div>
+<p>If we want to test the significance of these statistical associations we can
+opt to use <a class="reference internal" href="nulls.html#usage-nulls"><span class="std std-ref">spatial null models</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="nulls.html" class="btn btn-neutral float-right" title="Spatial nulls for significance testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="transformations.html" class="btn btn-neutral float-left" title="Transformations between coordinate systems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, neuromaps developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
