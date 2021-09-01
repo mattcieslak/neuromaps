@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Coordinate systems &mdash; neuromaps 0+untagged.1.gbb468c1 documentation</title>
+  <title>Coordinate systems &mdash; neuromaps 0+untagged.1.g9220ede documentation</title>
   
 
   
@@ -71,7 +71,7 @@
             
             
               <div class="version">
-                0+untagged.1.gbb468c1
+                0+untagged.1.g9220ede
               </div>
             
           
@@ -234,18 +234,12 @@ NIFTI files that contain data relevant to the specified key (i.e., probability
 maps for ‘CSF’, ‘GM’, and ‘WM’, whole-brain images for ‘T1w’ [T1-weighted],
 ‘T2w’ [T2-weighted], and ‘PD’ [proton density’], and a brain mask for
 ‘brainmask’). These files can all be loaded with <code class="docutils literal notranslate"><span class="pre">nibabel</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<dl>
-<dt>x</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">brainmask</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mni152</span><span class="p">[</span><span class="s1">&#39;brainmask&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">brainmask</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="go">(193, 229, 193)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 <p>For surface-based systems (i.e., the fsLR, fsaverage, and CIVET systems), the
 keys in the returned object will vary slightly; however, all of these atlases
 will have the following keys: ‘inflated’, ‘sphere’, ‘medial’, ‘sulc’, and
