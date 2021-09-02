@@ -120,7 +120,7 @@ are returned by default via :func:`datasets.available_annotations`.
 
  .. code-block:: none
 
-    Available annotations: 12
+    Available annotations: 31
 
 
 
@@ -150,7 +150,7 @@ are, by default, a volumetric image:
 
  .. code-block:: none
 
-    Available volumetric annotations: 1
+    Available volumetric annotations: 2
 
 
 
@@ -212,7 +212,7 @@ functions:
 
  .. code-block:: none
 
-    ['MRI', 'fMRI', 'functional', 'genetics', 'meta-analysis', 'structural']
+    ['ASL', 'MEG', 'MRI', 'fMRI', 'functional', 'genetics', 'meta-analysis', 'structural']
 
 
 
@@ -241,7 +241,7 @@ list will only return those annotations that match ALL supplied tags:
 
  .. code-block:: none
 
-    [('margulies2016', 'fcgradient01', 'fsLR', '32k'), ('margulies2016', 'fcgradient02', 'fsLR', '32k'), ('margulies2016', 'fcgradient03', 'fsLR', '32k'), ('margulies2016', 'fcgradient04', 'fsLR', '32k'), ('margulies2016', 'fcgradient05', 'fsLR', '32k'), ('margulies2016', 'fcgradient06', 'fsLR', '32k'), ('margulies2016', 'fcgradient07', 'fsLR', '32k'), ('margulies2016', 'fcgradient08', 'fsLR', '32k'), ('margulies2016', 'fcgradient09', 'fsLR', '32k'), ('margulies2016', 'fcgradient10', 'fsLR', '32k'), ('neurosynth', 'cogpc1', 'MNI152', '2mm')]
+    [('margulies2016', 'fcgradient01', 'fsLR', '32k'), ('margulies2016', 'fcgradient02', 'fsLR', '32k'), ('margulies2016', 'fcgradient03', 'fsLR', '32k'), ('margulies2016', 'fcgradient04', 'fsLR', '32k'), ('margulies2016', 'fcgradient05', 'fsLR', '32k'), ('margulies2016', 'fcgradient06', 'fsLR', '32k'), ('margulies2016', 'fcgradient07', 'fsLR', '32k'), ('margulies2016', 'fcgradient08', 'fsLR', '32k'), ('margulies2016', 'fcgradient09', 'fsLR', '32k'), ('margulies2016', 'fcgradient10', 'fsLR', '32k'), ('mueller2013', 'intersubjvar', 'fsLR', '164k'), ('neurosynth', 'cogpc1', 'MNI152', '2mm')]
 
 
 
@@ -276,7 +276,7 @@ brain (from the Allen Human Brain Atlas):
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c2290118f70b01fca797eb ...
-     ...done. (2 seconds, 0 min)
+     ...done. (1 seconds, 0 min)
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521 ...
      ...done. (1 seconds, 0 min)
     ['/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
@@ -324,7 +324,7 @@ information please refer to the :ref:`API reference <ref_datasets>`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.099 seconds)
+   **Total running time of the script:** ( 0 minutes  3.283 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_fetch_datasets.py:
