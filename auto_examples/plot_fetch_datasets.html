@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fetching atlases and annotations &mdash; neuromaps 0+untagged.1.gfa526b3 documentation</title>
+  <title>Fetching atlases and annotations &mdash; neuromaps 0+untagged.1.g093b44f documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -35,7 +35,7 @@
             <a href="../index.html" class="icon icon-home"> neuromaps
           </a>
               <div class="version">
-                0+untagged.1.gfa526b3
+                0+untagged.1.g093b44f
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -132,7 +132,7 @@ are returned by default via <code class="xref py py-func docutils literal notran
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Available annotations: 31
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Available annotations: 48
 </pre></div>
 </div>
 <p>The <a class="reference internal" href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a> function accepts a number of keyword
@@ -144,7 +144,7 @@ are, by default, a volumetric image:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Available volumetric annotations: 2
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Available volumetric annotations: 37
 </pre></div>
 </div>
 <p>There are a number of keyword arguments we can specify to reduce the scope of
@@ -170,7 +170,7 @@ functions:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;ASL&#39;, &#39;MEG&#39;, &#39;MRI&#39;, &#39;fMRI&#39;, &#39;functional&#39;, &#39;genetics&#39;, &#39;meta-analysis&#39;, &#39;structural&#39;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;MRI&#39;, &#39;PET&#39;, &#39;fMRI&#39;, &#39;functional&#39;, &#39;genetics&#39;, &#39;meta-analysis&#39;, &#39;receptors&#39;, &#39;structural&#39;]
 </pre></div>
 </div>
 <p>Tags can be used as a keyword argumnet with <a class="reference internal" href="../generated/neuromaps.datasets.available_annotations.html#neuromaps.datasets.available_annotations" title="neuromaps.datasets.available_annotations"><code class="xref py py-func docutils literal notranslate"><span class="pre">available_annotations()</span></code></a>.
@@ -181,7 +181,7 @@ list will only return those annotations that match ALL supplied tags:</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;margulies2016&#39;, &#39;fcgradient01&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient02&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient03&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient04&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient05&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient06&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient07&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient08&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient09&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient10&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;mueller2013&#39;, &#39;intersubjvar&#39;, &#39;fsLR&#39;, &#39;164k&#39;), (&#39;neurosynth&#39;, &#39;cogpc1&#39;, &#39;MNI152&#39;, &#39;2mm&#39;)]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(&#39;margulies2016&#39;, &#39;fcgradient01&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient02&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient03&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient04&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient05&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient06&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient07&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient08&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient09&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;margulies2016&#39;, &#39;fcgradient10&#39;, &#39;fsLR&#39;, &#39;32k&#39;), (&#39;neurosynth&#39;, &#39;cogpc1&#39;, &#39;MNI152&#39;, &#39;2mm&#39;)]
 </pre></div>
 </div>
 <p>Once we have an annotation that we want we can use the
@@ -199,7 +199,7 @@ brain (from the Allen Human Brain Atlas):</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c2290118f70b01fca797eb ...
  ...done. (1 seconds, 0 min)
 Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c228f5f3ce9401fa24e521 ...
- ...done. (0 seconds, 0 min)
+ ...done. (1 seconds, 0 min)
 [&#39;/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii&#39;, &#39;/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii&#39;]
 </pre></div>
 </div>
@@ -219,7 +219,7 @@ argument to the fetch call:</p>
 <p>And that’s it! This example provided a quick overview on how to fetch the
 various atlases and datasets provided with <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code>. For more
 information please refer to the <a class="reference internal" href="../api.html#ref-datasets"><span class="std std-ref">API reference</span></a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.809 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.909 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-fetch-datasets-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/a04ac8d81d8fed9e456dd9e2eb4c4519/plot_fetch_datasets.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fetch_datasets.py</span></code></a></p>
