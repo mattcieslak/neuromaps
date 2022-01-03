@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Transformations between coordinate systems &mdash; neuromaps 0+untagged.1.g9c215e7 documentation</title>
+  <title>Transformations between coordinate systems &mdash; neuromaps 0+untagged.1.gb7654c8 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -35,7 +35,7 @@
             <a href="../index.html" class="icon icon-home"> neuromaps
           </a>
               <div class="version">
-                0+untagged.1.g9c215e7
+                0+untagged.1.gb7654c8
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -57,6 +57,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#nearest-neighbors-interpolation">Nearest-neighbors interpolation</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#parcellations">Parcellations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="comparisons.html">Comparing brain maps</a></li>
@@ -215,6 +216,23 @@ interpolation instead:</p>
 <p>Note that the only accepted values for <code class="docutils literal notranslate"><span class="pre">method</span></code> are <code class="docutils literal notranslate"><span class="pre">'linear'</span></code> and
 <code class="docutils literal notranslate"><span class="pre">'nearest'</span></code>.</p>
 </section>
+</section>
+<section id="parcellations">
+<span id="usage-transformations-parcellations"></span><h2>Parcellations<a class="headerlink" href="#parcellations" title="Permalink to this headline"></a></h2>
+<p>We can use an instance of the <a class="reference internal" href="../generated/neuromaps.parcellate.Parcellater.html#neuromaps.parcellate.Parcellater" title="neuromaps.parcellate.Parcellater"><code class="xref py py-class docutils literal notranslate"><span class="pre">neuromaps.parcellate.Parcellater</span></code></a> class
+to parcellate our data.The <code class="docutils literal notranslate"><span class="pre">Parcellater</span></code> class expects a path to the parcellation
+files or a tuple of parcellation files (left and right). Note that hemisphere
+business can be handled with the <code class="docutils literal notranslate"><span class="pre">hemi</span></code> parameter. The <code class="docutils literal notranslate"><span class="pre">Parcellater</span></code> class also
+expects these files to contain a unique interger ID for each parcel (brain region),
+and it will ignore all IDs of 0. This means that if your parcellation is not in the
+right format, you will need to rework it using helper functions such as
+<a class="reference internal" href="../generated/neuromaps.images.relabel_gifti.html#neuromaps.images.relabel_gifti" title="neuromaps.images.relabel_gifti"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.images.relabel_gifti()</span></code></a> and <a class="reference internal" href="../generated/neuromaps.images.annot_to_gifti.html#neuromaps.images.annot_to_gifti" title="neuromaps.images.annot_to_gifti"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.images.annot_to_gifti()</span></code></a> .</p>
+<p>See <a class="reference internal" href="nulls.html#usage-nulls"><span class="std std-ref">nulls with parcellated data</span></a> for another example parcellating.</p>
+<p>Here, we will parcellate MNI-152 data into the Lausanne-125 (234-node) atlas.</p>
+<p>You can fetch your parcelltion files as you usually do, but here’s one method
+that uses the <code class="docutils literal notranslate"><span class="pre">netneurotools</span></code> toolbox.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">Parcellater</span></code> class needs to know the space you are working in
+(in this case, <code class="docutils literal notranslate"><span class="pre">MNI-152</span></code>).</p>
 </section>
 </section>
 
