@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Transformations between coordinate systems &mdash; neuromaps 0+untagged.1.gb7654c8 documentation</title>
+  <title>Transformations between coordinate systems &mdash; neuromaps 0+untagged.1.g0c6a870 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -35,7 +35,7 @@
             <a href="../index.html" class="icon icon-home"> neuromaps
           </a>
               <div class="version">
-                0+untagged.1.gb7654c8
+                0+untagged.1.g0c6a870
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -229,8 +229,21 @@ right format, you will need to rework it using helper functions such as
 <a class="reference internal" href="../generated/neuromaps.images.relabel_gifti.html#neuromaps.images.relabel_gifti" title="neuromaps.images.relabel_gifti"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.images.relabel_gifti()</span></code></a> and <a class="reference internal" href="../generated/neuromaps.images.annot_to_gifti.html#neuromaps.images.annot_to_gifti" title="neuromaps.images.annot_to_gifti"><code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.images.annot_to_gifti()</span></code></a> .</p>
 <p>See <a class="reference internal" href="nulls.html#usage-nulls"><span class="std std-ref">nulls with parcellated data</span></a> for another example parcellating.</p>
 <p>Here, we will parcellate MNI-152 data into the Lausanne-125 (234-node) atlas.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.datasets</span> <span class="kn">import</span> <span class="n">fetch_annotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abagen</span> <span class="o">=</span> <span class="n">fetch_annotation</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;abagen&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>You can fetch your parcelltion files as you usually do, but here’s one method
 that uses the <code class="docutils literal notranslate"><span class="pre">netneurotools</span></code> toolbox.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">netneurotools</span> <span class="kn">import</span> <span class="n">datasets</span> <span class="k">as</span> <span class="n">nntdata</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.parcellate</span> <span class="kn">import</span> <span class="n">Parcellater</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lausanne</span> <span class="o">=</span> <span class="n">nntdata</span><span class="o">.</span><span class="n">fetch_cammoun2012</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;MNI152Lin2009aSym&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parc</span> <span class="o">=</span> <span class="n">Parcellater</span><span class="p">(</span><span class="n">lausanne</span><span class="p">[</span><span class="s1">&#39;scale125&#39;</span><span class="p">],</span> <span class="s1">&#39;mni152&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abagen_parc</span> <span class="o">=</span> <span class="n">parc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">abagen</span><span class="p">,</span> <span class="s1">&#39;mni152&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">abagen_parc</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Note that the <code class="docutils literal notranslate"><span class="pre">Parcellater</span></code> class needs to know the space you are working in
 (in this case, <code class="docutils literal notranslate"><span class="pre">MNI-152</span></code>).</p>
 </section>
