@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation and setup &mdash; neuromaps 0+untagged.1.g64df595 documentation</title>
+  <title>Citing neuromaps &mdash; neuromaps 0+untagged.1.g64df595 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
@@ -22,9 +22,7 @@
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User guide" href="usage.html" />
-    <link rel="prev" title="Installation requirements" href="index.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,12 +44,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation and setup</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#basic-installation">Basic installation</a></li>
-</ul>
-</li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing a new brain map</a></li>
@@ -72,7 +66,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Installation and setup</li>
+      <li>Citing neuromaps</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -81,41 +75,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="installation-and-setup">
-<span id="installation-setup"></span><h1>Installation and setup<a class="headerlink" href="#installation-and-setup" title="Permalink to this headline"></a></h1>
-<section id="requirements">
-<span id="installation-requirements"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
-<p>In order to effectively use <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> you must have the <a class="reference external" href="https://www.humanconnectome.org/software/connectome-workbench">Connectome
-Workbench</a>
-installed and accesible on your computer. Large portions of the functionality
-of the <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> toolbox rely on a few of the functions from the
-Connectome Workbench. You can follow <a class="reference external" href="https://www.humanconnectome.org/software/get-connectome-workbench">instructions here</a> for
-installing it. Once you have installed it open your terminal and type</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wb_command -version
-</pre></div>
-</div>
-<p>to make sure it is properly installed.</p>
-</section>
-<section id="basic-installation">
-<span id="id1"></span><h2>Basic installation<a class="headerlink" href="#basic-installation" title="Permalink to this headline"></a></h2>
-<p>This package requires Python 3.7+. Assuming you have the correct version of
-Python installed, you can install <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> by opening a terminal and
-running the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/netneurolab/neuromaps.git
-<span class="nb">cd</span> neuromaps
-pip install .
-</pre></div>
-</div>
-</section>
+  <section id="citing-neuromaps">
+<span id="citation"></span><h1>Citing neuromaps<a class="headerlink" href="#citing-neuromaps" title="Permalink to this headline"></a></h1>
+<p>We’re thrilled you’ve found <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> useful in your work! Please cite the
+following manuscripts when referencing your use of the toolbox:</p>
+<ol class="arabic simple">
+<li><p>Markello, RD, Hansen, JY, Liu, ZQ, Bazinet, V, Shafiei, G, Suarez, LE,
+Blostein, N, Seidlitz, J, Baillet, S, Satterthwaite, TD &amp; Chakravarty, M.
+(2022). Neuromaps: structural and functional interpretation of brain maps.
+Biorxiv. doi:<a class="reference external" href="https://doi.org/10.1101/2022.01.06.475081">10.1101/bioRxiv.475081</a></p></li>
+</ol>
+<p>Additionally, to cite the specific version of the toolbox used in your analyses
+you can use the following Zenodo reference:</p>
+<script language="javascript">
+var version = 'latest';
+function fillCitation(){
+   $('#neuromaps_version').text(version);
+
+   function cb(err, zenodoID) {
+      getCitation(zenodoID, 'vancouver-brackets-no-et-al', function(err, citation) {
+         $('#neuromaps_citation').text(citation);
+      });
+      getDOI(zenodoID, function(err, DOI) {
+         $('#neuromaps_doi_url').text('https://doi.org/' + DOI);
+         $('#neuromaps_doi_url').attr('href', 'https://doi.org/' + DOI);
+      });
+   }
+
+   if(version == 'latest') {
+      getLatestIDFromconceptID("5842498", cb);
+   } else {
+      getZenodoIDFromTag("5842498", version, cb);
+   }
+}
+</script>
+
+<p style="margin-left: 30px">
+  <span id="neuromaps_citation">neuromaps</span> available from: <a id="neuromaps_doi_url" href="https://doi.org/10.5281/zenodo.5842498">10.5281/zenodo.5842498</a>.
+  <img src onerror='fillCitation()' alt="" />
+</p><p>If you use data included in the <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> repository, be sure to cite the original
+paper that published this data. The first item of the annotation (the source) will
+represent the last name of the first author and the year of publication. Alternatively,
+the source may be a toolbox. Most citations can be found in the <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2022.01.06.475081v1">preprint</a></p>
+<p>For more information about why citing software is important please refer to
+<a class="reference external" href="https://www.software.ac.uk/how-cite-software">this article</a> from the
+Software Sustainability Institute.</p>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Installation requirements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="usage.html" class="btn btn-neutral float-right" title="User guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

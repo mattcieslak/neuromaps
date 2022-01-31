@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributing a new brain map &mdash; neuromaps 0+untagged.1.g2b1081e documentation</title>
+  <title>Contributing a new brain map &mdash; neuromaps 0+untagged.1.g64df595 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
@@ -32,10 +32,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> neuromaps
+            <a href="index.html">
+            <img src="_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g2b1081e
+                0+untagged.1.g64df595
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -89,12 +90,13 @@ In the case of surface data, hemispheres should be in separate files.</p>
 <p>The source of the data is typically the last name of the first author
 on the paper that first presents the data, followed by the year of the
 paper’s publication. Alternatively, it could be the name of the toolbox
-that generated the data. Here are three examples:</p>
+that generated the data. Here are four examples:</p>
 <p><code class="docutils literal notranslate"><span class="pre">source-reardon2018_desc-scalingpnc_space-civet_den-41k_hemi-L_feature.func.gii</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">source-satterthwaite2014_desc-meancbf_space-MNI152_res-1mm_feature.nii.gz</span></code></p>
-<p>Note that the <code class="docutils literal notranslate"><span class="pre">reardon2018</span></code> and <code class="docutils literal notranslate"><span class="pre">abagen</span></code> maps would be accompanied
-with a second file with the other hemisphere.</p>
+<p><code class="docutils literal notranslate"><span class="pre">source-sydnor2021_desc-SAaxis_space-fsLR_den-32k_hemi-L_feature.func.gii</span></code></p>
+<p>Note that the surface based maps would be accompanied with a second file
+with the other hemisphere.</p>
 <p>New brain maps can be contributed to <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> using the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">neuromaps.datasets.contributions.upload_annotation()</span></code> function.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">neuromaps.datasets.contributions</span> <span class="kn">import</span> <span class="n">upload_annotation</span>
