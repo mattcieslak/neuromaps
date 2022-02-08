@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neuromaps.nulls.baum &mdash; neuromaps 0+untagged.1.g827dbeb documentation</title>
+  <title>neuromaps.nulls.baum &mdash; neuromaps 0+untagged.1.g940f42e documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -36,7 +36,7 @@
             <img src="../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g827dbeb
+                0+untagged.1.g940f42e
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -113,8 +113,9 @@ generate null distributions. Reassigned parcels are based on the most common
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>(</em><em>N</em><em>,</em><em>) </em><em>array_like</em>) – Input data from which to generate null maps. If None is provided then the
-resampling array will be returned instead.</p></li>
+<li><p><strong>data</strong> (<em>(</em><em>N</em><em>,</em><em>) </em><em>array_like</em>) – Input data from which to generate null maps. The data must be
+parcellated. If None is provided then the resampling array will be returned
+instead.</p></li>
 <li><p><strong>atlas</strong> (<em>{'fsLR'</em><em>, </em><em>'fsaverage'</em><em>, </em><em>'civet'}</em><em>, </em><em>optional</em>) – Name of surface atlas on which <cite>data</cite> are defined. Default: ‘fsaverage’</p></li>
 <li><p><strong>density</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>optional</em>) – Density of surface mesh on which <cite>data</cite> are defined. Must be
 compatible with specified <cite>atlas</cite>. Default: ‘10k’</p></li>
