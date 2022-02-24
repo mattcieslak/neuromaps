@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**00:16.561** total execution time for **auto_examples** files:
+**00:09.019** total execution time for **auto_examples** files:
 
 +-----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_plot_spatial_nulls.py` (``plot_spatial_nulls.py``)   | 00:10.649 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_plot_spatial_nulls.py` (``plot_spatial_nulls.py``)   | 00:06.308 | 0.0 MB |
 +-----------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_plot_fetch_datasets.py` (``plot_fetch_datasets.py``) | 00:05.911 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_plot_fetch_datasets.py` (``plot_fetch_datasets.py``) | 00:02.711 | 0.0 MB |
 +-----------------------------------------------------------------------------------+-----------+--------+

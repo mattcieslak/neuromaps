@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neuromaps.transforms &mdash; neuromaps 0+untagged.1.g940f42e documentation</title>
+  <title>neuromaps.transforms &mdash; neuromaps 0+untagged.1.g3398e98 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
@@ -33,7 +33,7 @@
             <img src="../../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g940f42e
+                0+untagged.1.g3398e98
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -337,9 +337,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">DENSITIES</span><span class="p">[</span><span class="s1">&#39;MNI152&#39;</span><span class="p">]:</span>
-        <span class="n">target</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fetch_atlas</span><span class="p">(</span><span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">)[</span><span class="s1">&#39;2009cAsym_T1w&#39;</span><span class="p">])</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">fetch_atlas</span><span class="p">(</span><span class="s1">&#39;MNI152&#39;</span><span class="p">,</span> <span class="n">target</span><span class="p">)[</span><span class="s1">&#39;2009cAsym_T1w&#39;</span><span class="p">]</span>
 
-    <span class="n">out</span> <span class="o">=</span> <span class="n">nimage</span><span class="o">.</span><span class="n">resample_to_img</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">nimage</span><span class="o">.</span><span class="n">resample_to_img</span><span class="p">(</span><span class="n">load_nifti</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">load_nifti</span><span class="p">(</span><span class="n">target</span><span class="p">),</span>
+                                 <span class="n">interpolation</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">out</span></div>
 
