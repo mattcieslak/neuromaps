@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neuromaps.stats.compare_images &mdash; neuromaps 0+untagged.1.g4257c0b documentation</title>
+  <title>neuromaps.stats.compare_images &mdash; neuromaps 0+untagged.1.g8aaa841 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -36,7 +36,7 @@
             <img src="../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g4257c0b
+                0+untagged.1.g8aaa841
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -105,8 +105,10 @@ concatenated across hemispheres prior to comparison</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>src</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>nib.GiftiImage</em><em> or </em><em>niimg_like</em><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a>) – Images to be compared</p></li>
-<li><p><strong>trg</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>nib.GiftiImage</em><em> or </em><em>niimg_like</em><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a>) – Images to be compared</p></li>
+<li><p><strong>src</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>img_like</em><em> or </em><em>array-like</em>) – Images (nib.Nifti1Image or nib.GiftiImage) or parcellated data
+to be compared.</p></li>
+<li><p><strong>trg</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em> or </em><em>img_like</em><em> or </em><em>array-like</em>) – Images (nib.Nifti1Image or nib.GiftiImage) or parcellated data
+to be compared.</p></li>
 <li><p><strong>metric</strong> (<em>{'pearsonr'</em><em>, </em><em>'spearmanr'</em><em>, </em><em>callable}</em><em>, </em><em>optional</em>) – Type of similarity metric to use to compare <cite>src</cite> and <cite>trg</cite> images. If
 a callable function is provided it must accept two inputs and return a
 single value (the similarity metric). Default: ‘pearsonr’</p></li>

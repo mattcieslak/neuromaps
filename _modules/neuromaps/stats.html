@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neuromaps.stats &mdash; neuromaps 0+untagged.1.g4257c0b documentation</title>
+  <title>neuromaps.stats &mdash; neuromaps 0+untagged.1.g8aaa841 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
@@ -33,7 +33,7 @@
             <img src="../../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g4257c0b
+                0+untagged.1.g8aaa841
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -105,8 +105,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    src, trg : str or os.PathLike or nib.GiftiImage or niimg_like or tuple</span>
-<span class="sd">        Images to be compared</span>
+<span class="sd">    src, trg : tuple or str or os.PathLike or img_like or array-like</span>
+<span class="sd">        Images (nib.Nifti1Image or nib.GiftiImage) or parcellated data</span>
+<span class="sd">        to be compared.</span>
 <span class="sd">    metric : {&#39;pearsonr&#39;, &#39;spearmanr&#39;, callable}, optional</span>
 <span class="sd">        Type of similarity metric to use to compare `src` and `trg` images. If</span>
 <span class="sd">        a callable function is provided it must accept two inputs and return a</span>
