@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neuromaps.resampling &mdash; neuromaps 0+untagged.1.g0c1d2e0 documentation</title>
+  <title>neuromaps.resampling &mdash; neuromaps 0+untagged.1.g185444b documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
@@ -33,7 +33,7 @@
             <img src="../../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g0c1d2e0
+                0+untagged.1.g185444b
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -349,6 +349,8 @@
         <span class="n">func</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">resampling</span><span class="p">]</span>
         <span class="n">src</span><span class="p">,</span> <span class="n">trg</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">trg</span><span class="p">,</span> <span class="n">src_space</span><span class="p">,</span> <span class="n">trg_space</span><span class="p">,</span> <span class="n">hemi</span><span class="o">=</span><span class="n">hemi</span><span class="p">,</span>
                         <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+        <span class="n">src</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">transforms</span><span class="o">.</span><span class="n">_check_hemi</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">hemi</span><span class="p">))</span>
+        <span class="n">trg</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">transforms</span><span class="o">.</span><span class="n">_check_hemi</span><span class="p">(</span><span class="n">trg</span><span class="p">,</span> <span class="n">hemi</span><span class="p">))</span>
         <span class="n">src</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">load_gifti</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">src</span><span class="p">)</span>
         <span class="n">trg</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">load_gifti</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trg</span><span class="p">)</span>
 
