@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spatial nulls for significance testing &mdash; neuromaps 0+untagged.1.g185444b documentation</title>
+  <title>Spatial nulls for significance testing &mdash; neuromaps 0+untagged.1.g614a3d5 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -19,6 +19,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -36,7 +37,7 @@
             <img src="../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g185444b
+                0+untagged.1.g614a3d5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -96,7 +97,7 @@
            <div itemprop="articleBody">
              
   <section id="spatial-nulls-for-significance-testing">
-<span id="usage-nulls"></span><h1>Spatial nulls for significance testing<a class="headerlink" href="#spatial-nulls-for-significance-testing" title="Permalink to this headline"></a></h1>
+<span id="usage-nulls"></span><h1>Spatial nulls for significance testing<a class="headerlink" href="#spatial-nulls-for-significance-testing" title="Permalink to this heading"></a></h1>
 <p>In the <a class="reference internal" href="comparisons.html#usage-comparisons"><span class="std std-ref">last section</span></a> we showed how to resample and
 statistically compare two brain annotations. This process gave us a correlation
 estimate (or other image similarity metric) but no means by which to test the
@@ -110,9 +111,9 @@ Misic, 2021, NeuroImage</a>.)</p>
 vertex-wise data and eight null models that can be used with parcellated data.
 Refer to the <a class="reference internal" href="../api.html#module-neuromaps.nulls" title="neuromaps.nulls"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.nulls</span></code></a> API for the complete list of null models.</p>
 <section id="nulls-with-surface-based-data">
-<span id="usage-nulls-surface"></span><h2>Nulls with surface-based data<a class="headerlink" href="#nulls-with-surface-based-data" title="Permalink to this headline"></a></h2>
+<span id="usage-nulls-surface"></span><h2>Nulls with surface-based data<a class="headerlink" href="#nulls-with-surface-based-data" title="Permalink to this heading"></a></h2>
 <section id="nulls-with-non-parcellated-data">
-<span id="usage-nulls-nonparc"></span><h3>Nulls with non-parcellated data<a class="headerlink" href="#nulls-with-non-parcellated-data" title="Permalink to this headline"></a></h3>
+<span id="usage-nulls-nonparc"></span><h3>Nulls with non-parcellated data<a class="headerlink" href="#nulls-with-non-parcellated-data" title="Permalink to this heading"></a></h3>
 <p>All of the null model functions in <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> have (more-or-less) identical
 interfaces. They accept (1) a data array or tuple-of-images, (2) the coordinate
 system + density of the provided data, (3) the number of desired nulls
@@ -152,7 +153,7 @@ permutations. That is, if you provide an array to <code class="docutils literal 
 p-value that can be returned is <code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">/</span> <span class="pre">(1</span> <span class="pre">+</span> <span class="pre">nulls.shape[1]))</span></code>.</p>
 </section>
 <section id="nulls-with-parcellated-data">
-<span id="usage-nulls-parc"></span><h3>Nulls with parcellated data<a class="headerlink" href="#nulls-with-parcellated-data" title="Permalink to this headline"></a></h3>
+<span id="usage-nulls-parc"></span><h3>Nulls with parcellated data<a class="headerlink" href="#nulls-with-parcellated-data" title="Permalink to this heading"></a></h3>
 <p>The null model functions in <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> can also handle parcellated data, and
 do so by accepting an additional optional keyword parameter: <code class="docutils literal notranslate"><span class="pre">parcellation</span></code>.
 If provided, the null functions assume this is a tuple-of-images (left, right
@@ -223,7 +224,7 @@ non-significant.</p>
 </section>
 </section>
 <section id="nulls-for-volumetric-data">
-<span id="usage-nulls-volumetric"></span><h2>Nulls for volumetric data<a class="headerlink" href="#nulls-for-volumetric-data" title="Permalink to this headline"></a></h2>
+<span id="usage-nulls-volumetric"></span><h2>Nulls for volumetric data<a class="headerlink" href="#nulls-for-volumetric-data" title="Permalink to this heading"></a></h2>
 <p>The majority of spatial nulls work best with data represented in one of the
 surface-based coordinate systems. If you are working with data that are
 represented in the MNI152 system you must use one of the following three null

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Transformations between coordinate systems &mdash; neuromaps 0+untagged.1.g185444b documentation</title>
+  <title>Transformations between coordinate systems &mdash; neuromaps 0+untagged.1.g614a3d5 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -19,6 +19,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -36,7 +37,7 @@
             <img src="../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g185444b
+                0+untagged.1.g614a3d5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -97,7 +98,7 @@
            <div itemprop="articleBody">
              
   <section id="transformations-between-coordinate-systems">
-<span id="usage-transformations"></span><h1>Transformations between coordinate systems<a class="headerlink" href="#transformations-between-coordinate-systems" title="Permalink to this headline"></a></h1>
+<span id="usage-transformations"></span><h1>Transformations between coordinate systems<a class="headerlink" href="#transformations-between-coordinate-systems" title="Permalink to this heading"></a></h1>
 <p>Much of the “new” functionality in <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> is hosted in the
 <a class="reference internal" href="../api.html#module-neuromaps.transforms" title="neuromaps.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.transforms</span></code></a> module. The functionality in this module provides
 easy-to-use interfaces for transforming brain annotations between all of the
@@ -106,7 +107,7 @@ easy-to-use interfaces for transforming brain annotations between all of the
 <p>The functions take on two formats (depending on whether the MNI152 volumetric
 system is involved), which we discuss below.</p>
 <section id="transforming-from-volumetric-spaces">
-<span id="usage-transformations-volumetric"></span><h2>Transforming from volumetric spaces<a class="headerlink" href="#transforming-from-volumetric-spaces" title="Permalink to this headline"></a></h2>
+<span id="usage-transformations-volumetric"></span><h2>Transforming from volumetric spaces<a class="headerlink" href="#transforming-from-volumetric-spaces" title="Permalink to this heading"></a></h2>
 <p>Curently <code class="docutils literal notranslate"><span class="pre">neuromaps</span></code> only supports transforming brain annotations <em>from</em>
 MNI152 volumetric space to one of the other three surface-based coordinate
 systems (though work in ongoing to integrate transformations in the other
@@ -153,7 +154,7 @@ calling out to <code class="docutils literal notranslate"><span class="pre">nile
 interface to ensure consistency!)</p>
 </section>
 <section id="transforming-to-from-surface-spaces">
-<span id="usage-transformations-surface"></span><h2>Transforming to/from surface spaces<a class="headerlink" href="#transforming-to-from-surface-spaces" title="Permalink to this headline"></a></h2>
+<span id="usage-transformations-surface"></span><h2>Transforming to/from surface spaces<a class="headerlink" href="#transforming-to-from-surface-spaces" title="Permalink to this heading"></a></h2>
 <p>Transforming between surface-based coordinate systems works bidirectionally.
 That is, data in each surface system can be transformed to and from every other
 surface system. Here, the transformation functions take the form of
@@ -179,7 +180,7 @@ performs linear interpolation when resampling data to the new coordinate
 system. However, the surface functions in <a class="reference internal" href="../api.html#module-neuromaps.transforms" title="neuromaps.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.transforms</span></code></a> accept
 two optional keyword parameters that can modify these defaults!</p>
 <section id="single-hemisphere-data">
-<span id="usage-transformations-hemi"></span><h3>Single-hemisphere data<a class="headerlink" href="#single-hemisphere-data" title="Permalink to this headline"></a></h3>
+<span id="usage-transformations-hemi"></span><h3>Single-hemisphere data<a class="headerlink" href="#single-hemisphere-data" title="Permalink to this heading"></a></h3>
 <p>What happens when you want to transform annotations for which only one
 hemisphere contains data? You can use the <code class="docutils literal notranslate"><span class="pre">hemi</span></code> keyword parameter to let
 the transformation functions know:</p>
@@ -204,7 +205,7 @@ that is not in the (left, right) hemisphere format:</p>
 </div>
 </section>
 <section id="nearest-neighbors-interpolation">
-<span id="usage-transformations-method"></span><h3>Nearest-neighbors interpolation<a class="headerlink" href="#nearest-neighbors-interpolation" title="Permalink to this headline"></a></h3>
+<span id="usage-transformations-method"></span><h3>Nearest-neighbors interpolation<a class="headerlink" href="#nearest-neighbors-interpolation" title="Permalink to this heading"></a></h3>
 <p>By default the transformation functions in <a class="reference internal" href="../api.html#module-neuromaps.transforms" title="neuromaps.transforms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">neuromaps.transforms</span></code></a> use
 linear interpolation when resampling data; however, this is not ideal if
 the data that are being used are integer-valued (e.g., if the data represent a
@@ -220,7 +221,7 @@ interpolation instead:</p>
 </section>
 </section>
 <section id="parcellations">
-<span id="usage-transformations-parcellations"></span><h2>Parcellations<a class="headerlink" href="#parcellations" title="Permalink to this headline"></a></h2>
+<span id="usage-transformations-parcellations"></span><h2>Parcellations<a class="headerlink" href="#parcellations" title="Permalink to this heading"></a></h2>
 <p>We can use an instance of the <a class="reference internal" href="../generated/neuromaps.parcellate.Parcellater.html#neuromaps.parcellate.Parcellater" title="neuromaps.parcellate.Parcellater"><code class="xref py py-class docutils literal notranslate"><span class="pre">neuromaps.parcellate.Parcellater</span></code></a> class
 to parcellate our data. The <code class="docutils literal notranslate"><span class="pre">Parcellater</span></code> class expects a path to the parcellation
 files or a tuple of parcellation files (left and right). Note that hemisphere

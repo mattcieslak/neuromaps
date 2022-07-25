@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neuromaps.nulls.baum &mdash; neuromaps 0+untagged.1.g185444b documentation</title>
+  <title>neuromaps.nulls.baum &mdash; neuromaps 0+untagged.1.g614a3d5 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
@@ -19,6 +19,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -36,7 +37,7 @@
             <img src="../_static/neuromaps_logo.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0+untagged.1.g185444b
+                0+untagged.1.g614a3d5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -102,7 +103,7 @@
            <div itemprop="articleBody">
              
   <section id="neuromaps-nulls-baum">
-<h1>neuromaps.nulls.baum<a class="headerlink" href="#neuromaps-nulls-baum" title="Permalink to this headline"></a></h1>
+<h1>neuromaps.nulls.baum<a class="headerlink" href="#neuromaps-nulls-baum" title="Permalink to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="neuromaps.nulls.baum">
 <span class="sig-prename descclassname"><span class="pre">neuromaps.nulls.</span></span><span class="sig-name descname"><span class="pre">baum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atlas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fsaverage'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'10k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parcellation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_perm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surfaces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/neuromaps/nulls/nulls.html#baum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neuromaps.nulls.baum" title="Permalink to this definition"></a></dt>
@@ -114,13 +115,13 @@ generate null distributions. Reassigned parcels are based on the most common
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>(</em><em>N</em><em>,</em><em>) </em><em>array_like</em>) – Input data from which to generate null maps. The data must be
-parcellated. If None is provided then the resampling array will be returned
-instead.</p></li>
+parcellated and array-like. If None is provided then the resampling array
+will be returned instead.</p></li>
 <li><p><strong>atlas</strong> (<em>{'fsLR'</em><em>, </em><em>'fsaverage'</em><em>, </em><em>'civet'}</em><em>, </em><em>optional</em>) – Name of surface atlas on which <cite>data</cite> are defined. Default: ‘fsaverage’</p></li>
 <li><p><strong>density</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>optional</em>) – Density of surface mesh on which <cite>data</cite> are defined. Must be
 compatible with specified <cite>atlas</cite>. Default: ‘10k’</p></li>
 <li><p><strong>parcellation</strong> (<em>tuple-of-str</em><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/os.html#os.PathLike" title="(in Python v3.6)"><em>os.PathLike</em></a><em>, </em><em>optional</em>) – Filepaths to parcellation images ([left, right] hemisphere) mapping <cite>data</cite>
-to surface mesh specified by <cite>atlas</cite> and <cite>density</cite>. Should only be supplied
+to atlas specified by <cite>atlas</cite> and <cite>density</cite>. Should only be supplied
 if <cite>data</cite> represents a parcellated null map. Default: None</p></li>
 <li><p><strong>n_perm</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em>) – Number of null maps or permutations to generate. Default: 1000</p></li>
 <li><p><strong>seed</strong> (<em>{int</em><em>, </em><em>np.random.RandomState instance</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – Seed for random number generation. Default: None</p></li>
