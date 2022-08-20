@@ -63,12 +63,10 @@ dictionary will always be returned if multiple annotations match our query.)
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60c22953f3ce9401fa24e651 ...
-     ...done. (2 seconds, 0 min)
+     ...done. (1 seconds, 0 min)
     Neurosynth:  /home/runner/neuromaps-data/annotations/neurosynth/cogpc1/MNI152/source-neurosynth_desc-cogpc1_space-MNI152_res-2mm_feature.nii.gz
     Gene PC1:  ['/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii', '/home/runner/neuromaps-data/annotations/abagen/genepc1/fsaverage/source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii']
 
@@ -105,14 +103,12 @@ The data returned will always be pre-loaded nibabel image instances:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684c03a6df1020ed525f6 ...
-     ...done. (2 seconds, 0 min)
+     ...done. (1 seconds, 0 min)
     Extracting data from /home/runner/neuromaps-data/529deda7a30dc28b5106317477efbaf2/regfusion.tar.gz..... done.
-    (<nibabel.gifti.gifti.GiftiImage object at 0x7ff9ffe33e10>, <nibabel.gifti.gifti.GiftiImage object at 0x7ff9ffe56ad0>) (<nibabel.gifti.gifti.GiftiImage object at 0x7ff9fff76290>, <nibabel.gifti.gifti.GiftiImage object at 0x7ff9ffdeef90>)
+    (<nibabel.gifti.gifti.GiftiImage object at 0x7f066b81b490>, <nibabel.gifti.gifti.GiftiImage object at 0x7f067011a550>) (<nibabel.gifti.gifti.GiftiImage object at 0x7f0670180790>, <nibabel.gifti.gifti.GiftiImage object at 0x7f06701604d0>)
 
 
 
@@ -135,8 +131,6 @@ Once the images are resampled we can easily correlate them:
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -176,8 +170,6 @@ function so we use the :func:`neuromaps.images.load_data` utility.)
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Downloading data from https://files.osf.io/v1/resources/4mw3a/providers/osfstorage/60b684ab9096b7021b63cf6b ...
@@ -213,8 +205,6 @@ now returned as well:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     Correlation: r = 0.34, p = 0.1782
@@ -231,28 +221,23 @@ null maps; they have (nearly) identical function signatures, so refer to the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.807 seconds)
+   **Total running time of the script:** ( 0 minutes  6.255 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_spatial_nulls.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: plot_spatial_nulls.py <plot_spatial_nulls.py>`
 
-     :download:`Download Python source code: plot_spatial_nulls.py <plot_spatial_nulls.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: plot_spatial_nulls.ipynb <plot_spatial_nulls.ipynb>`
+      :download:`Download Jupyter notebook: plot_spatial_nulls.ipynb <plot_spatial_nulls.ipynb>`
 
 
 .. only:: html
