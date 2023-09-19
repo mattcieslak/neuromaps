@@ -33,7 +33,7 @@ url : str, optional
     data_dir="""\
 data_dir : str, optional
     Path to use as data directory. If not specified, will check for
-    environmental variable 'neuromaps_DATA'; if that is not set, will
+    environmental variable 'NEUROMAPS_DATA'; if that is not set, will
     use `~/neuromaps-data` instead. Default: None\
 """,
     verbose="""\
